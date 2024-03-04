@@ -2,8 +2,6 @@ from openai import OpenAI
 import base64
 import os
 
-client = OpenAI()
-
 def handle_image(image_path):
 
     client = OpenAI(
