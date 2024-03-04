@@ -1,7 +1,8 @@
 # TigerMunch_Sp2024_COS333
 
-You must install the openai package into your cos333 virtual environment:
-python -m pip install openai
+You must install the requests package into your cos333 virtual environment:
+
+python -m pip install requests
 
 The following command exports the API key and sets an environment variable for the session. It must be run for the image module to function. 
 
