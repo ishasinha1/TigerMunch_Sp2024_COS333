@@ -9,3 +9,10 @@ The following command exports the API key and sets an environment variable for t
 This API key cannot appear in any publicly accessible document, or it will be deactivated!!!
 
 export OPENAI_API_KEY='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'
+
+To run the app, run the following commands in your terminal once you've navigated to this
+directory:
+
+1. export FLASK_APP=backend.py
+2. export FLASK_ENV=development
+3. flask run
