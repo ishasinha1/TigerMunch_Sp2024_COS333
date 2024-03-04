@@ -8,6 +8,12 @@ def encode_image(image_path):
   with open(image_path, "rb") as image_file:
     return base64.b64encode(image_file.read()).decode('utf-8')
 
+def strip_json(message_content):
+    content_string = message_content["choices"][0]["message"]["content"]
+    json_string = content_string.strip("```\njson")
+    return json.loads(json_string)
+
+
 def handle_image(image_path):
 
     if not os.environ['OPENAI_API_KEY']:
@@ -55,27 +61,32 @@ def handle_image(image_path):
         "max_tokens": 300
     }
 
-
-    response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
-
-    try:
-        message_content = response.json()
-        print(message_content)
-        message_json = json.loads(message_content)
-        calorie_estimate = message_json["calories"]
-        fat_estimate = message_json["fat"]
-        protein_estimate = message_json["protein"]
-        carb_estimate = message_json["carbs"]
+    try: 
+        response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
 
     except Exception as e:
             print("Error in calling OpenAI API:", e)
             return None
 
+    try:
+        nutrition_info = strip_json(response.json())
+
+        calorie_estimate = nutrition_info["calories"]
+        fat_estimate = nutrition_info["fat"]
+        protein_estimate = nutrition_info["protein"]
+        carb_estimate = nutrition_info["carbs"]
+
+    except Exception as e:
+            print("Error extracting JSON:", e)
+            return None
+
+    
+
     return calorie_estimate, fat_estimate, protein_estimate, carb_estimate
 
 
 def _test():
-    calorie_estimate, fat_estimate, protein_estimate, carb_estimate = handle_image("/Users/jeremiah/COS333/TigerMunch_Sp2024_COS333/test_meal.jpg")
+    calorie_estimate, fat_estimate, protein_estimate, carb_estimate = handle_image("/Users/jeremiah/COS333/TigerMunch_Sp2024_COS333/test_images/test_meal_4.jpg")
     print("The calorie estimate is ", calorie_estimate)
     print("The fat estimate is ", fat_estimate)
     print("The protein estimate is ", protein_estimate)
