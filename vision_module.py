@@ -10,6 +10,10 @@ def handle_image(image_path):
         api_key=os.environ['OPENAI_API_KEY']
     )
 
+    if not openai.api_key:
+        print("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
+        return None
+
     with open(image_path, "rb") as image_file:
         encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
 
@@ -54,7 +58,7 @@ def handle_image(image_path):
 
     except Exception as e:
             print("Error in calling OpenAI API:", e)
-            return
+            return None
 
     return calorie_estimate, fat_estimate, protein_estimate, carb_estimate
 
