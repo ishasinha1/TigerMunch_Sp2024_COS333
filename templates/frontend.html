@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            TigerMunch Photo Upload
+        </title>
+    </head>
+    <body>
+        <form method="post" action="{{ url_for('get_results') }}">
+            <div>
+              <label for="photo">Photo Upload</label><br />
+              <input type="text" name="photo" id="photo"/>
+            </div>
+            <div>
+              <button>Submit</button>
+            </div>
+          </form>
+    </body>
+</html>
