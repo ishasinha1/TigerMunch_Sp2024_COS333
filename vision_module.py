@@ -1,53 +1,66 @@
 from openai import OpenAI
 import base64
 import os
+import json
+import requests
+
+def encode_image(image_path):
+  with open(image_path, "rb") as image_file:
+    return base64.b64encode(image_file.read()).decode('utf-8')
 
 def handle_image(image_path):
 
-    client = OpenAI(
-        api_key=os.environ['OPENAI_API_KEY']
-    )
-
-    if not openai.api_key:
+    if not os.environ['OPENAI_API_KEY']:
         print("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
         return None
 
-    with open(image_path, "rb") as image_file:
-        encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
 
-    response = client.chat.completions.create(
-    model="gpt-4-vision-preview",
-    response_format={"type": "json_object"},
-    messages=[
-        {
-        {"role": "system", 
-        "content": f"You are an assistant designed to \
-            output JSON. You will be provided with a photo of a meal. Your job \
-            is to estimate the number of calories in the meal, the grams of fat \
-            in the meal, the grams of protein in the meal, and the grams of carbs \
-            in the meal. When providing the estimates, always put the calorie \
-            estimate in a field named 'calories', the fat estimate in a field named \
-            'fat', the protein estimate in a field named 'protein', and the carb \
-            estimate in a field named 'carb'. "},
-        "role": "user",
-        "content": [
-            {"type": "text", "text": "Please provide an estimate of the number \
-            of calories in this meal, the grams of of fat in the meal, the \
-            grams of protein in the meal, and the grams of carbs in the meal."},
+    base64_image = encode_image(image_path)
+
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"
+    }
+
+    payload = {
+        "model" : "gpt-4-vision-preview",
+        "messages": [
             {
-            "type": "image_url",
-            "image_url": {
-                "url": f"data:image/jpeg;base64,{encoded_image}",
+            "role": "system", 
+            "content": "You are an assistant designed to \
+                output JSON. You will be provided with a photo of a meal. Your job \
+                is to estimate the number of calories in the meal, the grams of fat \
+                in the meal, the grams of protein in the meal, and the grams of carbs \
+                in the meal. When providing the estimates, always put the calorie \
+                estimate in a field named 'calories', the fat estimate in a field named \
+                'fat', the protein estimate in a field named 'protein', and the carb \
+                estimate in a field named 'carbs'. "
             },
-            },
+            {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "Please provide a rough estimate of the number \
+                of calories in this meal, the grams of of fat in the meal, the \
+                grams of protein in the meal, and the grams of carbs in the meal. The answer\
+                need not be correct, only a best guess based on the information you have."},
+                {
+                "type": "image_url",
+                "image_url": {
+                    "url": f"data:image/jpeg;base64,{base64_image}",
+                },
+                },
+            ],
+            }
         ],
-        }
-    ],
-    max_tokens=300,
-    )
+        "max_tokens": 300
+    }
+
+
+    response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
 
     try:
-        message_content = response.choices[0].message.content
+        message_content = response.json()
+        print(message_content)
         message_json = json.loads(message_content)
         calorie_estimate = message_json["calories"]
         fat_estimate = message_json["fat"]
@@ -61,3 +74,14 @@ def handle_image(image_path):
     return calorie_estimate, fat_estimate, protein_estimate, carb_estimate
 
 
+def _test():
+    calorie_estimate, fat_estimate, protein_estimate, carb_estimate = handle_image("/Users/jeremiah/COS333/TigerMunch_Sp2024_COS333/test_meal.jpg")
+    print("The calorie estimate is ", calorie_estimate)
+    print("The fat estimate is ", fat_estimate)
+    print("The protein estimate is ", protein_estimate)
+    print("The carb estimate is ", carb_estimate)
+
+
+
+if __name__ == '__main__':
+    _test()
