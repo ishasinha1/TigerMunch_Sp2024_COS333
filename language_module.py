@@ -1,17 +1,25 @@
 import base64
 import os
 import json
-import request_handler
-import request_handler
+import requests
 
-def encode_image(image):
-    file_content = image.read()
-    return base64.b64encode(file_content).decode('utf-8')
+def strip_json(message_content):
+    content_string = message_content["choices"][0]["message"]["content"]
+    json_string = content_string.strip("```\njson")
+    return json.loads(json_string)
 
 
 
-def handle_image(image):
-    base64_image = encode_image(image)
+def handle_description(description):
+
+    if not os.environ['OPENAI_API_KEY']:
+        print("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
+        return None
+
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"
+    }
 
     payload = {
         "model" : "gpt-4-vision-preview",
@@ -19,7 +27,7 @@ def handle_image(image):
             {
             "role": "system", 
             "content": "You are an assistant designed to \
-                output JSON. You will be provided with a photo of a meal. Your job \
+                output JSON. You will be provided with a description of a meal. Your job \
                 is to estimate the number of calories in the meal, the grams of fat \
                 in the meal, the grams of protein in the meal, and the grams of carbs \
                 in the meal. When providing the estimates, always put the calorie \
@@ -30,16 +38,10 @@ def handle_image(image):
             {
             "role": "user",
             "content": [
-                {"type": "text", "text": "Please provide a rough estimate of the number \
+                {"type": "text", "text": f"Please provide a rough estimate of the number \
                 of calories in this meal, the grams of of fat in the meal, the \
                 grams of protein in the meal, and the grams of carbs in the meal. The answer\
-                need not be correct, only a best guess based on the information you have."},
-                {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{base64_image}",
-                },
-                },
+                need not be correct, only a best guess based on the information you have. Here's a description of the meal {description}"},
             ],
             }
         ],
@@ -47,10 +49,22 @@ def handle_image(image):
     }
 
     try: 
-        calorie_estimate, fat_estimate, protein_estimate, carb_estimate  = request_handler.handle_input(payload)
+        response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
 
     except Exception as e:
             print("Error in calling OpenAI API:", e)
+            return None
+
+    try:
+        nutrition_info = strip_json(response.json())
+
+        calorie_estimate = nutrition_info["calories"]
+        fat_estimate = nutrition_info["fat"]
+        protein_estimate = nutrition_info["protein"]
+        carb_estimate = nutrition_info["carbs"]
+
+    except Exception as e:
+            print("Error extracting JSON:", e)
             return None
 
     
@@ -58,8 +72,8 @@ def handle_image(image):
     return calorie_estimate, fat_estimate, protein_estimate, carb_estimate
 
 
-def _test(photo):
-    calorie_estimate, fat_estimate, protein_estimate, carb_estimate = handle_image(photo)
+def _test(description):
+    calorie_estimate, fat_estimate, protein_estimate, carb_estimate = handle_description(description)
     print("The calorie estimate is ", calorie_estimate)
     print("The fat estimate is ", fat_estimate)
     print("The protein estimate is ", protein_estimate)
@@ -69,4 +83,4 @@ def _test(photo):
 
 
 if __name__ == '__main__':
-    _test("/Users/jeremiahgiordani/COS333/TigerMunch_Sp2024_COS333/test_images/test_meal.jpg")
+    _test("Two reese's peanut butter cups")
