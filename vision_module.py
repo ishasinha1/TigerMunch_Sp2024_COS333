@@ -3,9 +3,9 @@ import os
 import json
 import requests
 
-def encode_image(image_path):
-  with open(image_path, "rb") as image_file:
-    return base64.b64encode(image_file.read()).decode('utf-8')
+def encode_image(image):
+    file_content = image.read()
+    return base64.b64encode(file_content).decode('utf-8')
 
 def strip_json(message_content):
     content_string = message_content["choices"][0]["message"]["content"]
@@ -13,14 +13,15 @@ def strip_json(message_content):
     return json.loads(json_string)
 
 
-def handle_image(image_path):
+
+def handle_image(image):
 
     if not os.environ['OPENAI_API_KEY']:
         print("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
         return None
 
 
-    base64_image = encode_image(image_path)
+    base64_image = encode_image(image)
 
     headers = {
         "Content-Type": "application/json",
@@ -95,4 +96,4 @@ def _test(photo):
 
 
 if __name__ == '__main__':
-    _test()
+    _test("/Users/jeremiahgiordani/COS333/TigerMunch_Sp2024_COS333/test_images/test_meal.jpg")
