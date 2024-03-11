@@ -1,7 +1,4 @@
 import base64
-import os
-import json
-import request_handler
 import request_handler
 
 def encode_image(image):
@@ -47,15 +44,11 @@ def handle_image(image):
     }
 
     try: 
-        calorie_estimate, fat_estimate, protein_estimate, carb_estimate  = request_handler.handle_input(payload)
+        return request_handler.handle_input(payload)
 
     except Exception as e:
             print("Error in calling OpenAI API:", e)
             return None
-
-    
-
-    return calorie_estimate, fat_estimate, protein_estimate, carb_estimate
 
 
 def _test(photo):

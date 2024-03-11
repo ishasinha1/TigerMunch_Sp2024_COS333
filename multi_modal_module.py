@@ -1,38 +1,22 @@
 import base64
-import os
-import json
-import requests
+import request_handler
 
 def encode_image(image):
     file_content = image.read()
     return base64.b64encode(file_content).decode('utf-8')
 
-def strip_json(message_content):
-    content_string = message_content["choices"][0]["message"]["content"]
-    json_string = content_string.strip("```\njson")
-    return json.loads(json_string)
-
-def encode_image_path(image_path):
-  with open(image_path, "rb") as image_file:
-    return base64.b64encode(image_file.read()).decode('utf-8')
+# def encode_image_path(image_path):
+#   with open(image_path, "rb") as image_file:
+#     return base64.b64encode(image_file.read()).decode('utf-8')
 
 
 
 def handle_input(image, description):
 
-    if not os.environ['OPENAI_API_KEY']:
-        print("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
-        return None
-
 
     base64_image = encode_image(image)
 
     # base64_image = encode_image_path(image)
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"
-    }
 
     payload = {
         "model" : "gpt-4-vision-preview",
@@ -68,27 +52,11 @@ def handle_input(image, description):
     }
 
     try: 
-        response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+        return request_handler.handle_input(payload)
 
     except Exception as e:
             print("Error in calling OpenAI API:", e)
             return None
-
-    try:
-        nutrition_info = strip_json(response.json())
-
-        calorie_estimate = nutrition_info["calories"]
-        fat_estimate = nutrition_info["fat"]
-        protein_estimate = nutrition_info["protein"]
-        carb_estimate = nutrition_info["carbs"]
-
-    except Exception as e:
-            print("Error extracting JSON:", e)
-            return None
-
-    
-
-    return calorie_estimate, fat_estimate, protein_estimate, carb_estimate
 
 
 def _test(photo, description):
