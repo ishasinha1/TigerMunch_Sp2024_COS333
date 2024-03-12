@@ -16,5 +16,3 @@ directory:
 1. export FLASK_APP=backend.py
 2. export FLASK_ENV=development
 3. flask run
-
-blah
