@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def form():
-    return render_template('frontend.html')
+    return render_template('enter_meal_info.html')
 
 @app.route('/get_results', methods=['GET', 'POST'])
 def get_results():

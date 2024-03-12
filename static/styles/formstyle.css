@@ -1,0 +1,31 @@
+body {
+    box-sizing: border-box;
+}
+.flex-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* align-items: center; */
+}
+
+.button-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.form-elem {
+    background-color: #69A593;
+    border-radius: 30px;
+    color: white;
+    text-align: center;
+    height: 40vh;
+    width: 40%;
+}
+
+form {
+    width: 100vw;
+}
+
+header {
+    background-color: #979797;
+}
