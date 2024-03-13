@@ -8,6 +8,10 @@ import language_module
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
+def home():
+    return render_template('home.html')
+
+@app.route('/upload_data', methods=['GET', 'POST'])
 def form():
     return render_template('enter_meal_info.html')
 

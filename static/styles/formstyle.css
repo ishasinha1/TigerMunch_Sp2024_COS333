@@ -1,6 +1,3 @@
-body {
-    box-sizing: border-box;
-}
 .flex-input {
     display: flex;
     flex-direction: row;
@@ -19,6 +16,7 @@ body {
     text-align: center;
     height: 45vh;
     width: 40%;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -29,27 +27,9 @@ form {
     width: 100vw;
 }
 
-header {
-    background-color: #979797;
-}
-
 #description {
     width: 60%;
     height: 40%;
     border: none;
     border-radius: 10px;
-}
-
-.header-link {
-    color: white;
-    text-decoration: none;
-}
-
-#logo {
-    width: 10%
-}
-
-#logo > img {
-    width: 100%;
-    height: auto;
 }
