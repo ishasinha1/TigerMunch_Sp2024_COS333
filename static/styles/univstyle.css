@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+}
+
+nav {
+    background-color: #979797;
+    margin-bottom: 30px;
+    /* padding: 0px !important; */
+}
+
+.header-link {
+    color: white;
+    text-decoration: none;
+}
+
+#logo {
+    min-width: 10%;
+    max-width: 20%;
+}
+
+#logo > img {
+    width: 100%;
+    height: auto;
+}
+
+.nav > li:hover{
+    background-color: black;
+}

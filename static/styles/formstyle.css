@@ -1,0 +1,35 @@
+.flex-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.button-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.form-elem {
+    background-color: #69A593;
+    border-radius: 30px;
+    color: white;
+    text-align: center;
+    height: 45vh;
+    width: 40%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    width: 100vw;
+}
+
+#description {
+    width: 60%;
+    height: 40%;
+    border: none;
+    border-radius: 10px;
+}
