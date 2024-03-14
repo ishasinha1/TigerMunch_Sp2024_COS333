@@ -6,6 +6,8 @@ import pillow_heif
 import io
 import base64
 
+testing_api = False
+
 def strip_json(message_content):
     content_string = message_content["choices"][0]["message"]["content"]
     json_string = content_string.strip("```\njson")
@@ -65,7 +67,10 @@ def handle_input(payload):
     }
 
     try: 
-        response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+        if testing_api:
+            response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+        else:
+            return 500, 50, 50, 50
 
     except Exception as e:
             print("Error in calling OpenAI API:", e)
