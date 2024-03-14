@@ -1,9 +1,5 @@
-import base64
 import request_handler
 
-def encode_image(image):
-    file_content = image.read()
-    return base64.b64encode(file_content).decode('utf-8')
 
 # def encode_image_path(image_path):
 #   with open(image_path, "rb") as image_file:
@@ -14,31 +10,20 @@ def encode_image(image):
 def handle_input(image, description):
 
 
-    base64_image = encode_image(image)
-
-    # base64_image = encode_image_path(image)
+    base64_image = request_handler.encode_image(image)
+    user_message_content = request_handler.user_message_content_text() + f" Along with a picture of the meal, here's a description of the meal {description}"
 
     payload = {
         "model" : "gpt-4-vision-preview",
         "messages": [
             {
             "role": "system", 
-            "content": "You are an assistant designed to \
-                output JSON. You will be provided with a photo AND a description of a meal. Your job \
-                is to estimate the number of calories in the meal, the grams of fat \
-                in the meal, the grams of protein in the meal, and the grams of carbs \
-                in the meal. When providing the estimates, always put the calorie \
-                estimate in a field named 'calories', the fat estimate in a field named \
-                'fat', the protein estimate in a field named 'protein', and the carb \
-                estimate in a field named 'carbs'. "
+            "content": request_handler.system_message_content_text("a photo AND a description")
             },
             {
             "role": "user",
             "content": [
-                {"type": "text", "text": f"Please provide a rough estimate of the number \
-                of calories in this meal, the grams of of fat in the meal, the \
-                grams of protein in the meal, and the grams of carbs in the meal. The answer\
-                need not be correct, only a best guess based on the information you have. Along with a picture of the meal, here is a description: {description}"},
+                {"type": "text", "text": user_message_content},
                 {
                 "type": "image_url",
                 "image_url": {
@@ -55,8 +40,8 @@ def handle_input(image, description):
         return request_handler.handle_input(payload)
 
     except Exception as e:
-            print("Error in calling OpenAI API:", e)
-            return None
+        print("Error in calling OpenAI API:", e)
+        return None
 
 
 def _test(photo, description):

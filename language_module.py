@@ -2,28 +2,18 @@ import request_handler
 
 
 def handle_description(description):
-
+    user_message_content = request_handler.user_message_content_text() + f" Here's a description of the meal {description}"
     payload = {
         "model" : "gpt-4",
         "messages": [
             {
             "role": "system", 
-            "content": "You are an assistant designed to \
-                output JSON. You will be provided with a description of a meal. Your job \
-                is to estimate the number of calories in the meal, the grams of fat \
-                in the meal, the grams of protein in the meal, and the grams of carbs \
-                in the meal. When providing the estimates, always put the calorie \
-                estimate in a field named 'calories', the fat estimate in a field named \
-                'fat', the protein estimate in a field named 'protein', and the carb \
-                estimate in a field named 'carbs'. "
+            "content": request_handler.system_message_content_text("a written description")
             },
             {
             "role": "user",
             "content": [
-                {"type": "text", "text": f"Please provide a rough estimate of the number \
-                of calories in this meal, the grams of of fat in the meal, the \
-                grams of protein in the meal, and the grams of carbs in the meal. The answer\
-                need not be correct, only a best guess based on the information you have. Here's a description of the meal {description}"},
+                {"type": "text", "text": user_message_content},
             ],
             }
         ],

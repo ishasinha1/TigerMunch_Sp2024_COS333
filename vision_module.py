@@ -1,36 +1,20 @@
-import base64
 import request_handler
-
-def encode_image(image):
-    file_content = image.read()
-    return base64.b64encode(file_content).decode('utf-8')
-
 
 
 def handle_image(image):
-    base64_image = encode_image(image)
+    base64_image = request_handler.encode_image(image)
 
     payload = {
         "model" : "gpt-4-vision-preview",
         "messages": [
             {
             "role": "system", 
-            "content": "You are an assistant designed to \
-                output JSON. You will be provided with a photo of a meal. Your job \
-                is to estimate the number of calories in the meal, the grams of fat \
-                in the meal, the grams of protein in the meal, and the grams of carbs \
-                in the meal. When providing the estimates, always put the calorie \
-                estimate in a field named 'calories', the fat estimate in a field named \
-                'fat', the protein estimate in a field named 'protein', and the carb \
-                estimate in a field named 'carbs'. "
+            "content": request_handler.system_message_content_text("a photograph")
             },
             {
             "role": "user",
             "content": [
-                {"type": "text", "text": "Please provide a rough estimate of the number \
-                of calories in this meal, the grams of of fat in the meal, the \
-                grams of protein in the meal, and the grams of carbs in the meal. The answer\
-                need not be correct, only a best guess based on the information you have."},
+                {"type": "text", "text": request_handler.user_message_content_text()},
                 {
                 "type": "image_url",
                 "image_url": {
@@ -43,6 +27,7 @@ def handle_image(image):
         "max_tokens": 300
     }
 
+    
     try: 
         return request_handler.handle_input(payload)
 
