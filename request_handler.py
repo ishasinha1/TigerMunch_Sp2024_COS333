@@ -73,7 +73,6 @@ def handle_input(payload):
 
     try:
         nutrition_info = strip_json(response.json())
-        print(nutrition_info)
 
         calorie_estimate = nutrition_info["calories"]
         fat_estimate = nutrition_info["fat"]
