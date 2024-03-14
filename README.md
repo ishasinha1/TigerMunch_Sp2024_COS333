@@ -15,9 +15,17 @@ This API key cannot appear in any publicly accessible document, or it will be de
 
 If you are conducting testing that involves testing the API, you need to navigate to 'request_handler.py' and set the global variable 'testing_api' to 'True'
 
+If you receive a 'SSLCertificateVerifyFailed' error after CAS authorization, run the following command:
+```/Applications/Python\ 3.11/Install\ Certificates.command```
+
 To run the app, run the following commands in your terminal once you've navigated to this
 directory:
 
+1. ```export APP_SECRET_KEY=<somesecretkey> ```
+2. ```python runserver.py [port] ```
+
+
+# I haven't removed these yet, since I'm still not 100% sure that we don't need them, but I don't think that we do
 1. ```export FLASK_APP=backend.py```
 2. ```export FLASK_ENV=development```
 3. ```export APP_SECRET_KEY=<somesecretkey> ```
