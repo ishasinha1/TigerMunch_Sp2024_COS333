@@ -8,7 +8,7 @@ def handle_description(description):
         "messages": [
             {
             "role": "system", 
-            "content": request_handler.system_message_content_text()
+            "content": request_handler.system_message_content_text("a written description")
             },
             {
             "role": "user",

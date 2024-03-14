@@ -9,7 +9,7 @@ def handle_image(image):
         "messages": [
             {
             "role": "system", 
-            "content": request_handler.system_message_content_text()
+            "content": request_handler.system_message_content_text("a photograph")
             },
             {
             "role": "user",
@@ -27,6 +27,7 @@ def handle_image(image):
         "max_tokens": 300
     }
 
+    
     try: 
         return request_handler.handle_input(payload)
 

@@ -44,21 +44,11 @@ def encode_image(image):
     
     return base64_image
 
-def system_message_content_text():
-    return "Your job is to estimate the number of calories in the meal,\
-        the grams of fat in the meal, the grams of protein in the meal,\
-        and the grams of carbs in the meal. When providing the\
-        estimates, always put the calorie estimate in a field named \
-        'calories', the fat estimate in a field named 'fat', the \
-        protein estimate in a field named 'protein', and the carb \
-        estimate in a field named 'carbs'."
+def system_message_content_text(inputs):
+    return f"You are an assistant designed to output JSON. You will be provided with {inputs} of the meal. Your job is to estimate the number of calories in the meal,the grams of fat in the meal, the grams of protein in the meal, and the grams of carbs in the meal. When providing the estimates, always put the calorie estimate in a field named 'calories', the fat estimate in a field named 'fat', the protein estimate in a field named 'protein', and the carb estimate in a field named 'carbs'."
 
 def user_message_content_text():
-    return "Please provide a rough estimate of the number of calories \
-    in this meal, the grams of of fat in the meal, the grams of \
-    protein in the meal, and the grams of carbs in the meal. \
-    The answer need not be correct, only a best guess based \
-    on the information you have."
+    return "Please provide a rough estimate of the number of calories in this meal, the grams of of fat in the meal, the grams of protein in the meal, and the grams of carbs in the meal. The answer need not be correct, only a best guess based on the information you have."
 
 
 

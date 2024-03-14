@@ -11,14 +11,14 @@ def handle_input(image, description):
 
 
     base64_image = request_handler.encode_image(image)
-    user_message_content = request_handler.user_message_content_text() + f" Here's a description of the meal {description}"
+    user_message_content = request_handler.user_message_content_text() + f" Along with a picture of the meal, here's a description of the meal {description}"
 
     payload = {
         "model" : "gpt-4-vision-preview",
         "messages": [
             {
             "role": "system", 
-            "content": request_handler.system_message_content_text()
+            "content": request_handler.system_message_content_text("a photo AND a description")
             },
             {
             "role": "user",
