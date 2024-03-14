@@ -3,13 +3,28 @@ import base64
 import vision_module
 import multi_modal_module
 import language_module
+import auth
+import os
 
 
 app = Flask(__name__)
 
+app.secret_key = os.environ['APP_SECRET_KEY']
+
+# Routes for authentication.
+
+@app.route('/logoutapp', methods=['GET'])
+def logoutapp():
+    return auth.logoutapp()
+
+@app.route('/logoutcas', methods=['GET'])
+def logoutcas():
+    return auth.logoutcas()
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('home.html')
+    username = auth.authenticate()
+    return render_template('home.html', username=username)
 
 @app.route('/upload_data', methods=['GET', 'POST'])
 def form():

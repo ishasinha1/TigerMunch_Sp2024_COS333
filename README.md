@@ -17,4 +17,5 @@ directory:
 
 1. ```export FLASK_APP=backend.py```
 2. ```export FLASK_ENV=development```
-3. ```flask run```
+3. ```export APP_SECRET_KEY=<somesecretkey> ```
+4. ```flask run```
