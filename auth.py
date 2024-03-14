@@ -9,6 +9,7 @@ import urllib.request
 import urllib.parse
 import re
 import flask
+import ssl
 
 #-----------------------------------------------------------------------
 
@@ -35,8 +36,13 @@ def validate(ticket):
     val_url = (_CAS_URL + "validate" + '?service='
         + urllib.parse.quote(strip_ticket(flask.request.url))
         + '&ticket=' + urllib.parse.quote(ticket))
+
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+
     lines = []
-    with urllib.request.urlopen(val_url) as flo:
+    with urllib.request.urlopen(val_url, context=ctx) as flo:
         lines = flo.readlines()   # Should return 2 lines.
     if len(lines) != 2:
         return None
