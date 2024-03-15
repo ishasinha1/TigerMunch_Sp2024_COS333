@@ -6,6 +6,12 @@ commands:
 1. ```python -m pip install requests```
 2. ```python -m pip install Pillow```
 3. ```python -m pip install pillow_heif```
+4. ```python -m pip install pytz```
+5. ```brew update```
+6. ```brew install libpq```
+7. ```brew link --force libpq```
+8. ```python -m pip install psycopg2```
+
 
 The following command exports the API key and sets an environment variable for the session. It must be run for the image module to function. 
 
