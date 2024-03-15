@@ -72,7 +72,7 @@ def get_summary():
     username = auth.authenticate()
     with psycopg2.connect(_DATABASE_URL) as connection:
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM user_inputs WHERE username = %s ORDER BY created_at ASC", (username,))
+            cursor.execute("SELECT * FROM user_inputs WHERE username = %s ORDER BY created_at DESC", (username,))
             table = cursor.fetchall()
 
     est = pytz.timezone('US/Eastern')
