@@ -5,11 +5,16 @@ import multi_modal_module
 import language_module
 import auth
 import os
+import psycopg2
+import pytz
+from datetime import datetime
 
 
 app = Flask(__name__)
 
 app.secret_key = os.environ['APP_SECRET_KEY']
+
+_DATABASE_URL = os.environ['DATABASE_URL']
 
 # Routes for authentication.
 
@@ -50,12 +55,40 @@ def get_results():
             carb_estimate = language_module.handle_description(description)
         else:
             return 'No input provided', 400
+
+        username = auth.authenticate()
+
+        with psycopg2.connect(_DATABASE_URL) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("INSERT INTO user_inputs (username, calories, fat, protein, carbs) VALUES (%s, %s, %s, %s, %s)", (username, calorie_estimate, fat_estimate, protein_estimate, carb_estimate))
+                connection.commit()
             
         return render_template('display_output.html', \
             calorie_estimate=calorie_estimate, fat_estimate=fat_estimate,\
             protein_estimate=protein_estimate, carb_estimate=carb_estimate)
 
+@app.route('/get_summary', methods=['GET', 'POST'])
+def get_summary():
+    username = auth.authenticate()
+    with psycopg2.connect(_DATABASE_URL) as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM user_inputs WHERE username = %s ORDER BY created_at ASC", (username,))
+            table = cursor.fetchall()
 
+    est = pytz.timezone('US/Eastern')
+    meals = []
+    for row in table:
+        est_time = row[6].astimezone(est)
+        meal_dict = {
+            'calories':row[2],
+            'fat':row[3],
+            'protein':row[4],
+            'carbs':row[5],
+            'created_at':est_time.strftime('%Y-%m-%d %I:%M %p')
+        }
+        meals.append(meal_dict)
+
+    return render_template('summary.html', meals=meals)
 
 if __name__ == "__main__":
     app.run()
