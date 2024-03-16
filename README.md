@@ -10,7 +10,7 @@ commands:
 5. ```brew update```
 6. ```brew install libpq```
 7. ```brew link --force libpq```
-8. ```python -m pip install psycopg2```
+8. ```python -m pip install psycopg2``` (If this does not work, try: ```python -m pip install psycopg2-binary```)
 
 
 The following command exports the API key and sets an environment variable for the session. It must be run for the image module to function. 
@@ -28,7 +28,8 @@ To run the app, run the following commands in your terminal once you've navigate
 directory:
 
 1. ```export APP_SECRET_KEY=<somesecretkey> ```
-2. ```python runserver.py [port] ```
+2. ```export DATABASE_URL=<path to 'tiger_munch.sql'>```
+3. ```python runserver.py [port] ```
 
 
 # I haven't removed these yet, since I'm still not 100% sure that we don't need them, but I don't think that we do
