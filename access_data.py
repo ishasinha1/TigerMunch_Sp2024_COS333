@@ -88,12 +88,7 @@ def get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_
             account_info_dict['carb_goal'] = -1
         else:
             account_info_dict['carb_goal'] = carb_goal 
-
-    print(account_info_dict['first_name'])
-    print(account_info_dict['last_name'])
-    print(account_info_dict['calorie_goal'])
     
-    # Call the function to insert user data into the database
     insert_user_data(account_info_dict['first_name'], account_info_dict['last_name'], account_info_dict['calorie_goal'], account_info_dict['fat_goal'], account_info_dict['protein_goal'], account_info_dict['carb_goal'])
 
     return account_info_dict
