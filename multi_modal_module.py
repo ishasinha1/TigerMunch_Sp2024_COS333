@@ -15,6 +15,7 @@ def handle_input(image, description):
 
     payload = {
         "model" : "gpt-4-vision-preview",
+        "seed": 1,
         "messages": [
             {
             "role": "system", 

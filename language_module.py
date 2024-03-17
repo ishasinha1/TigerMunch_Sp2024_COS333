@@ -5,6 +5,7 @@ def handle_description(description):
     user_message_content = request_handler.user_message_content_text() + f" Here's a description of the meal {description}"
     payload = {
         "model" : "gpt-4",
+        "seed": 1,
         "messages": [
             {
             "role": "system", 
