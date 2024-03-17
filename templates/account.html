@@ -25,19 +25,19 @@
                         </tr>
                         <tr>
                             <td align="right">Daily Calorie Goal:</td>
-                            <td><input type="text" id="cal_goal" name="cal_goal" value="{% if account_info_dict['calorie_goal'] == -1 %}None{% else %}{{ account_info_dict['calorie_goal'] }}{% endif %}"></td>
+                            <td><input type="number" id="cal_goal" name="cal_goal" value="{% if account_info_dict['calorie_goal'] != -1 %}{{ account_info_dict['calorie_goal'] }}{% endif %}"></td>
                         </tr>
                         <tr>
                             <td align="right">Daily Fat Goal (g):</td>
-                            <td><input type="text" id="fat_goal" name="fat_goal" value="{% if account_info_dict['fat_goal'] == -1 %}None{% else %}{{ account_info_dict['fat_goal'] }}{% endif %}"></td>
+                            <td><input type="number" id="fat_goal" name="fat_goal" value="{% if account_info_dict['fat_goal'] != -1 %}{{ account_info_dict['fat_goal'] }}{% endif %}"></td>
                         </tr>
                         <tr>
                             <td align="right">Daily Protein Goal (g):</td>
-                            <td><input type="text" id="protein_goal" name="protein_goal" value="{% if account_info_dict['protein_goal'] == -1 %}None{% else %}{{ account_info_dict['protein_goal'] }}{% endif %}"></td>
+                            <td><input type="number" id="protein_goal" name="protein_goal" value="{% if account_info_dict['protein_goal'] != -1 %}{{ account_info_dict['protein_goal'] }}{% endif %}"></td>
                         </tr>
                         <tr>
                             <td align="right">Daily Carb Goal (g):</td>
-                            <td><input type="text" id="carb_goal" name="carb_goal" value="{% if account_info_dict['carb_goal'] == -1 %}None{% else %}{{ account_info_dict['carb_goal'] }}{% endif %}"></td>
+                            <td><input type="number" id="carb_goal" name="carb_goal" value="{% if account_info_dict['carb_goal'] != -1 %}{{ account_info_dict['carb_goal'] }}{% endif %}"></td>
                         </tr>
                         <tr>
                             <td></td>
