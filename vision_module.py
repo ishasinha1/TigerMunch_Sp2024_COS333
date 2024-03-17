@@ -6,7 +6,7 @@ def handle_image(image):
 
     payload = {
         "model" : "gpt-4-vision-preview",
-        "seed": 1,
+        "seed": 0,
         "messages": [
             {
             "role": "system", 
