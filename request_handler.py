@@ -6,7 +6,7 @@ import pillow_heif
 import io
 import base64
 
-testing_api = False
+testing_api = True
 
 def strip_json(message_content):
     content_string = message_content["choices"][0]["message"]["content"]
