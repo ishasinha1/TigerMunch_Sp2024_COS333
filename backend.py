@@ -96,6 +96,8 @@ def get_account():
     protein_goal = request.args.get('protein_goal')
     carb_goal = request.args.get('carb_goal')
 
+    # if any of the goals are not an integer value or 'None' or None, we must send the user an error message and let them know that the values must be integers
+
     account_info_dict = access_data.get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal)
 
     return render_template('account.html', account_info_dict=account_info_dict)

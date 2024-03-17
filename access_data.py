@@ -67,7 +67,6 @@ def get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_
         account_info_dict['last_name'] = last_name
     if cal_goal is not None:
         if cal_goal == 'None':
-            print("changed calorie!")
             account_info_dict['calorie_goal'] = -1
         else:
             account_info_dict['calorie_goal'] = cal_goal 
@@ -75,7 +74,7 @@ def get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_
         if fat_goal == 'None':
             account_info_dict['fat_goal'] = -1
         else:
-            account_info_dict['fat_goal'] = fat_goal 
+            account_info_dict['fat_goal'] = fat_goal
 
     if protein_goal is not None:
         if protein_goal == 'None':
