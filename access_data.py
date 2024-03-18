@@ -20,20 +20,6 @@ def fetch_all_data():
             cursor.execute("SELECT * FROM user_inputs WHERE username = %s ORDER BY created_at DESC", (username,))
             return cursor.fetchall()
 
-
-def get_user_data():
-    username = auth.authenticate()
-    with psycopg2.connect(_DATABASE_URL) as connection:
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM user_data WHERE username = %s", (username,))
-            return cursor.fetchall()
-
-def insert_user_data():
-    import os
-import psycopg2
-
-_DATABASE_URL = os.environ['DATABASE_URL']
-
 def get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal):
     username = auth.authenticate()
     with psycopg2.connect(_DATABASE_URL) as connection:
