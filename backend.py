@@ -12,6 +12,7 @@ import access_data
 
 app = Flask(__name__)
 
+
 app.secret_key = os.environ['APP_SECRET_KEY']
 
 
@@ -33,7 +34,8 @@ def home():
 
 @app.route('/upload_data', methods=['GET', 'POST'])
 def form():
-    return render_template('enter_meal_info.html')
+    username = auth.authenticate()
+    return render_template('enter_meal_info.html', username=username)
 
 @app.route('/get_results', methods=['GET', 'POST'])
 def get_results():
@@ -58,10 +60,10 @@ def get_results():
 
         
         access_data.insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
-            
+        username = auth.authenticate()
         return render_template('display_output.html', \
             calorie_estimate=calorie_estimate, fat_estimate=fat_estimate,\
-            protein_estimate=protein_estimate, carb_estimate=carb_estimate)
+            protein_estimate=protein_estimate, carb_estimate=carb_estimate, username=username)
 
 @app.route('/get_summary', methods=['GET', 'POST'])
 def get_summary():
@@ -81,8 +83,8 @@ def get_summary():
             'created_at':est_time.strftime('%Y-%m-%d %I:%M %p')
         }
         meals.append(meal_dict)
-
-    return render_template('summary.html', meals=meals)
+    username = auth.authenticate()
+    return render_template('summary.html', meals=meals, username=username)
 
 if __name__ == "__main__":
     app.run()
@@ -99,6 +101,20 @@ def get_account():
     # if any of the goals are not an integer value or 'None' or None, we must send the user an error message and let them know that the values must be integers
 
     account_info_dict = access_data.get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal)
+    username = auth.authenticate()
+    return render_template('account.html', account_info_dict=account_info_dict, username=username)
 
-    return render_template('account.html', account_info_dict=account_info_dict)
+@app.route('/contact_us', methods=['GET', 'POST'])
+def contact_us():
+    first_name = request.args.get('first_name')
+    last_name = request.args.get('last_name')
+    cal_goal = request.args.get('cal_goal')
+    fat_goal = request.args.get('fat_goal')
+    protein_goal = request.args.get('protein_goal')
+    carb_goal = request.args.get('carb_goal')
 
+    # if any of the goals are not an integer value or 'None' or None, we must send the user an error message and let them know that the values must be integers
+
+    account_info_dict = access_data.get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal)
+    username = auth.authenticate()
+    return render_template('account.html', account_info_dict=account_info_dict, username=username)
