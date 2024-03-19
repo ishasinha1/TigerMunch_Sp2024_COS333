@@ -20,7 +20,7 @@ def fetch_all_data():
             cursor.execute("SELECT * FROM user_inputs WHERE username = %s ORDER BY created_at DESC", (username,))
             return cursor.fetchall()
 
-def get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal):
+def get_user_data(method, first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal):
     username = auth.authenticate()
     with psycopg2.connect(_DATABASE_URL) as connection:
         with connection.cursor() as cursor:
@@ -76,8 +76,9 @@ def get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_
             account_info_dict['carb_goal'] = -1
         else:
             account_info_dict['carb_goal'] = carb_goal 
-    
-    insert_user_data(account_info_dict['first_name'], account_info_dict['last_name'], account_info_dict['calorie_goal'], account_info_dict['fat_goal'], account_info_dict['protein_goal'], account_info_dict['carb_goal'])
+    if method == 'POST':
+        print('access data', method)
+        insert_user_data(account_info_dict['first_name'], account_info_dict['last_name'], account_info_dict['calorie_goal'], account_info_dict['fat_goal'], account_info_dict['protein_goal'], account_info_dict['carb_goal'])
 
     return account_info_dict
 
@@ -92,10 +93,12 @@ def insert_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, ca
 
             if existing_user:
                 # Update existing record
+                print('update')
                 cursor.execute("UPDATE user_data SET first_name = %s, last_name = %s, daily_calorie_goal = %s, daily_fat_goal = %s, daily_protein_goal = %s, daily_carb_goal = %s WHERE username = %s",
                                (first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal, username))
             else:
                 # Insert new record
+                print('insert')
                 cursor.execute("INSERT INTO user_data (username, first_name, last_name, daily_calorie_goal, daily_fat_goal, daily_protein_goal, daily_carb_goal) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                                (username, first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal))
                 

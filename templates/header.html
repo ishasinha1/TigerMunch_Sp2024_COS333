@@ -1,10 +1,15 @@
 <header>
+  {% set account_info_dict = account_info_dict if account_info_dict is defined else {} %}
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
          <!-- Logo -->
-        <div id="logo">
-          <img src="{{ url_for('static', filename='munchlogo.jpeg') }}" alt="TigerMunch Logo" class="navbar-brand">
+         <div id="logo" class="navbar-brand">
+          <!-- We want when we click to go on the landing page -->
+          <!-- <a href="{{ url_for('landing') }}"> -->
+            <img src="{{ url_for('static', filename='munchlogo.jpeg') }}" alt="TigerMunch Logo">
+          </a>
         </div>
+        
          <!-- Toggler -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -19,7 +24,8 @@
               <a class="header-link fw-bold" href="{{ url_for('get_summary') }}">Summary</a>
             </li>
             <li class="nav-item p-3">
-              <a class="header-link fw-bold" href="/account">Account</a>
+              <!-- <a class="header-link fw-bold" href="/account">Account</a> -->
+              <button class="btn header-link fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">Account</button>
             </li>
             <li class="nav-item p-3">
               <a class="header-link fw-bold" href="{{ url_for('contact_us') }}">Contact Us</a>
@@ -39,4 +45,50 @@
       </ul>
       </div>
     </nav>
+
+
+    <!-- Modal for Account -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Account Settings</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              <!-- <span aria-hidden="true">&times;</span> -->
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method = "POST" action="{{ url_for('get_account') }}">
+              <div class="form-group">
+                <label for="first_name" class="col-form-label">First Name:</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" value="{{account_info_dict['first_name']}}">
+              </div>
+              <div class="form-group">
+                <label for="last_name" class="col-form-label">Last Name:</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" value="{{account_info_dict['last_name']}}">
+              </div>
+              <div class="form-group">
+                <label for="cal_goal" class="col-form-label">Daily Calorie Goal:</label>
+                <input type="number" class="form-control" id="cal_goal" name="cal_goal" value="{% if account_info_dict['calorie_goal'] != -1 %}{{ account_info_dict['calorie_goal'] }}{% endif %}">
+              </div>
+              <div class="form-group">
+                <label for="fat_goal" class="col-form-label">Daily Fat Goal (g):</label>
+                <input type="number" class="form-control" id="fat_goal" name="fat_goal" value="{% if account_info_dict['fat_goal'] != -1 %}{{ account_info_dict['fat_goal'] }}{% endif %}">
+              </div>
+              <div class="form-group">
+                <label for="protein_goal" class="col-form-label">Daily Protein Goal (g):</label>
+                <input type="number" class="form-control" id="protein_goal" name="protein_goal" value="{% if account_info_dict['protein_goal'] != -1 %}{{ account_info_dict['protein_goal'] }}{% endif %}">
+              </div>
+              <div class="form-group">
+                <label for="carb_goal" class="col-form-label">Daily Carb Goal (g):</label>
+                <input type="number" class="form-control" id="carb_goal" name="carb_goal" value="{% if account_info_dict['carb_goal'] != -1 %}{{ account_info_dict['carb_goal'] }}{% endif %}">
+              </div>
+              <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <button type="submit" class="btn btn-success btn-lg">Update</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
 </header>
