@@ -113,3 +113,8 @@ def get_account():
 def contact_us():
     username = auth.authenticate()
     return render_template('contact_us.html', username = username)
+
+@app.route('/team', methods=['GET', 'POST'])
+def team():
+    username = auth.authenticate()
+    return render_template('team.html', username = username)
