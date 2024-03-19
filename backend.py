@@ -72,8 +72,6 @@ def get_results():
 
 @app.route('/get_summary', methods=['GET', 'POST'])
 def get_summary():
-    
-
     table = access_data.fetch_all_data()
 
     est = pytz.timezone('US/Eastern')
@@ -104,10 +102,11 @@ def get_account():
     carb_goal = request.args.get('carb_goal')
 
     # if any of the goals are not an integer value or 'None' or None, we must send the user an error message and let them know that the values must be integers
-
-    account_info_dict = access_data.get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal)
+    print('backend', request.method)
+    account_info_dict = access_data.get_user_data(request.method, first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal)
     username = auth.authenticate()
-    return render_template('account.html', account_info_dict=account_info_dict, username=username)
+    # return redirect(request.referrer)
+    return render_template('home.html', account_info_dict=account_info_dict, username=username)
 
 @app.route('/contact_us', methods=['GET', 'POST'])
 def contact_us():
