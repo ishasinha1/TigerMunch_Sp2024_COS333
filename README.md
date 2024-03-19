@@ -27,6 +27,7 @@ The following command exports the API key and sets an environment variable for t
 This API key cannot appear in any publicly accessible document, or it will be deactivated.
 
 macOS
+
 ```export OPENAI_API_KEY='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'```
 
 Windows 
@@ -51,7 +52,7 @@ Windows
 11. in commandprompt ```setx APP_SECRET_KEY "<somesecretkey>"```
 2.  in powershell ```$env:DATABASE_URL='postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database'```
 22. in commandprompt ```setx DATABASE_URL "postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database"```
-3  ```python runserver.py [port] ```
+3.  ```python runserver.py [port] ```
 
 # I haven't removed these yet, since I'm still not 100% sure that we don't need them, but I don't think that we do
 1. ```export FLASK_APP=backend.py```
