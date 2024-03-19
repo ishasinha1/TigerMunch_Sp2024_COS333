@@ -12,6 +12,7 @@ macOS
 6. ```brew install libpq```
 7. ```brew link --force libpq```
 8. ```python -m pip install psycopg2``` (If this does not work, try: ```python -m pip install psycopg2-binary```)
+
 Windows
 1. ```python -m pip install requests```
 2. ```python -m pip install Pillow```
@@ -27,9 +28,10 @@ This API key cannot appear in any publicly accessible document, or it will be de
 
 macOS
 ```export OPENAI_API_KEY='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'```
+
 Windows 
-1.0 in powershell ```$env:OPENAI_API_KEY='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'```
-1.1 in commandprompt ```setx OPENAI_API_KEY "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"```
+1.  in powershell ```$env:OPENAI_API_KEY='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'```
+11. in commandprompt ```setx OPENAI_API_KEY "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"```
 
 If you are conducting testing that involves testing the API, you need to navigate to 'request_handler.py' and set the global variable 'testing_api' to 'True'
 
@@ -43,12 +45,13 @@ macOS
 1. ```export APP_SECRET_KEY=<somesecretkey> ```
 2. ```export DATABASE_URL='postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database'```
 3. ```python runserver.py [port] ```
+
 Windows
-1.0  in powershell ```$env:APP_SECRET_KEY='<somesecretkey>'```
-1.1 in commandprompt ```setx APP_SECRET_KEY "<somesecretkey>"```
-2.1. in powershell ```$env:DATABASE_URL='postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database'```
-2.2 in commandprompt ```setx DATABASE_URL "postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database"```
-3.0 ```python runserver.py [port] ```
+1.  in powershell ```$env:APP_SECRET_KEY='<somesecretkey>'```
+11. in commandprompt ```setx APP_SECRET_KEY "<somesecretkey>"```
+2.  in powershell ```$env:DATABASE_URL='postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database'```
+22. in commandprompt ```setx DATABASE_URL "postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database"```
+3  ```python runserver.py [port] ```
 
 # I haven't removed these yet, since I'm still not 100% sure that we don't need them, but I don't think that we do
 1. ```export FLASK_APP=backend.py```
