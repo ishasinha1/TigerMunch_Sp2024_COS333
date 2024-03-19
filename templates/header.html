@@ -1,13 +1,16 @@
 <header>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
+         <!-- Logo -->
         <div id="logo">
           <img src="{{ url_for('static', filename='munchlogo.jpeg') }}" alt="TigerMunch Logo" class="navbar-brand">
         </div>
+         <!-- Toggler -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+         <!-- Centered Links -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
           <ul class="nav navbar-nav">
             <li class="nav-item p-3">
               <a class="header-link fw-bold" href="{{ url_for('home') }}">Home</a>
@@ -19,10 +22,21 @@
               <a class="header-link fw-bold" href="/account">Account</a>
             </li>
             <li class="nav-item p-3">
-              <a class="header-link fw-bold" href="{{ url_for('logoutcas') }}">Log out</a></br>
+              <a class="header-link fw-bold" href="{{ url_for('contact_us') }}">Contact Us</a>
             </li>
           </ul>
         </div>
+          <!-- Log out and Username -->
+            <ul class="nav navbar-nav navbar-right">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle header-link fw-bold" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{username}}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" href="{{ url_for('logoutcas') }}">Log out</a></li>
+                </ul>
+              </li>
+      </ul>
       </div>
     </nav>
 </header>

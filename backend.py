@@ -12,6 +12,7 @@ import access_data
 
 app = Flask(__name__)
 
+
 app.secret_key = os.environ['APP_SECRET_KEY']
 
 
@@ -27,13 +28,19 @@ def logoutcas():
     return auth.logoutcas()
 
 @app.route('/', methods=['GET', 'POST'])
+def landing():
+    username = auth.authenticate()
+    return render_template('landing_page.html', username=username)
+
+@app.route('/home', methods=['GET', 'POST'])
 def home():
     username = auth.authenticate()
     return render_template('home.html', username=username)
 
 @app.route('/upload_data', methods=['GET', 'POST'])
 def form():
-    return render_template('enter_meal_info.html')
+    username = auth.authenticate()
+    return render_template('enter_meal_info.html', username=username)
 
 @app.route('/get_results', methods=['GET', 'POST'])
 def get_results():
@@ -58,10 +65,10 @@ def get_results():
 
         
         access_data.insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
-            
+        username = auth.authenticate()
         return render_template('display_output.html', \
             calorie_estimate=calorie_estimate, fat_estimate=fat_estimate,\
-            protein_estimate=protein_estimate, carb_estimate=carb_estimate)
+            protein_estimate=protein_estimate, carb_estimate=carb_estimate, username=username)
 
 @app.route('/get_summary', methods=['GET', 'POST'])
 def get_summary():
@@ -81,8 +88,8 @@ def get_summary():
             'created_at':est_time.strftime('%Y-%m-%d %I:%M %p')
         }
         meals.append(meal_dict)
-
-    return render_template('summary.html', meals=meals)
+    username = auth.authenticate()
+    return render_template('summary.html', meals=meals, username=username)
 
 if __name__ == "__main__":
     app.run()
@@ -99,6 +106,15 @@ def get_account():
     # if any of the goals are not an integer value or 'None' or None, we must send the user an error message and let them know that the values must be integers
 
     account_info_dict = access_data.get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal)
+    username = auth.authenticate()
+    return render_template('account.html', account_info_dict=account_info_dict, username=username)
 
-    return render_template('account.html', account_info_dict=account_info_dict)
+@app.route('/contact_us', methods=['GET', 'POST'])
+def contact_us():
+    username = auth.authenticate()
+    return render_template('contact_us.html', username = username)
 
+@app.route('/team', methods=['GET', 'POST'])
+def team():
+    username = auth.authenticate()
+    return render_template('team.html', username = username)
