@@ -28,6 +28,11 @@ def logoutcas():
     return auth.logoutcas()
 
 @app.route('/', methods=['GET', 'POST'])
+def landing():
+    username = auth.authenticate()
+    return render_template('landing_page.html', username=username)
+
+@app.route('/home', methods=['GET', 'POST'])
 def home():
     username = auth.authenticate()
     return render_template('home.html', username=username)
@@ -106,15 +111,5 @@ def get_account():
 
 @app.route('/contact_us', methods=['GET', 'POST'])
 def contact_us():
-    first_name = request.args.get('first_name')
-    last_name = request.args.get('last_name')
-    cal_goal = request.args.get('cal_goal')
-    fat_goal = request.args.get('fat_goal')
-    protein_goal = request.args.get('protein_goal')
-    carb_goal = request.args.get('carb_goal')
-
-    # if any of the goals are not an integer value or 'None' or None, we must send the user an error message and let them know that the values must be integers
-
-    account_info_dict = access_data.get_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal)
     username = auth.authenticate()
-    return render_template('account.html', account_info_dict=account_info_dict, username=username)
+    return render_template('contact_us.html', username = username)
