@@ -33,6 +33,7 @@ nav {
 
 .btn-success:hover {
     background-color: #000b08; /* Slightly darker for hover effect */
+    color: white;
 }
 
 header {
