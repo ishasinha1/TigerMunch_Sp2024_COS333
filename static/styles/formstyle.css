@@ -16,7 +16,7 @@
     text-align: center;
     height: 45vh;
     width: 40%;
-    max-width: 500px;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,8 +28,24 @@ form {
 }
 
 #description {
-    width: 60%;
+    width: 70%;
     height: 40%;
     border: none;
     border-radius: 10px;
+}
+
+.upload-btn {
+    background-color: #276955;
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.upload-btn:hover {
+    background-color: #000b08; 
+}
+
+#file-chosen {
+    display: block;
 }
