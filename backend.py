@@ -8,6 +8,7 @@ import os
 import pytz
 from datetime import datetime
 import access_data
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -88,24 +89,54 @@ def get_summary():
 if __name__ == "__main__":
     app.run()
 
-@app.route('/account', methods=['GET', 'POST'])
-def get_account():
-    first_name = request.args.get('first_name')
-    last_name = request.args.get('last_name')
-    cal_goal = request.args.get('cal_goal')
-    fat_goal = request.args.get('fat_goal')
-    protein_goal = request.args.get('protein_goal')
-    carb_goal = request.args.get('carb_goal')
-
-    # if any of the goals are not an integer value or 'None' or None, 
-    # we must send the user an error message and let them know that the 
-    # values must be integers
-    print('backend', request.method)
-    account_info_dict = access_data.get_user_data(request.method, first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal)
-    username = auth.authenticate()
-    # return redirect(request.referrer)
-    return render_template('home.html', account_info_dict=account_info_dict, username=username)
-
+@app.route('/select', methods=['GET', 'POST'])
+def select():
+    # username = auth.authenticate()
+    if request.method == 'POST':
+        account_info_dict = access_data.get_user_data()
+        return jsonify(account_info_dict)
+    
+@app.route('/insert', methods=['GET', 'POST'])
+def insert():
+    # username = auth.authenticate()
+    if request.method == 'POST':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        cal_goal = request.form['cal_goal']
+        fat_goal = request.form['fat_goal']
+        protein_goal = request.form['protein_goal']
+        carb_goal = request.form['carb_goal']
+        account_info_dict = access_data.get_user_data()
+        if first_name is not None:
+            account_info_dict['first_name'] = first_name
+        if last_name is not None:
+            account_info_dict['last_name'] = last_name
+        if cal_goal is not None:
+            print("changed CALORIES!!")
+            if cal_goal == '':
+                account_info_dict['calorie_goal'] = -1
+            else:
+                account_info_dict['calorie_goal'] = cal_goal
+        if fat_goal is not None:
+            if fat_goal == '':
+                account_info_dict['fat_goal'] = -1
+            else:
+                account_info_dict['fat_goal'] = fat_goal
+        if protein_goal is not None:
+            if protein_goal == '':
+                account_info_dict['protein_goal'] = -1
+            else:
+                account_info_dict['protein_goal'] = protein_goal 
+        if carb_goal is not None:
+            if carb_goal == '':
+                account_info_dict['carb_goal'] = -1
+            else:
+                account_info_dict['carb_goal'] = carb_goal 
+        
+        access_data.insert_user_data(account_info_dict['first_name'], account_info_dict['last_name'], account_info_dict['calorie_goal'], account_info_dict['fat_goal'], account_info_dict['protein_goal'], account_info_dict['carb_goal'])
+        #converts to a JSON response object
+        return jsonify({'status': 'success'})
+    
 @app.route('/contact_us', methods=['GET', 'POST'])
 def contact_us():
     username = auth.authenticate()
