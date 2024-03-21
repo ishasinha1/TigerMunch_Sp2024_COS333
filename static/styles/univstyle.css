@@ -61,3 +61,7 @@ header {
 .toggle-btn {
     margin-right: 10px;
 }
+
+#insert_form {
+    width: 100%;
+}
