@@ -65,7 +65,8 @@ def get_results():
         username = auth.authenticate()
         return render_template('display_output.html', \
             calorie_estimate=calorie_estimate, fat_estimate=fat_estimate,\
-            protein_estimate=protein_estimate, carb_estimate=carb_estimate, username=username)
+            protein_estimate=protein_estimate, carb_estimate=carb_estimate,\
+            username=username)
 
 @app.route('/get_summary', methods=['GET', 'POST'])
 def get_summary():

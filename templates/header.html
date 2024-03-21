@@ -3,7 +3,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   {% set account_info_dict = account_info_dict if account_info_dict is defined else {} %}
     <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
+      <div class="container-fluid header-container">
         <!-- Logo -->
         
           <!-- We want when we click to go on the landing page -->
@@ -13,26 +13,26 @@
         
         
          <!-- Toggler -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="nav navbar-nav">
-            <li class="nav-item p-2 mx-2">
+            <li class="nav-item p-2">
               <a class="header-link" href="{{ url_for('team') }}">About</a>
             </li>
-            <li class="nav-item p-2 mx-2">
+            <li class="nav-item p-2">
               <a class="header-link" href="{{ url_for('get_summary') }}">Summary</a>
             </li>
             <!-- <li class="nav-item p-2 mx-2">
               <a class="header-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Account</a>
             </li> -->
-            <li class="nav-item p-2 mx-2">
+            <li class="nav-item p-2">
               <a class="header-link" href="{{ url_for('contact_us') }}">Contact Us</a>
             </li>
             <!-- Log out and Username -->
-            <li class="nav-item p-2 mx-2 dropdown">
+            <li class="nav-item p-2 dropdown">
               <a class="dropdown-toggle header-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{username}}
               </a>
