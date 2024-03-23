@@ -2,31 +2,9 @@ import request_handler
 
 
 def handle_description(description):
-    user_message_content = request_handler.user_message_content_text() + f" Here's a description of the meal {description}"
-    payload = {
-        "model" : "gpt-4",
-        "seed": 1,
-        "messages": [
-            {
-            "role": "system", 
-            "content": request_handler.system_message_content_text("a written description")
-            },
-            {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": user_message_content},
-            ],
-            }
-        ],
-        "max_tokens": 300
-    }
-
-    try: 
-        return request_handler.handle_input(payload)
-
-    except Exception as e:
-            print("Error in calling OpenAI API:", e)
-            return None
+    values = request_handler.get_estimates(description)
+    print(values)
+    return values
 
 
 def _test(description):
