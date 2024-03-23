@@ -8,7 +8,6 @@ _DATABASE_URL = os.environ['DATABASE_URL']
 def insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate):
     username = auth.authenticate()
     current_date = datetime.now().date() 
-    current_date = "2024-03-22"
 
     with psycopg2.connect(_DATABASE_URL) as connection:
         with connection.cursor() as cursor:
@@ -17,10 +16,10 @@ def insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
 
             if existing:
                 # Entry exists, calculate new totals
-                new_calories = calorie_estimate + (existing[0] or 0)
-                new_fat = fat_estimate + (existing[1] or 0)
-                new_protein = protein_estimate + (existing[2] or 0)
-                new_carbs = carb_estimate + (existing[3] or 0)
+                new_calories = calorie_estimate + existing[0]
+                new_fat = fat_estimate + existing[1]
+                new_protein = protein_estimate + existing[2]
+                new_carbs = carb_estimate + existing[3]
 
                 # Update the entry with new totals
                 cursor.execute("UPDATE user_inputs SET calories = %s, fat = %s, protein = %s, carbs = %s WHERE username = %s AND created_at = %s", 

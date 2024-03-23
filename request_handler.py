@@ -6,7 +6,7 @@ import pillow_heif
 import io
 import base64
 
-testing_api = False
+testing_api = True
 
 def strip_json(message_content):
     content_string = message_content["choices"][0]["message"]["content"]
@@ -46,12 +46,89 @@ def encode_image(image):
     
     return base64_image
 
-def system_message_content_text(inputs):
-    return f"You are an assistant designed to output JSON. You will be provided with {inputs} of the meal. Your job is to estimate the number of calories in the meal,the grams of fat in the meal, the grams of protein in the meal, and the grams of carbs in the meal. When providing the estimates, always put the calorie estimate in a field named 'calories', the fat estimate in a field named 'fat', the protein estimate in a field named 'protein', and the carb estimate in a field named 'carbs'."
+def system_message_content_for_vision():
+    return "If you receive an image of a meal, please provide a detailed qualitative and quantitative description of the meal in the image, including identifiable food items, their approximate quantities, and any other observable details. Your description should be thorough enough to allow for an accurate analysis of the meal's nutritional content in a subsequent processing step, which will estimate the caloric content, the fat content, the protein content, and the carb content. If you receive an image of a Nutrition Label, instead of reporting all of that, you should report the number of servings per container, the number of calories, the grams of fat, the grams of carbs, and the grams of protein. Your response is limited to 200 tokens, so try to keep it as short as possible while providing all of the information."
 
-def user_message_content_text():
-    return "Please provide a rough estimate of the number of calories in this meal, the grams of of fat in the meal, the grams of protein in the meal, and the grams of carbs in the meal. The answer need not be correct, only a best guess based on the information you have."
+def system_message_content_text_for_json():
+    return "Given a detailed description of a meal, generate a JSON-formatted response estimating the meal's nutritional content. Please include the total calorie count, as well as the amounts of fat, protein, and carbohydrates, in grams. Structure your response with the following fields: 'calories' for the total calorie estimate, 'fat' for the fat content, 'protein' for the protein content, and 'carbs' for the carbohydrate content. Ensure your estimates are based on the provided meal description. You MUST provide only a single value for each field. You may NOT provide a range of values for any of the fields"
 
+def user_message_content_text(description, context=None):
+    text = f"Please provide a rough estimate of the number of calories in this meal, the grams of of fat in the meal, the grams of protein in the meal, and the grams of carbs in the meal. The answer need not be correct, only a best guess based on the information you have. Here's a description of the meal: {description}"
+    if context is not None:
+        text +=  f" The user provided this additional context: {context}"
+    return text
+    
+
+def describe_image(image):
+    base64_image = encode_image(image)
+    payload = {
+        "model" : "gpt-4-vision-preview",
+        "seed": 0,
+        "messages": [
+            {
+            "role": "system", 
+            "content": system_message_content_for_vision()
+            },
+            {
+            "role": "user",
+            "content": [
+                {
+                "type": "image_url",
+                "image_url": {
+                    "url": f"data:image/jpeg;base64,{base64_image}",
+                },
+                },
+            ],
+            }
+        ],
+        "max_tokens": 300
+    }
+    response = handle_input(payload)
+    if response is not None:
+        description = response.json()['choices'][0]['message']['content']
+    else:
+        description = None
+    print(description)
+    return description
+
+def get_estimates(description, context=None):
+    payload = {
+        "model" : "gpt-4-turbo-preview",
+        "seed": 0,
+        "response_format": { "type": "json_object" },
+        "messages": [
+            {
+            "role": "system", 
+            "content": system_message_content_text_for_json()
+            },
+            {
+            "role": "user",
+            "content": [
+                {"type": "text", "text":user_message_content_text(description, context)},
+            ],
+            }
+        ],
+        "max_tokens": 300
+    }
+    response = handle_input(payload)
+    if response is None:
+        return 500, 50, 50, 50
+
+    try:
+        nutrition_info = strip_json(response.json())
+
+        calorie_estimate = nutrition_info["calories"]
+        fat_estimate = nutrition_info["fat"]
+        protein_estimate = nutrition_info["protein"]
+        carb_estimate = nutrition_info["carbs"]
+
+    except Exception as e:
+            print("Error extracting JSON:", e)
+            return None
+
+    
+
+    return calorie_estimate, fat_estimate, protein_estimate, carb_estimate
 
 
 
@@ -70,24 +147,14 @@ def handle_input(payload):
         if testing_api:
             response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
         else:
-            return 500, 50, 50, 50
+            return None
 
     except Exception as e:
             print("Error in calling OpenAI API:", e)
             return None
 
-    try:
-        nutrition_info = strip_json(response.json())
+    return response
 
-        calorie_estimate = nutrition_info["calories"]
-        fat_estimate = nutrition_info["fat"]
-        protein_estimate = nutrition_info["protein"]
-        carb_estimate = nutrition_info["carbs"]
 
-    except Exception as e:
-            print("Error extracting JSON:", e)
-            return None
 
-    
 
-    return calorie_estimate, fat_estimate, protein_estimate, carb_estimate

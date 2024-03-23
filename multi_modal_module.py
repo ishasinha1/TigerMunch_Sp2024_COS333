@@ -7,42 +7,12 @@ import request_handler
 
 
 
-def handle_input(image, description):
+def handle_input(image, context):
+    description = request_handler.describe_image(image)
+    values = request_handler.get_estimates(description, context)
+    print(values)
+    return values
 
-
-    base64_image = request_handler.encode_image(image)
-    user_message_content = request_handler.user_message_content_text() + f" Along with a picture of the meal, here's a description of the meal {description}"
-
-    payload = {
-        "model" : "gpt-4-vision-preview",
-        "seed": 1,
-        "messages": [
-            {
-            "role": "system", 
-            "content": request_handler.system_message_content_text("a photo AND a description")
-            },
-            {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": user_message_content},
-                {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{base64_image}",
-                },
-                },
-            ],
-            }
-        ],
-        "max_tokens": 300
-    }
-
-    try: 
-        return request_handler.handle_input(payload)
-
-    except Exception as e:
-        print("Error in calling OpenAI API:", e)
-        return None
 
 
 def _test(photo, description):
