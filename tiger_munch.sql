@@ -7,7 +7,7 @@ CREATE TABLE user_inputs (
     fat DECIMAL,
     protein DECIMAL,
     carbs DECIMAL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    created_at DATE
 );
 
 DROP TABLE IF EXISTS user_data;

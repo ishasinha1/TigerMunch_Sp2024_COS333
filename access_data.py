@@ -1,17 +1,36 @@
 import auth
 import os
 import psycopg2
+from datetime import datetime
 
 _DATABASE_URL = os.environ['DATABASE_URL']
 
 def insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate):
-
     username = auth.authenticate()
+    current_date = datetime.now().date() 
+    current_date = "2024-03-22"
 
     with psycopg2.connect(_DATABASE_URL) as connection:
-            with connection.cursor() as cursor:
-                cursor.execute("INSERT INTO user_inputs (username, calories, fat, protein, carbs) VALUES (%s, %s, %s, %s, %s)", (username, calorie_estimate, fat_estimate, protein_estimate, carb_estimate))
-                connection.commit()
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT calories, fat, protein, carbs FROM user_inputs WHERE username = %s AND created_at = %s", (username, current_date))
+            existing = cursor.fetchone()
+
+            if existing:
+                # Entry exists, calculate new totals
+                new_calories = calorie_estimate + (existing[0] or 0)
+                new_fat = fat_estimate + (existing[1] or 0)
+                new_protein = protein_estimate + (existing[2] or 0)
+                new_carbs = carb_estimate + (existing[3] or 0)
+
+                # Update the entry with new totals
+                cursor.execute("UPDATE user_inputs SET calories = %s, fat = %s, protein = %s, carbs = %s WHERE username = %s AND created_at = %s", 
+                               (new_calories, new_fat, new_protein, new_carbs, username, current_date))
+            else:
+                # Entry does not exist, insert a new one
+                cursor.execute("INSERT INTO user_inputs (username, calories, fat, protein, carbs, created_at) VALUES (%s, %s, %s, %s, %s, %s)", 
+                               (username, calorie_estimate, fat_estimate, protein_estimate, carb_estimate, current_date))
+                        
+            connection.commit()
 
 def fetch_all_data():
     username = auth.authenticate()
@@ -19,6 +38,19 @@ def fetch_all_data():
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM user_inputs WHERE username = %s ORDER BY created_at DESC", (username,))
             return cursor.fetchall()
+
+
+def get_daily_totals():
+    username = auth.authenticate()
+    current_date = datetime.now().date()
+
+    # Database connection
+    with psycopg2.connect(_DATABASE_URL) as connection:
+        with connection.cursor() as cursor:
+            # Query for the totals of the current date for the user
+            cursor.execute("SELECT id, username, calories, fat, protein, carbs, created_at FROM user_inputs WHERE username = %s AND created_at = %s", 
+                           (username, current_date))
+            return cursor.fetchone()
 
 def get_user_data():
     username = auth.authenticate()
@@ -46,6 +78,8 @@ def get_user_data():
             'protein_goal': -1,
             'carb_goal': -1,
         }
+
+
 
 def insert_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal):
     username = auth.authenticate()

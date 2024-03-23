@@ -32,6 +32,29 @@ def logoutcas():
 # @app.route('/home', methods=['GET', 'POST'])
 def home():
     username = auth.authenticate()
+    row = access_data.get_daily_totals()
+    if row is None:
+        daily_totals = {
+            "username":username,
+            "calories":0,
+            "fat":0,
+            "protein":0,
+            "carbs":0,
+            "created_at":datetime.now().date()
+        }
+    else:
+        daily_totals = {
+            "username":row[1],
+            "calories":row[2],
+            "fat":row[3],
+            "protein":row[4],
+            "carbs":row[5],
+            "created_at":datetime.now().date()
+        }
+    
+    # Isha, you now have a variable, daily_totals, that has all of the daily totals
+    # or has 0's for all of the daily totals, if the user hasn't inputted any data yet today
+
     return render_template('home.html', username=username)
 
 @app.route('/upload_data', methods=['GET', 'POST'])
@@ -72,16 +95,14 @@ def get_results():
 def get_summary():
     table = access_data.fetch_all_data()
 
-    est = pytz.timezone('US/Eastern')
     meals = []
     for row in table:
-        est_time = row[6].astimezone(est)
         meal_dict = {
             'calories':row[2],
             'fat':row[3],
             'protein':row[4],
             'carbs':row[5],
-            'created_at':est_time.strftime('%Y-%m-%d %I:%M %p')
+            'created_at':row[6]
         }
         meals.append(meal_dict)
     username = auth.authenticate()
