@@ -10,7 +10,7 @@ import backend
 
 def main():
 
-    if len(sys.argv) != 2:
+    if (len(sys.argv) != 2) and (len(sys.argv) != 3):
         print('Usage: ' + sys.argv[0] + ' port', file=sys.stderr)
         sys.exit(1)
 

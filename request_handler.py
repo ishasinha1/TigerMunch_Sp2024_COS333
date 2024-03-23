@@ -5,8 +5,16 @@ from PIL import Image
 import pillow_heif
 import io
 import base64
+import sys
 
-testing_api = True
+try:
+    testing_api = sys.argv[2]
+    if testing_api == 'True':
+        testing_api = True
+    else:
+        testing_api = False
+except IndexError:
+    testing_api = False
 
 def strip_json(message_content):
     content_string = message_content["choices"][0]["message"]["content"]

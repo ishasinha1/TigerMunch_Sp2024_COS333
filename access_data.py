@@ -16,10 +16,10 @@ def insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
 
             if existing:
                 # Entry exists, calculate new totals
-                new_calories = calorie_estimate + existing[0]
-                new_fat = fat_estimate + existing[1]
-                new_protein = protein_estimate + existing[2]
-                new_carbs = carb_estimate + existing[3]
+                new_calories = calorie_estimate + float(existing[0])
+                new_fat = fat_estimate + float(existing[1])
+                new_protein = protein_estimate + float(existing[2])
+                new_carbs = carb_estimate + float(existing[3])
 
                 # Update the entry with new totals
                 cursor.execute("UPDATE user_inputs SET calories = %s, fat = %s, protein = %s, carbs = %s WHERE username = %s AND created_at = %s", 
