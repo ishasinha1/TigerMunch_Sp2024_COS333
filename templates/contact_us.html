@@ -9,7 +9,11 @@
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/univstyle.css') }}">
     </head>
     <body>
-        {% include 'header.html' %}
+        {% if not username %}
+              {% include 'header_loggedout.html' %}
+         {% else %}
+              {% include 'header.html' %}
+         {% endif %}
         <main>
             <div class="m-5 p-5 center-content-pg">
                 <div class="m-2">

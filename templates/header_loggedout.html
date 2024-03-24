@@ -1,0 +1,147 @@
+<html>
+<header>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {% set account_info_dict = account_info_dict if account_info_dict is defined else {} %}
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid header-container">
+        <!-- Logo -->
+        
+          <!-- We want when we click to go on the landing page -->
+          <a href="{{ url_for('landing') }}" id="logo" class="navbar-brand">
+            <img src="{{ url_for('static', filename='images/munchlogo.jpeg') }}" alt="TigerMunch Logo">
+          </a>
+        
+        
+         <!-- Toggler -->
+        <button class="navbar-toggler toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="nav navbar-nav">
+            <li class="nav-item p-2">
+              <a class="header-link" href="{{ url_for('team') }}">About</a>
+            </li>
+            <!-- <li class="nav-item p-2">
+              <a class="header-link" href="{{ url_for('get_summary') }}">Summary</a>
+            </li> -->
+            <!-- <li class="nav-item p-2 mx-2">
+              <a class="header-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Account</a>
+            </li> -->
+            <li class="nav-item p-2">
+              <a class="header-link" href="{{ url_for('contact_us') }}">Contact Us</a>
+            </li>
+            <li class="nav-item p-2">
+              <a class="header-link" href="{{ login_url }}">Log in</a>
+            </li>
+            <!-- Log out and Username -->
+          </ul>
+        </div>
+        
+      </div>
+    </nav>
+
+
+<!-- Modal for Account -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Account Settings</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="insert_form">
+          <div class="form-group">
+            <label for="first_name" class="col-form-label">First Name:</label>
+            <input type="text" class="form-control" id="first_name" name="first_name">
+          </div>
+          <div class="form-group">
+            <label for="last_name" class="col-form-label">Last Name:</label>
+            <input type="text" class="form-control" id="last_name" name="last_name">
+          </div>
+          <div class="form-group">
+            <label for="cal_goal" class="col-form-label">Daily Calorie Goal:</label>
+            <input type="number" class="form-control" id="cal_goal" name="cal_goal">
+          </div>
+          <div class="form-group">
+            <label for="fat_goal" class="col-form-label">Daily Fat Goal (g):</label>
+            <input type="number" class="form-control" id="fat_goal" name="fat_goal">
+          </div>
+          <div class="form-group">
+            <label for="protein_goal" class="col-form-label">Daily Protein Goal (g):</label>
+            <input type="number" class="form-control" id="protein_goal" name="protein_goal">
+          </div>
+          <div class="form-group">
+            <label for="carb_goal" class="col-form-label">Daily Carb Goal (g):</label>
+            <input type="number" class="form-control" id="carb_goal" name="carb_goal">
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </header> -->
+
+<script>
+$(document).ready(function(){
+  $('#exampleModal').modal({backdrop: 'static'});
+  $('#exampleModal').on('show.bs.modal', function () {
+     $.ajax({
+      url: "/select",
+      method: "POST",
+      success: function(data) {
+        $('#first_name').val(data.first_name || '');
+        $('#last_name').val(data.last_name || '');
+        $('#cal_goal').val(data.calorie_goal >= 0 ? data.calorie_goal : '');
+        $('#fat_goal').val(data.fat_goal >= 0 ? data.fat_goal : '');
+        $('#protein_goal').val(data.protein_goal >= 0 ? data.protein_goal : '');
+        $('#carb_goal').val(data.carb_goal >= 0 ? data.carb_goal : '');
+      }
+    });
+  });
+});
+
+  $('#insert_form').on("submit", function(event){
+    event.preventDefault();
+    if($('#cal_goal').val()<0)
+    {
+      alert("Calorie goal should be positive");
+    }
+    if($('#fat_goal').val()<0)
+    {
+      alert("Fat goal should be positive");
+    }
+    if($('#protein_goal').val()<0)
+    {
+      alert("Protein goal should be positive");
+    }
+    if($('#carb_goal').val()<0)
+    {
+      alert("Carb goal should be positive");
+    }
+    else 
+    {
+      $.ajax({
+      url: "/insert",
+      method: "POST",
+      // send the data to the server
+      data: $(this).serialize(),
+      beforeSend: function(){
+        $("#insert").val("Inserting");
+      },
+      success: function(data){
+        $("#exampleModal").modal('hide');
+        if(data == 'success'){
+          window.location.href = "/";
+        }
+      }   
+    });
+  }
+  });
+</script>
+</header>
+</html>

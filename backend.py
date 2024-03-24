@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 import base64
 import vision_module
 import multi_modal_module
@@ -9,13 +9,15 @@ import pytz
 from datetime import datetime
 import access_data
 from flask import jsonify
+import flask 
+import urllib.parse
 
 app = Flask(__name__)
 
 app.secret_key = os.environ['APP_SECRET_KEY']
+_CAS_URL = 'https://fed.princeton.edu/cas/'
 
-# Routes for authentication.
-
+# Routes for authentication
 @app.route('/logoutapp', methods=['GET'])
 def logoutapp():
     return auth.logoutapp()
@@ -25,11 +27,14 @@ def logoutcas():
     return auth.logoutcas()
 
 @app.route('/', methods=['GET', 'POST'])
-# def landing():
-#     username = auth.authenticate()
-#     return render_template('landing_page.html', username=username)
+def landing():
+    if auth.signin() is not None:
+        return flask.redirect(url_for('home')) 
+    login_url = (_CAS_URL + 'login?service=' +
+          urllib.parse.quote(flask.request.url))
+    return render_template('landing_page.html', login_url=login_url)
 
-# @app.route('/home', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def home():
     username = auth.authenticate()
     row = access_data.get_daily_totals()
@@ -161,10 +166,18 @@ def insert():
     
 @app.route('/contact_us', methods=['GET', 'POST'])
 def contact_us():
+    if auth.signin() is None:
+        login_url = (_CAS_URL + 'login?service=' +
+          urllib.parse.quote(flask.request.url))
+        return render_template('contact_us.html', username = None, login_url = login_url)            
     username = auth.authenticate()
     return render_template('contact_us.html', username = username)
 
 @app.route('/team', methods=['GET', 'POST'])
 def team():
+    if auth.signin() is None:
+        login_url = (_CAS_URL + 'login?service=' +
+          urllib.parse.quote(flask.request.url))
+        return render_template('team.html', username = None, login_url = login_url)     
     username = auth.authenticate()
     return render_template('team.html', username = username)

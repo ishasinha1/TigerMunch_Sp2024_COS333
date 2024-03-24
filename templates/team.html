@@ -10,7 +10,11 @@
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/teamstyle.css') }}">
     </head>
     <body>
-        {% include 'header.html' %}
+        {% if username is none %}
+             {% include 'header_loggedout.html' %}
+         {% else %}
+             {% include 'header.html' %}
+         {% endif %}
         <main>
             <div class="p-5 center-content-pg">
                 <h1>Meet The Team</h1>

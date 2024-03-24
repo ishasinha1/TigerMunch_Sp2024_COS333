@@ -9,6 +9,7 @@ import urllib.request
 import urllib.parse
 import re
 import flask
+from flask import request
 import ssl
 
 #-----------------------------------------------------------------------
@@ -50,6 +51,33 @@ def validate(ticket):
 
 #-----------------------------------------------------------------------
 
+def signin():
+
+    # If the username is in the session, then the user was
+    # authenticated previously.  So return the username.
+    if 'username' in flask.session:
+        return flask.session.get('username')
+
+    # If the request does not contain a login ticket, then redirect
+    # the browser to the login page to get one.
+    ticket = flask.request.args.get('ticket')
+    if ticket is None:
+        return None
+
+    # If the login ticket is invalid, then redirect the browser
+    # to the login page to get a new one.
+    username = validate(ticket)
+    if username is None:
+        return None
+
+    # The user is authenticated, so store the username in
+    # the session.
+    username = username.strip()
+    flask.session['username'] = username
+    return username
+
+
+#-----------------------------------------------------------------------
 # Authenticate the remote user, and return the user's username.
 # Do not return unless the user is successfully authenticated.
 
@@ -64,17 +92,15 @@ def authenticate():
     # the browser to the login page to get one.
     ticket = flask.request.args.get('ticket')
     if ticket is None:
-        login_url = (_CAS_URL + 'login?service=' +
-            urllib.parse.quote(flask.request.url))
-        flask.abort(flask.redirect(login_url))
+        landing_url = f"{request.scheme}://{request.host}/landing"
+        flask.abort(flask.redirect(landing_url))
 
     # If the login ticket is invalid, then redirect the browser
     # to the login page to get a new one.
     username = validate(ticket)
     if username is None:
-        login_url = (_CAS_URL + 'login?service='
-            + urllib.parse.quote(strip_ticket(flask.request.url)))
-        flask.abort(flask.redirect(login_url))
+        landing_url = f"{request.scheme}://{request.host}/landing"
+        flask.abort(flask.redirect(landing_url))
 
     # The user is authenticated, so store the username in
     # the session.

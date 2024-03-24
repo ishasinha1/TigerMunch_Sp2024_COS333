@@ -9,17 +9,14 @@
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/univstyle.css') }}">
     </head>
     <body>
-        {% include 'header.html' %}
+        {% include 'header_loggedout.html' %}
         <main>
             <div class="m-5 p-5 center-content-pg">
                 <div class="m-2">
-                    <h1 >Welcome {{username}} to TigerMunch!</h1>
+                    <h1 >Welcome to TigerMunch!</h1>
                 </div>
                 <div class="m-2">
                     <h3>Get an estimate of your calorie intake by uploading a picture or writing a short description</h3>
-                </div>
-                <div class="m-2">
-                    <a class="btn btn-success btn-lg" href="{{ url_for('team') }}">Get to know us</a>
                 </div>
             </div>
         </main>
