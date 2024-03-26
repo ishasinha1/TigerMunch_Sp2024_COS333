@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, jsonify
 import base64
 import vision_module
 import multi_modal_module
@@ -34,29 +34,41 @@ def landing():
           urllib.parse.quote(flask.request.url))
     return render_template('landing_page.html', login_url=login_url)
 
-@app.route('/home', methods=['GET', 'POST'])
-def home():
-    username = auth.authenticate()
-    row = access_data.get_daily_totals()
-    if row is None:
-        daily_totals = {
-            "username":username,
+@app.route('/nutrition', methods=['GET'])
+def get_nutrition():
+    daily_totals = access_data.get_daily_totals()
+    user_data = access_data.get_user_data()
+    # return jsonify({
+    #     'dailyCalorieCount': 1500,
+    #     'caloriesGoal': 2000
+    # })
+    if daily_totals is None:
+        return jsonify({
             "calories":0,
             "fat":0,
             "protein":0,
             "carbs":0,
-            "created_at":datetime.now().date()
-        }
+            "calorie_goal":user_data["calorie_goal"],
+            "fat_goal":user_data["fat_goal"],
+            "protein_goal":user_data["protein_goal"],
+            "carb_goal":user_data["carb_goal"]
+        })
     else:
-        daily_totals = {
-            "username":row[1],
-            "calories":row[2],
-            "fat":row[3],
-            "protein":row[4],
-            "carbs":row[5],
-            "created_at":datetime.now().date()
-        }
-    
+        return jsonify({
+            "calories":daily_totals[2],
+            "fat":daily_totals[3],
+            "protein":daily_totals[4],
+            "carbs":daily_totals[5],
+            "calorie_goal":user_data["calorie_goal"],
+            "fat_goal":user_data["fat_goal"],
+            "protein_goal":user_data["protein_goal"],
+            "carb_goal":user_data["carb_goal"]
+        })
+
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    username = auth.authenticate()
     # Isha, you now have a variable, daily_totals, that has all of the daily totals
     # or has 0's for all of the daily totals, if the user hasn't inputted any data yet today
 
