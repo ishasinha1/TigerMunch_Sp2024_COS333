@@ -38,32 +38,16 @@ def landing():
 def get_nutrition():
     daily_totals = access_data.get_daily_totals()
     user_data = access_data.get_user_data()
-    # return jsonify({
-    #     'dailyCalorieCount': 1500,
-    #     'caloriesGoal': 2000
-    # })
-    if daily_totals is None:
-        return jsonify({
-            "calories":0,
-            "fat":0,
-            "protein":0,
-            "carbs":0,
-            "calorie_goal":user_data["calorie_goal"],
-            "fat_goal":user_data["fat_goal"],
-            "protein_goal":user_data["protein_goal"],
-            "carb_goal":user_data["carb_goal"]
-        })
-    else:
-        return jsonify({
-            "calories":daily_totals[2],
-            "fat":daily_totals[3],
-            "protein":daily_totals[4],
-            "carbs":daily_totals[5],
-            "calorie_goal":user_data["calorie_goal"],
-            "fat_goal":user_data["fat_goal"],
-            "protein_goal":user_data["protein_goal"],
-            "carb_goal":user_data["carb_goal"]
-        })
+    return jsonify({
+        "calories":daily_totals["calories"],
+        "fat":daily_totals["fat"],
+        "protein":daily_totals["protein"],
+        "carbs":daily_totals["carbs"],
+        "calorie_goal":user_data["calorie_goal"],
+        "fat_goal":user_data["fat_goal"],
+        "protein_goal":user_data["protein_goal"],
+        "carb_goal":user_data["carb_goal"]
+    })
 
 
 @app.route('/home', methods=['GET', 'POST'])

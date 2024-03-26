@@ -49,7 +49,22 @@ def get_daily_totals():
             # Query for the totals of the current date for the user
             cursor.execute("SELECT id, username, calories, fat, protein, carbs, created_at FROM user_inputs WHERE username = %s AND created_at = %s", 
                            (username, current_date))
-            return cursor.fetchone()
+            row = cursor.fetchone()
+
+    if row is None:
+        return {
+            "calories":0,
+            "fat":0,
+            "protein":0,
+            "carbs":0,
+        }
+    else:
+        return{
+            "calories":row[2],
+            "fat":row[3],
+            "protein":row[4],
+            "carbs":row[5]
+        }
 
 def get_user_data():
     username = auth.authenticate()
