@@ -8,136 +8,48 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/univstyle.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/homestyle.css') }}">
     </head>
     <body>
         {% include 'header.html' %}
         <main>
-            <div class="m-5 p-5 center-content-pg">
-                <div class="m-2">
+            <div class="center-content-pg">
+                <h1>Today's Progress</h1>
+                <div class="chart-display fs-5">
+                    <div id="caloriesChartContainer" class="chart-elem m-2">
+                        <div class="chart-container">
+                            <canvas id="caloriesChart" class="canvas"></canvas>
+                            <div id="caloriesChartPercentage" class="percentage"></div>
+                        </div>
+                        <div id="caloriesChartLabel" class="macro-count fs-6"></div>
+                    </div>
+                    <div id="fatChartContainer" class="chart-elem m-2">
+                        <div class="chart-container">
+                            <canvas id="fatChart" class="canvas"></canvas>
+                            <div id="fatChartPercentage" class="percentage"></div>
+                        </div>
+                        <div id="fatChartLabel" class="macro-count fs-6"></div>
+                    </div>
+                    <div id="proteinChartContainer" class="chart-elem m-2">
+                        <div class="chart-container">
+                            <canvas id="proteinChart" class="canvas"></canvas>
+                            <div id="proteinChartPercentage" class="percentage"></div>
+                        </div>
+                        <div id="proteinChartLabel" class="macro-count fs-6"></div>
+                    </div>
+                    <div id="carbChartContainer" class="chart-elem m-2">
+                        <div class="chart-container">
+                            <canvas id="carbChart" class="canvas"></canvas>
+                            <div id="carbChartPercentage" class="percentage"></div>
+                        </div>
+                        <div id="carbChartLabel" class="macro-count fs-6"></div>
+                    </div>
+                </div>
+                <div class="m-5">
                     <a class="btn btn-success btn-lg" href="{{ url_for('form') }}">Add new meal data</a>
                 </div>
             </div>
-            
-            <div id="caloriesChartContainer">
-                <div id="caloriesChartLabel" class="macro-count"></div>
-                <div class="chart-container">
-                    <canvas id="caloriesChart" class="canvas"></canvas>
-                    <div id="caloriesChartPercentage" class="percentage"></div>
-                </div>
-            </div>
-            <div id="fatChartContainer">
-                <div id="fatChartLabel" class="macro-count"></div>
-                <div class="chart-container">
-                    <canvas id="fatChart" class="canvas"></canvas>
-                    <div id="fatChartPercentage" class="percentage"></div>
-                </div>
-            </div>
-            <div id="proteinChartContainer">
-                <div id="proteinChartLabel" class="macro-count"></div>
-                <div class="chart-container">
-                    <canvas id="proteinChart" class="canvas"></canvas>
-                    <div id="proteinChartPercentage" class="percentage"></div>
-                </div>
-            </div>
-            <div id="">
-                <div id="carbChartLabel" class="macro-count"></div>
-                <div class="chart-container">
-                    <canvas id="carbChart" class="canvas"></canvas>
-                    <div id="carbChartPercentage" class="percentage"></div>
-                </div>
-            </div>
         </main>
-        <script>
-
-            function renderNutritionChart(canvasId, dailyTotal, goal, label, units) {
-                'use strict';
-                if (goal == -1) {
-                    // Hide the chart and label for this macro counter
-                    document.getElementById(`${canvasId}Container`).style.display = 'none';
-
-                    return; // Exit the function early
-                }
-
-                const ctx = document.getElementById(canvasId).getContext('2d');
-                const percentageDisplayId = `${canvasId}Percentage`;
-                let backgroundColors;
-                let dataValues;
-                
-                if (dailyTotal <= goal) {
-                    // If daily intake is less than or equal to the goal
-                    backgroundColors = ['green', 'grey'];
-                    dataValues = [dailyTotal, goal - dailyTotal];
-                } else if(dailyTotal <= goal * 2){;
-                    backgroundColors = ['orange', 'green'];
-                    dataValues = [dailyTotal - goal, 2 *goal - dailyTotal];
-                } else if(dailyTotal <= goal * 3){
-                    backgroundColors = ['red', 'orange'];
-                    dataValues = [dailyTotal - 2*goal, 3 *goal - dailyTotal];
-                } else{
-                    backgroundColors = ['red', 'grey'];
-                    dataValues = [1, 0];
-                }
-
-                const data = {
-                    datasets: [{
-                        data: dataValues,
-                        backgroundColor: backgroundColors,
-                        borderWidth: 0
-                    }]
-                };
-                
-                const config = {
-                    type: 'doughnut',
-                    data: data,
-                    options: {
-                        cutout: '75%',
-                        // rotation: -90,
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        }
-                    }
-                };
-                
-                new Chart(ctx, config);
-                
-                // Update the percentage text and label
-                const percentage = (dailyTotal / goal) * 100;
-                document.getElementById(percentageDisplayId).innerText = `${label}: ${percentage.toFixed(2)}%`;
-                
-                // Update the label text
-                const labelDisplayId = `${canvasId}Label`;
-                document.getElementById(labelDisplayId).innerText = `${label}: ${dailyTotal.toFixed(2)} ${units} / ${goal.toFixed(2)} ${units}`;
-            }
-
-
-            document.addEventListener('DOMContentLoaded', async function() {
-                // const ctx = document.getElementById('caloriesChart').getContext('2d');
-                const response = await fetch('/nutrition');
-                const database_values = await response.json();
-    
-                const caloriesGoal = Number(database_values.calorie_goal); // received from the backend
-                const dailyCalorieCount = Number(database_values.calories);
-
-                renderNutritionChart('caloriesChart', dailyCalorieCount, caloriesGoal, "Calories", "cal")
-                
-                const fatGoal = Number(database_values.fat_goal); // received from the backend
-                const dailyFatCount = Number(database_values.fat);
-                renderNutritionChart('fatChart', dailyFatCount, fatGoal, "Fat", "g")
-
-                const proteinGoal = Number(database_values.protein_goal); // received from the backend
-                const dailyProteinCount = Number(database_values.protein);
-                renderNutritionChart('proteinChart', dailyProteinCount, proteinGoal, "Protein", "g")
-
-                const carbGoal = Number(database_values.carb_goal); // received from the backend
-                const dailyCarbCount = Number(database_values.carbs);
-                renderNutritionChart('carbChart', dailyCarbCount, carbGoal, "Carb", "g")
-
-                
-            });
-
-        </script>
-        
+        <script src="{{ url_for('static', filename='scripts/render_progress.js') }}"></script>      
     </body>
 </html>

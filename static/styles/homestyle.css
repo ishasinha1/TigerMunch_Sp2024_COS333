@@ -1,0 +1,50 @@
+.chart-display {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 15vw; /* or whatever size you want */
+    height: 15vw; /* should be same as width for a circle */
+    margin: 0 auto; /* this centers the chart horizontally */
+}
+
+.canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+.chart-container canvas {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.macro-count {
+    text-align: center;
+    margin-top: 15px; /* Adjust as needed for spacing */
+}
+
+
+#insert_form {
+    width: 100%;
+}
+
+.chart-elem {
+    width: 20vw;
+    height: auto;
+}
