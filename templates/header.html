@@ -27,9 +27,6 @@
             <li class="nav-item p-2">
               <a class="header-link" href="{{ url_for('get_summary') }}">Summary</a>
             </li>
-            <!-- <li class="nav-item p-2 mx-2">
-              <a class="header-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Account</a>
-            </li> -->
             <li class="nav-item p-2">
               <a class="header-link" href="{{ url_for('contact_us') }}">Contact Us</a>
             </li>
@@ -85,7 +82,7 @@
             <input type="number" class="form-control" id="carb_goal" name="carb_goal">
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" onclick="javascript:window.location.reload()">Update</button>
+            <button type="submit" class="btn btn-success">Update</button>
           </div>
         </form>
       </div>
@@ -146,14 +143,11 @@ $(document).ready(function(){
         if(data == 'success'){
           window.location.href = "/";
         }
+        window.location.href = window.location.href;
       }   
     });
   }
   });
-
-  $('#myModal').on('hidden.bs.modal', function () {
-    location.reload();
-  })
 </script>
 </header>
 </html>
