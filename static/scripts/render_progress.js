@@ -44,6 +44,9 @@ function renderNutritionChart(canvasId, dailyTotal, goal, label, units) {
             plugins: {
                 legend: {
                     display: false
+                },
+                tooltip: {
+                    enabled: false
                 }
             }
         }
