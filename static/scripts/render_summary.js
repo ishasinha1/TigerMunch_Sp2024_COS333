@@ -2,12 +2,12 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchChartData(7);  // Initially fetch for the past 7 days
 });
 
-// Add event listener for any change on radio buttons
+
 document.querySelectorAll('input[name="dataRange"]').forEach(input => {
     input.addEventListener('change', onChange);
 });
 
-// Add event listener for any change on radio buttons
+
 document.querySelectorAll('input[name="dataChoice"]').forEach(input => {
     input.addEventListener('change', onChange);
 });
@@ -21,10 +21,8 @@ document.querySelectorAll('input[name="macro"]').forEach(checkbox => {
 });
 
 function onChange() {
-    // Get the value of the selected radio button
     const days = document.querySelector('input[name="dataRange"]:checked').value;
     
-    // Fetch and update the chart with the selected range
     fetchChartData(days);
 }
 
@@ -38,7 +36,6 @@ function toggleMacroSelection() {
 }
 
 function fetchChartData(days) {
-    // Modify the endpoint if needed to accept 'all' as a parameter for fetching all data
     const url = days === 'all' ? '/get_summary_values?days=all' : `/get_summary_values?days=${days}`;
     fetch(url)
         .then(response => response.json())
@@ -57,13 +54,18 @@ function createChart(data) {
         window.summaryChart.destroy();
     }
 
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: true, 
+    };
+
     window.summaryChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: data.map(entry => entry.date), // Your label data
+            labels: data.map(entry => entry.date), 
             datasets: getSelectedDatasets(data)
         },
-        // options: chartOptions
+        options: chartOptions
     });
 }
 
@@ -119,13 +121,15 @@ let resizeTimer;
 window.addEventListener('resize', function() {
     // Clear the timer at the start of resizing
     clearTimeout(resizeTimer);
+    console.log("resized")
     
     // Set a timeout to trigger the end of the resize event
     resizeTimer = setTimeout(function() {
         // Code to execute after resizing has "stopped"
         if (window.summaryChart) {
+            console.log("should be resizing chart")
             window.summaryChart.resize();
         }
-    }, 10); // You can adjust the timeout duration to suit your needs
+    }, 10); 
 });
 
