@@ -6,7 +6,7 @@ import language_module
 import auth
 import os
 import pytz
-from datetime import datetime
+from datetime import datetime, timedelta
 import access_data
 from flask import jsonify
 import flask 
@@ -48,6 +48,8 @@ def get_nutrition():
         "protein_goal":user_data["protein_goal"],
         "carb_goal":user_data["carb_goal"]
     })
+
+
 
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -111,6 +113,18 @@ def get_summary():
 
 if __name__ == "__main__":
     app.run()
+
+@app.route('/get_summary_values', methods=['GET'])
+def get_summary_values():
+    days = request.args.get('days', default=7)
+    if days != 'all':
+        start_date = (datetime.now() - timedelta(days=int(days))).date()
+        result = access_data.get_summary_after(start_date)
+    else:
+        result = access_data.get_summary_all()
+    data = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
+    return jsonify(data)
+
 
 @app.route('/select', methods=['GET', 'POST'])
 def select():
