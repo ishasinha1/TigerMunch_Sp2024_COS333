@@ -8,7 +8,6 @@ _DATABASE_URL = os.environ['DATABASE_URL']
 def insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate):
     username = auth.authenticate()
     current_date = datetime.now().date() 
-    current_date = datetime(2024, 2, 4).date()
 
     with psycopg2.connect(_DATABASE_URL) as connection:
         with connection.cursor() as cursor:

@@ -32,17 +32,23 @@
                     <label for="allData">All Data</label>
                 </div>
 
-                <div class="chart-controls">
-                    <input type="radio" id="toggleCalories" name="dataset" value="Calories" checked>
-                    <label for="toggleCalories">Calories</label>
+                <div class="data-selection">
+                    <input type="radio" id="caloriesChoice" name="dataChoice" value="Calories" checked>
+                    <label for="caloriesChoice">Calories</label>
                 
-                    <input type="radio" id="toggleFat" name="dataset" value="Fat">
+                    <input type="radio" id="macrosChoice" name="dataChoice" value="Macros">
+                    <label for="macrosChoice">Macros</label>
+                </div>
+                
+                <!-- Checkboxes for Macros, hidden by default -->
+                <div id="macroSelection" style="display:none;">
+                    <input type="checkbox" id="toggleFat" name="macro" value="Fat" checked>
                     <label for="toggleFat">Fat (in g)</label>
                 
-                    <input type="radio" id="toggleProtein" name="dataset" value="Protein">
+                    <input type="checkbox" id="toggleProtein" name="macro" value="Protein" checked>
                     <label for="toggleProtein">Protein (in g)</label>
                 
-                    <input type="radio" id="toggleCarbs" name="dataset" value="Carbs">
+                    <input type="checkbox" id="toggleCarbs" name="macro" value="Carbs" checked>
                     <label for="toggleCarbs">Carbs (in g)</label>
                 </div>
                 
