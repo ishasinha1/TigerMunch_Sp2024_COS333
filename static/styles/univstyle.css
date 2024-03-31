@@ -1,14 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css2?family=Salsa&display=swap');
 
 * {
     box-sizing: border-box;
-    font-family: 'Space Grotesk', sans-serif;
+    /* font-family: 'Space Grotesk', sans-serif; */
+    font-family: "Salsa", cursive;
 }
 
 nav {
-    background-color: #979797;
+    background: #276955;
+    background: radial-gradient(circle, #276955 0%, 100%);
+    box-shadow: 0 8px 6px -6px black;
     margin-bottom: 30px;
     padding: 0px !important;
+    border-radius: 4px;
 }
 
 .header-link {

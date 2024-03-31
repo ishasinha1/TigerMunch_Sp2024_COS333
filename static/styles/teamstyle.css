@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Salsa&display=swap');
+
+* {
+    /* box-sizing: border-box; */
+    /* font-family: 'Space Grotesk', sans-serif; */
+    font-family: "Salsa", cursive;
+}
 *{
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-family: 'Space Grotesk', sans-serif;
+	/* font-family: 'Space Grotesk', sans-serif; */
 	text-decoration: none;
 }
 .team{
@@ -16,6 +23,7 @@
 	flex-direction: column; 
 
 }
+
 .profile-box{
 	width: 100%;
 	max-width: 1300px;
@@ -34,7 +42,7 @@
 	margin-bottom: 15px;
 }
 .center h1{
-	color: #0b0b0b;
+	color: #979797;
 	font-size: 4rem;
 	text-align: center;
 }
@@ -70,15 +78,4 @@
 .box:hover{
 	transform: translateY(-10px);
 	cursor: pointer;
-}
-
-@media(max-width: 1240px){
-	.team{
-		width: 100%;
-		height: auto;
-		padding: 90px 2%;
-	}
-	.center h1{
-		font-size: 3.2rem;
-	}
 }
