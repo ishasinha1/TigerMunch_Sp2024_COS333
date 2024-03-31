@@ -13,31 +13,66 @@
     </head>
     <body>
       {% include 'header.html' %}
-      <main>
-        <form method="post" action="{{ url_for('get_results') }}" enctype="multipart/form-data" class="p-3 center-content-pg">
-          <div class="flex-input">
-            <div class="m-3 p-3 form-elem">
-              <p class="fs-2">Photo Upload</p>
-              <div>
-                <label for="photo" class="form-label upload-btn fs-4">Choose file</label>
-                <input type="file" name="photo" id="photo" class="form-control" hidden/>
-                <span id="file-chosen" class="fs-6">No file chosen</span>
+      <div id="loadingOverlay" style="display: none;">
+        <div id="loadingText"></div>
+        <div id="loadingIcon"></div>
+      </div>
+      <div id="content">
+        <main>
+          <form method="post" action="{{ url_for('get_results') }}" enctype="multipart/form-data" class="p-3 center-content-pg" id="submitForm">
+            <div class="flex-input">
+              <div class="m-3 p-3 form-elem">
+                <p class="fs-2">Photo Upload</p>
+                <div>
+                  <label for="photo" class="form-label upload-btn fs-4">Choose file</label>
+                  <input type="file" name="photo" id="photo" class="form-control" hidden/>
+                  <span id="file-chosen" class="fs-6">No file chosen</span>
+                </div>
+              </div>
+              <div class="m-3 p-3 form-elem">
+                <label for="description" class="form-label fs-2">Meal Description</label>
+                <textarea name="description" id="description" class=""></textarea>
               </div>
             </div>
-            <div class="m-3 p-3 form-elem">
-              <label for="description" class="form-label fs-2">Meal Description</label>
-              <textarea name="description" id="description" class=""></textarea>
+            <div class="button-flex">
+              <button type="submit" class="btn btn-success btn-lg mt-3">
+                Submit
+              </button>
             </div>
-          </div>
-          <div class="button-flex">
-            <button type="submit" class="btn btn-success btn-lg mt-3">
-              Submit
-            </button>
-          </div>
-        </form>
-      </main>
+          </form>
+        </main>
+      </div>
+
       <footer>
       </footer>
       <script src="{{ url_for('static', filename='scripts/file_upload.js')}}"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          let munchIndex = 0; // To keep track of the text change state
+
+          function startMunching() {
+            const munchTexts = [
+              "Munch...",
+              "Munch... Munch",
+              "Munch... Munch... Munch!!"
+            ];
+
+            // Set an interval to update the text every second
+            const munchInterval = setInterval(() => {
+              document.getElementById('loadingText').textContent = munchTexts[munchIndex % munchTexts.length];
+              munchIndex++; // Move to the next state
+            }, 1);
+            document.getElementById('loadingText').innerHTML = munchTexts[munchIndex % munchTexts.length];
+
+            return munchInterval; // Return the interval ID so it can be cleared later if needed
+          }
+
+          document.getElementById('submitForm').addEventListener('submit', function() {
+            document.getElementById('loadingOverlay').style.display = 'flex'; // Show the overlay
+            document.querySelector('.content').style.filter = 'blur(5px)'; // Blur the background content
+            startMunching();
+          });
+        });
+      </script>
     </body>
 </html>
