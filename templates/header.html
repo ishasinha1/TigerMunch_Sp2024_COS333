@@ -110,48 +110,46 @@ $(document).ready(function(){
   });
 });
 
-  $('#insert_form').on("submit", function(event){
-    event.preventDefault();
-    if($('#cal_goal').val()<0)
-    {
-      alert("Calorie goal should be positive");
-    }
-    if($('#fat_goal').val()<0)
-    {
-      alert("Fat goal should be positive");
-    }
-    // if($('#protein_goal').val()<0)
-    // {
-    //   alert("Protein goal should be positive");
-    // }
-    if($('#carb_goal').val()<0)
-    {
-      alert("Carb goal should be positive");
-    }
-    if($('#protein_goal').val()<0)
-    {
-      alert("Protein goal should be positive");
-    }
-    else 
-    {
-      $.ajax({
+$('#insert_form').on("submit", function(event){
+  event.preventDefault(); 
+
+  let isValid = true; 
+  if ($('#cal_goal').val() < 0) {
+    alert("Calorie goal should be positive");
+    isValid = false;
+  }
+  if ($('#fat_goal').val() < 0) {
+    alert("Fat goal should be positive");
+    isValid = false;
+  }
+  if ($('#protein_goal').val() < 0) {
+    alert("Protein goal should be positive");
+    isValid = false;
+  }
+  if ($('#carb_goal').val() < 0) {
+    alert("Carb goal should be positive");
+    isValid = false;
+  }
+
+  if (isValid) {
+    $.ajax({
       url: "/insert",
       method: "POST",
-      // send the data to the server
       data: $(this).serialize(),
-      beforeSend: function(){
+      beforeSend: function() {
         $("#insert").val("Inserting");
       },
-      success: function(data){
+      success: function(data) {
         $("#exampleModal").modal('hide');
-        if(data == 'success'){
+        if (data == 'success') {
           window.location.href = "/";
+        } else {
+          window.location.href = window.location.href; // Reload the page
         }
-        window.location.href = window.location.href;
       }   
     });
   }
-  });
+});
 </script>
 </header>
 </html>
