@@ -11,6 +11,7 @@ import access_data
 from flask import jsonify
 import flask 
 import urllib.parse
+import time
 
 app = Flask(__name__)
 
@@ -85,6 +86,7 @@ def get_results():
             carb_estimate = language_module.handle_description(description)
         else:
             return 'No input provided', 400
+
 
         
         access_data.insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
