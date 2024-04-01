@@ -87,7 +87,7 @@ def get_results():
         else:
             return 'No input provided', 400
 
-
+        time.sleep(5)
         
         access_data.insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
         username = auth.authenticate()
