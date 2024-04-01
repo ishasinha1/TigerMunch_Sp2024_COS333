@@ -178,15 +178,6 @@ def insert():
     
 @app.route('/contact_us', methods=['GET', 'POST'])
 def contact_us():
-    if auth.signin() is None:
-        login_url = (_CAS_URL + 'login?service=' +
-          urllib.parse.quote(flask.request.url))
-        return render_template('contact_us.html', username = None, login_url = login_url)            
-    username = auth.authenticate()
-    return render_template('contact_us.html', username = username)
-
-@app.route('/team', methods=['GET', 'POST'])
-def team():
     if request.method == 'POST':
         # Extract the data from the request
         data = request.json
@@ -200,6 +191,15 @@ def team():
 
         # Respond with a success message
         return jsonify({'message': 'Feedback received successfully!'})
+    if auth.signin() is None:
+        login_url = (_CAS_URL + 'login?service=' +
+          urllib.parse.quote(flask.request.url))
+        return render_template('contact_us.html', username = None, login_url = login_url)            
+    username = auth.authenticate()
+    return render_template('contact_us.html', username = username)
+
+@app.route('/team', methods=['GET', 'POST'])
+def team():
     if auth.signin() is None:
         login_url = (_CAS_URL + 'login?service=' +
           urllib.parse.quote(flask.request.url))
