@@ -178,6 +178,19 @@ def insert():
     
 @app.route('/contact_us', methods=['GET', 'POST'])
 def contact_us():
+    if request.method == 'POST':
+        # Extract the data from the request
+        data = request.json
+        name = data['name']
+        email = data['email']
+        message = data['message']
+
+        # Now, save this data to a feedback.txt file or handle as needed
+        with open('feedback.txt', 'a') as file:
+            file.write(f"Name: {name}, Email: {email}, Message: {message}\n")
+
+        # Respond with a success message
+        return jsonify({'message': 'Feedback received successfully!'})
     if auth.signin() is None:
         login_url = (_CAS_URL + 'login?service=' +
           urllib.parse.quote(flask.request.url))
@@ -187,7 +200,6 @@ def contact_us():
 
 @app.route('/team', methods=['GET', 'POST'])
 def team():
-    
     if auth.signin() is None:
         login_url = (_CAS_URL + 'login?service=' +
           urllib.parse.quote(flask.request.url))
