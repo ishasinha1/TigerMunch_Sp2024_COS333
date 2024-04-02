@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap'); */
 
 *{
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-family: 'Space Grotesk', sans-serif;
+	/* font-family: 'Space Grotesk', sans-serif; */
 	text-decoration: none;
 }
 .team{
@@ -33,11 +33,10 @@
 .profile-box img{
 	width: 100%;
 	height: auto;
-	border-radius: 15px;
+	border-radius: 70px;
 	margin-bottom: 15px;
 }
 .center h1{
-	color: #979797;
 	font-size: 4rem;
 	text-align: center;
 }
