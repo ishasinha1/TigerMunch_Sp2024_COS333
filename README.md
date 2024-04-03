@@ -43,10 +43,10 @@ To run the app, run the following commands in your terminal once you've navigate
 directory:
 
 macOS
-1. ```export APP_SECRET_KEY=<somesecretkey> ```
+1. ```export APP_SECRET_KEY=33333``` (random secret key for ease copy-pasting)
 2. ```export DATABASE_URL='postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database'```
 3. ```python runserver.py [port] (optional)[True] ```
-```if you wish to test with API requests, set the optinal command line argument to True, otherwise, do nothing ```
+(if you wish to test with API requests, set the optinal command line argument to True, otherwise, do nothing)
 
 Windows
 1.  in powershell ```$env:APP_SECRET_KEY='<somesecretkey>'```
