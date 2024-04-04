@@ -1,5 +1,3 @@
-
-
 .chart-display {
     display: flex;
     flex-direction: row;
@@ -49,4 +47,26 @@
 .chart-elem {
     width: 20vw;
     height: auto;
+}
+
+@media screen and (max-width: 912px) {
+    .chart-elem {
+        width: 100vw;
+        height: auto;
+        margin-bottom: 100px;
+    }
+    .chart-display {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+    .chart-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 250px; /* or whatever size you want */
+        height: 250px; /* should be same as width for a circle */
+        /* margin: 0 auto; */
+    }
 }
