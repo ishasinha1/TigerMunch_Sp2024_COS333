@@ -1,8 +1,9 @@
 .flex-input {
     display: flex;
     flex-direction: row;
+    width: 80%;
+    max-width: 1200px;
     justify-content: space-evenly;
-    width: 100%;
 }
 
 .button-flex {
@@ -15,9 +16,9 @@
     border-radius: 30px;
     color: white;
     text-align: center;
-    height: 45vh;
+    height: 50vh;
     width: 50%;
-    max-width: 400px;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -89,4 +90,3 @@ form {
   .content {
     filter: blur(5px);
   }
-  
