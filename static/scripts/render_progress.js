@@ -84,6 +84,11 @@ async function render_chart() {
     const carbGoal = Number(database_values.carb_goal); // received from the backend
     const dailyCarbCount = Number(database_values.carbs);
     renderNutritionChart('carbChart', dailyCarbCount, carbGoal, "Carb", "g")  
+
+    if (caloriesGoal == -1 && fatGoal == -1 && proteinGoal == -1 && carbGoal == -1){
+        $("#showFeaturesBtn").css("display", "block");
+        $("#showFeaturesTxt").css("display", "block");
+    }
 }
 
 document.addEventListener('DOMContentLoaded', render_chart);
