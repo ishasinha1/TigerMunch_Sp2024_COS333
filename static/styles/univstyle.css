@@ -62,3 +62,7 @@ nav {
 .toggle-btn {
     margin-right: 10px;
 }
+
+.drop-right {
+    margin-right: 0.125rem;
+}
