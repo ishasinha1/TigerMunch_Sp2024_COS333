@@ -64,3 +64,10 @@ nav {
 .drop-right {
     margin-right: 0.125rem;
 }
+
+.stick {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
