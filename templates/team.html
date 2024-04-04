@@ -16,39 +16,37 @@
          {% else %}
              {% include 'header.html' %}
          {% endif %}
-        <main class="team">
-            <div class="center">
-                <h1>Meet The Team</h1>
-            </div>
-                <div class="profile-box"> 
-
-                    <div class="box">
-                        <img src="{{ url_for('static', filename='images/jeremiah.jpeg')}}" alt="Jeremiah Giordani">
-                        <h3>Jeremiah Giordani '25</h3>
-                        <h5>Student</h5>
-                        <div class="icons">
-                            <a href="https://www.linkedin.com/in/j-giordani/"><i class="ri-linkedin-fill"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <img src="{{ url_for('static', filename='images/aylin.jpg')}}" alt="Aylin Hadzhieva">
-                        <h3>Aylin Hadzhieva '25</h3>
-                        <h5>Student</h5>
-                        <div class="icons">
-                            <a href="https://www.linkedin.com/in/aylin-hadzhieva-717594254/"><i class="ri-linkedin-fill"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <img src="{{ url_for('static', filename='images/isha.jpeg')}}" alt="Isha Sinha">
-                        <h3>Isha Sinha '25</h3>
-                        <h5>Student</h5>
-                        <div class="icons">
-                            <a href="https://www.linkedin.com/in/isha-sinha-45490b245/"><i class="ri-linkedin-fill"></i></a>
-                        </div>
+        <main>
+            <div class="center-content-pg m-3 p-2">
+            <h1>Meet The Team!</h1>
+            <div class="profile-box"> 
+                <div class="box box-w">
+                    <img src="{{ url_for('static', filename='images/jeremiah.jpeg')}}" alt="Jeremiah Giordani">
+                    <h3>Jeremiah Giordani</h3>
+                    <h6>Student</h6>
+                    <div class="icons">
+                        <a href="https://www.linkedin.com/in/j-giordani/"><i class="ri-linkedin-fill"></i></a>
                     </div>
                 </div>
+
+                <div class="box box-w">
+                    <img src="{{ url_for('static', filename='images/aylin.jpg')}}" alt="Aylin Hadzhieva">
+                    <h3>Aylin Hadzhieva</h3>
+                    <h6>Student</h6>
+                    <div class="icons">
+                        <a href="https://www.linkedin.com/in/aylin-hadzhieva-717594254/"><i class="ri-linkedin-fill"></i></a>
+                    </div>
+                </div>
+
+                <div class="box box-w">
+                    <img src="{{ url_for('static', filename='images/isha.jpeg')}}" alt="Isha Sinha">
+                    <h3>Isha Sinha</h3>
+                    <h6>Student</h6>
+                    <div class="icons">
+                        <a href="https://www.linkedin.com/in/isha-sinha-45490b245/"><i class="ri-linkedin-fill"></i></a>
+                    </div>
+                </div>
+            </div>
         </main>
     </body>
 </html>
