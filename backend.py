@@ -85,7 +85,8 @@ def get_results():
             calorie_estimate, fat_estimate, protein_estimate, \
             carb_estimate = language_module.handle_description(description)
         else:
-            return render_template('no_input.html', username=username)
+            # return render_template('no_input.html', username=username)
+            return 'No input provided', 400 
 
         # time.sleep(5)
         

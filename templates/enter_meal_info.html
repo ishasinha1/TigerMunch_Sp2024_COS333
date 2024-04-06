@@ -35,9 +35,11 @@
               </div>
             </div>
             <div class="button-flex">
-              <button type="submit" class="btn btn-success btn-lg mt-3">
-                Submit
-              </button>
+              <!-- <button type="submit" class="btn btn-success btn-lg mt-3">
+                Submit -->
+                <button class="btn btn-success btn-lg" type = "button" data-bs-toggle="modal" data-backdrop="static" data-bs-keyboard="false" data-bs-target="#noInput">Submit</button></li>
+
+              <!-- </button> -->
             </div>
           </form>
         </main>
@@ -76,3 +78,36 @@
       </script>
     </body>
 </html>
+
+<div class="modal fade" id="noInput" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">No input provided</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+ document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('submitBtn').addEventListener('click', function(event) {
+          // Check if the file input or text area is empty
+          var fileInput = document.getElementById('photo').value;
+          var textInput = document.getElementById('description').value;
+          
+          if (!fileInput || !textInput.trim()) {
+            // Prevent form submission
+            event.preventDefault();
+            // Show the modal
+            $('#noInput').modal('show');
+          } else {
+            // Proceed with form submission if inputs are provided
+            document.getElementById('submitForm').submit();
+          }
+        });
+      });
+  </script>
