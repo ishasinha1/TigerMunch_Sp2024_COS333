@@ -1,4 +1,11 @@
+@import url("https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css");
+/* @import url("https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css"); */
+
 #table-head th {
     background-color:  #69A593 !important;
     color: white;
+}
+
+div.table-container {
+    width: 75% ;
 }
