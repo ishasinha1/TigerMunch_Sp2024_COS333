@@ -36,7 +36,7 @@ function toggleMacroSelection() {
 }
 
 function fetchChartData(days) {
-    const url = days === 'all' ? '/get_summary_values?days=all' : `/get_summary_values?days=${days}`;
+    const url = `/get_summary_values?days=${days}`;
     fetch(url)
         .then(response => response.json())
         .then(data => {

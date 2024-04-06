@@ -119,11 +119,14 @@ if __name__ == "__main__":
 @app.route('/get_summary_values', methods=['GET'])
 def get_summary_values():
     days = request.args.get('days', default=7)
-    if days != 'all':
-        start_date = (datetime.now() - timedelta(days=int(days))).date()
-        result = access_data.get_summary_after(start_date)
-    else:
-        result = access_data.get_summary_all()
+    # if days != 'all':
+    #     start_date = (datetime.now() - timedelta(days=int(days))).date()
+    #     result = access_data.get_summary_after(start_date)
+    # else:
+    #     result = access_data.get_summary_all()
+    start_date = (datetime.now() - timedelta(days=int(days))).date()
+    result = access_data.get_summary_after(start_date)
+    
     data = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
     return jsonify(data)
 
