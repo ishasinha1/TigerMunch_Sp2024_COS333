@@ -20,7 +20,7 @@
         {% include 'header.html' %}
         <main>
             <div class="m-5 p-5 center-content-pg">
-                <h1>Summary Chart</h1>
+                <h1>Your Nutrition Trends</h1>
                 <div class="data-range-selector">
                     <input type="radio" id="sevenDays" name="dataRange" value="7" checked>
                     <label for="sevenDays">Past 7 Days</label>
@@ -69,11 +69,11 @@
                 </div>
                 <br>
                 
-                <h1>Past Meals</h1>
+                <h1>Daily Nutrition Snapshot</h1>
                 <table border="1" class="table table-bordered">
                     <thead id="table-head">
                         <tr>
-                            <th scope="col">Upload Date/Time</th>
+                            <th scope="col">Upload Date</th>
                             <th scope="col">Calories</th>
                             <th scope="col">Fat (in g)</th>
                             <th scope="col">Protein (in g)</th>
@@ -83,7 +83,7 @@
                     <tbody>
                         {% for row in meals %}
                             <tr>
-                                <td> {{row["created_at"]}}</a></td>
+                                <td>{{ row["created_at"] }}</td>
                                 <td>{{row["calories"]}}</td>
                                 <td>{{row["fat"]}}</td>
                                 <td>{{row["protein"]}}</td>
