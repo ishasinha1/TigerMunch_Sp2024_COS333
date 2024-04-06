@@ -71,7 +71,7 @@ def get_results():
     if request.method == 'POST':
         photo = request.files.get('photo')
         description = request.form.get('description')
-
+        username = auth.authenticate()
         if photo and description:
             print("running multi-modal")
             calorie_estimate, fat_estimate, protein_estimate, \
@@ -85,12 +85,12 @@ def get_results():
             calorie_estimate, fat_estimate, protein_estimate, \
             carb_estimate = language_module.handle_description(description)
         else:
-            return 'No input provided', 400
+            return render_template('no_input.html', username=username)
 
         # time.sleep(5)
         
         access_data.insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
-        username = auth.authenticate()
+        
         return render_template('display_output.html', \
             calorie_estimate=calorie_estimate, fat_estimate=fat_estimate,\
             protein_estimate=protein_estimate, carb_estimate=carb_estimate,\

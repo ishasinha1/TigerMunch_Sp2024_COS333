@@ -48,7 +48,106 @@
     width: 20vw;
     height: auto;
 }
-
+/* Base styles */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  /* Arrow styles */
+  .the-arrow {
+    transition: all 0.2s;
+  }
+  
+  .the-arrow.-left {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  
+  .the-arrow > .shaft {
+    background-color: #4c4c4c; /* Black */
+    display: block;
+    width: 1px; /* Initial width of the shaft */
+    height: 1px; /* Shaft thickness */
+    position: relative;
+    transition: all 0.2s;
+  }
+  
+  .the-arrow > .shaft:before,
+  .the-arrow > .shaft:after {
+    background-color: #4c4c4c; /* Black */
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0; /* Initial arrow head width */
+    height: 1px; /* Arrow head thickness */
+    transition: all 0.2s;
+  }
+  
+  .the-arrow > .shaft:before {
+    transform: rotate(0);
+    transform-origin: top right;
+  }
+  
+  .the-arrow > .shaft:after {
+    transform: rotate(0);
+    transform-origin: bottom right;
+  }
+  
+  /* Animated arrow button styles */
+  .animated-arrow {
+    display: inline-block;
+    color: #4c4c4c; /* Black */
+    font-size: 1.25em;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.2s;
+  }
+  
+  .animated-arrow:hover {
+    color: #808080; /* Gray */
+  }
+  
+  .animated-arrow:hover > .the-arrow.-left > .shaft {
+    width: 64px; /* Expanded shaft width */
+  }
+  
+  .animated-arrow:hover > .the-arrow.-left > .shaft:before,
+  .animated-arrow:hover > .the-arrow.-left > .shaft:after {
+    width: 8px; /* Arrow head width */
+    background-color: #808080; /* Gray */
+  }
+  
+  .animated-arrow:hover > .the-arrow.-left > .shaft:before {
+    transform: rotate(45deg);
+  }
+  
+  .animated-arrow:hover > .the-arrow.-left > .shaft:after {
+    transform: rotate(-45deg);
+  }
+  
+  .animated-arrow:hover > .main {
+    transform: translateX(64px); /* Move text to the right */
+  }
+  
+  .animated-arrow > .main {
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  
+  .animated-arrow > .main > .text {
+    margin-right: 16px;
+    line-height: 1;
+  }
+  
 @media screen and (max-width: 912px) {
     .chart-elem {
         width: 100vw;
