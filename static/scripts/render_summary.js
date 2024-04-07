@@ -64,14 +64,18 @@ function createChart(data) {
             }
         }
     };
-
+    
     window.summaryChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: data.map(entry => entry.date), 
             datasets: getSelectedDatasets(data)
         },
-        options: chartOptions
+        options: {
+            // chartOptions 
+            responsive:true, 
+            maintainAspectRatio: false
+        }
     });
 }
 
@@ -122,6 +126,7 @@ function getSelectedDatasets(data) {
 
     return datasets;
 }
+
 
 let resizeTimer;
 window.addEventListener('resize', function() {
