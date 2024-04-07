@@ -66,13 +66,18 @@
 
           //   return munchInterval; // Return the interval ID so it can be cleared later if needed
           // }
-
+          window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
           document.getElementById('submitForm').addEventListener('submit', function() {
             document.getElementById('loadingOverlay').style.display = 'flex'; // Show the overlay
             document.querySelector('.content').style.filter = 'blur(5px)'; // Blur the background content
             // startMunching();
           });
         });
+       
       </script>
     </body>
 </html>
