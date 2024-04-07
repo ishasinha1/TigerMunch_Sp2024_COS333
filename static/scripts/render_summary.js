@@ -74,7 +74,13 @@ function createChart(data) {
         options: {
             // chartOptions 
             responsive:true, 
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            scales: {
+                y: { // This targets the y-axis
+                    beginAtZero: true, // Ensures the scale starts at zero
+                    min: 0 // Explicitly sets the minimum value to 0
+                }
+            }
         }
     });
 }
