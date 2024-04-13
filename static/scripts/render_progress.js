@@ -91,7 +91,17 @@ async function render_chart() {
     }
 }
 
+async function render_description() {
+    // const ctx = document.getElementById('caloriesChart').getContext('2d');
+    const response = await fetch('/description');
+    const response_text = await response.text();
+    document.getElementById('description').innerText = response_text;
+}
+
+
+
 document.addEventListener('DOMContentLoaded', render_chart);
+document.addEventListener('DOMContentLoaded', render_description);
 
 // update_account_settings = document.getElementById('account-update');
 

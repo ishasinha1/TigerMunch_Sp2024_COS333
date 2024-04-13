@@ -2,6 +2,7 @@ import auth
 import os
 import psycopg2
 from datetime import datetime
+import request_handler
 
 _DATABASE_URL = os.environ['DATABASE_URL']
 
@@ -130,3 +131,28 @@ def insert_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, ca
                                (username, first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal))
                 
             connection.commit()
+
+def get_description(data_7_clean, data_30_clean):
+    username = auth.authenticate()
+    current_date = datetime.now().date() 
+
+    with psycopg2.connect(_DATABASE_URL) as connection:
+        with connection.cursor() as cursor:
+            # Check if the user already exists in the user_data table
+            cursor.execute("SELECT * FROM descriptions WHERE username = %s AND created_at = %s", (username, current_date))
+            description = cursor.fetchall()
+
+            if description:
+                return str(description[0][2])
+            else:
+                data = {
+                    '<7day>': data_7_clean,
+                    '<30day>': data_30_clean,
+                }
+                qualitative_description = str(request_handler.create_qualitative_description(data))
+                cursor.execute("INSERT INTO descriptions (username, qualitative_description, created_at) VALUES (%s, %s, %s)",
+                               (username, qualitative_description, current_date))
+                connection.commit()
+                return qualitative_description
+                
+            
