@@ -95,7 +95,7 @@ async function render_description() {
     // const ctx = document.getElementById('caloriesChart').getContext('2d');
     const response = await fetch('/description');
     const response_text = await response.text();
-    document.getElementById('description').innerText = response_text;
+    document.getElementById('description_of_trends').innerText = response_text;
 }
 
 
