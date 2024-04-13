@@ -67,20 +67,19 @@
           //   return munchInterval; // Return the interval ID so it can be cleared later if needed
           // }
           window.onpageshow = function(event) {
-        if (event.persisted) {
-            window.location.reload();
-        }
-    };
+             if (event.persisted) {
+              window.location.reload();
+            }
+          };
           document.getElementById('submitForm').addEventListener('submit', function() {
             document.getElementById('loadingOverlay').style.display = 'flex'; // Show the overlay
             document.querySelector('.content').style.filter = 'blur(5px)'; // Blur the background content
             // startMunching();
           });
         });
-       
       </script>
     </body>
-</html>
+
 
 <div class="modal fade" id="noInput" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
@@ -110,5 +109,5 @@
     }
   });
 });
-  </script>
-  </html>
+</script>
+</html>
