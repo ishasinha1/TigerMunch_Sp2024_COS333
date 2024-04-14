@@ -79,6 +79,23 @@ def form():
     username = auth.authenticate()
     return render_template('enter_meal_info.html', username=username)
 
+@app.route('/save_results', methods=['GET', 'POST'])
+def save_results():
+    try:
+        if request.method == 'POST':
+            calorie_estimate = int(request.form['cal'])
+            fat_estimate = int(request.form['fat'])
+            protein_estimate = int(request.form['protein'])
+            carb_estimate = int(request.form['carbs'])
+            print('calorie', calorie_estimate)
+            print('fat', fat_estimate)
+            print('protein', protein_estimate)
+            print('carb', carb_estimate)
+            access_data.insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
+
+            return jsonify({'status': 'success'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 @app.route('/get_results', methods=['GET', 'POST'])
 def get_results():
     try:
@@ -104,7 +121,7 @@ def get_results():
 
             # time.sleep(5)
             
-            access_data.insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
+            # access_data.insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
             
             return render_template('display_output.html', \
                 calorie_estimate=calorie_estimate, fat_estimate=fat_estimate,\
