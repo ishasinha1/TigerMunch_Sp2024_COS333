@@ -6,6 +6,10 @@
     color: white;
 }
 
-div.table-container {
-    width: 100% ;
+.table-container {
+    width: 100vw;
+}
+
+#myTable {
+    width: 90vw !important;
 }

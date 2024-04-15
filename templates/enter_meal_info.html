@@ -17,34 +17,29 @@
         <div id="loadingText">Munch Munch Munch!!!</div>
         <div id="loadingIcon"></div>
       </div>
-      <div id="content">
-        <main>
-          <form method="post" action="{{ url_for('get_results') }}" enctype="multipart/form-data" class="pt-5 mt-5 center-content-pg" id="submitForm">
-            <div class="flex-input">
-              <div class="m-3 p-3 form-elem">
-                <p class="fs-2">Photo Upload</p>
-                <div>
-                  <label for="photo" class="form-label upload-btn fs-4">Choose file</label>
-                  <input type="file" name="photo" id="photo" class="form-control" accept="image/jpg, image/jpeg, image/HEIC, image/png" hidden/>
-                  <span id="file-chosen" class="fs-6">No file chosen</span>
-                </div>
-              </div>
-              <div class="m-3 p-3 form-elem">
-                <label for="description" class="form-label fs-2">Meal Description</label>
-                <textarea name="description" id="description" class="mt-4"></textarea>
+      <main id="content">
+        <form method="post" action="{{ url_for('get_results') }}" enctype="multipart/form-data" class="pt-5 mt-5 center-content-pg" id="submitForm">
+          <div class="flex-input">
+            <div class="m-3 p-3 form-elem">
+              <p class="fs-2">Photo Upload</p>
+              <div>
+                <label for="photo" class="form-label upload-btn fs-4">Choose file</label>
+                <input type="file" name="photo" id="photo" class="form-control" accept="image/jpg, image/jpeg, image/HEIC, image/png" hidden/>
+                <span id="file-chosen" class="fs-6">No file chosen</span>
               </div>
             </div>
-            <div class="button-flex">
-              <button type="submit" id = "submitBtn" class="btn btn-success btn-lg mt-3">
-                Submit 
-              </button>
+            <div class="m-3 p-3 form-elem">
+              <label for="description" class="form-label fs-2">Meal Description</label>
+              <textarea name="description" id="description" class="mt-4"></textarea>
             </div>
-          </form>
-        </main>
-      </div>
-
-      <footer>
-      </footer>
+          </div>
+          <div class="button-flex">
+            <button type="submit" id = "submitBtn" class="btn btn-success btn-lg mt-3">
+              Submit 
+            </button>
+          </div>
+        </form>
+      </main>
       <script src="{{ url_for('static', filename='scripts/file_upload.js')}}"></script>
       <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -73,7 +68,7 @@
           };
           document.getElementById('submitForm').addEventListener('submit', function() {
             document.getElementById('loadingOverlay').style.display = 'flex'; // Show the overlay
-            document.querySelector('.content').style.filter = 'blur(5px)'; // Blur the background content
+            document.querySelector('#content').style.filter = 'blur(5px)'; // Blur the background content
             // startMunching();
           });
         });
@@ -85,10 +80,11 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">No input provided</h5>
+        <h5 class="modal-title">Error: No Input Provided!</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <p>Please upload a photo/enter a description of your meal.</p>
       </div>
     </div>
   </div>
