@@ -16,7 +16,7 @@
     <body>
         {% include 'header.html' %}
         <main>
-            <div class="m-5 p-5 center-content-pg">
+            <div class="center-content-pg info-out">
                 <h1 class="m-3">Meal Information</h1>
                 <div class="fs-5">
                  <div class="container">
@@ -47,9 +47,9 @@
                         </div>
                        
                         <div class="m-2">
-                        <button type="submit" class="btn btn-success btn-lg">Submit</button>
-                        <a class="btn btn-success btn-lg" href="{{ url_for('home') }}">Delete</a>
-                        <a class="btn btn-success btn-lg" href="{{ url_for('form') }}">Reenter</a>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        <a class="btn btn-success" href="{{ url_for('home') }}">Delete</a>
+                        <a class="btn btn-success" href="{{ url_for('form') }}">Re-enter</a>
                         </div>
                 </form>
                 </div>

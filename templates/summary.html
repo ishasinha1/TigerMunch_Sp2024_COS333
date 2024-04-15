@@ -27,7 +27,7 @@
     <body>
         {% include 'header.html' %}
         <main>
-            <div class="m-5 p-5 center-content-pg">
+            <div class="center-content-pg position-charts">
                 <h1>Your Nutrition Trends</h1>
                 <div class="data-range-selector">
                     <input type="radio" id="sevenDays" name="dataRange" value="7" checked>
@@ -62,55 +62,43 @@
                 
                 <br>
                 
-                <!-- <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <div class="chart-container">
-                                <canvas id="summaryChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
                 <div class="chart-container">
                     <canvas id="summaryChart"></canvas>
                 </div>
                 <br>
                 
                 <h1>Daily Nutrition Snapshot</h1>
-                <div class = "table-container">
-                <table border="1" class = 'hover' id="myTable" style="width:100%">
-                    <thead id="table-head">
-                        <tr>
-                            <th scope="col">Year</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Calories</th>
-                            <th scope="col">Fat (in g)</th>
-                            <th scope="col">Protein (in g)</th>
-                            <th scope="col">Carbs (in g)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in meals %}
+                <div class="table-container">
+                    <table border="1" class="hover" id="myTable">
+                        <thead id="table-head">
                             <tr>
-                                <td class="created_at_year">{{row["created_at"]}}</td>
-                                <td class="created_at_date">{{ row["created_at"] }}</td>
-                                <td>{{row["calories"]}}</td>
-                                <td>{{row["fat"]}}</td>
-                                <td>{{row["protein"]}}</td>
-                                <td>{{row["carbs"]}}</td>
+                                <th scope="col">Year</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Calories</th>
+                                <th scope="col">Fat (in g)</th>
+                                <th scope="col">Protein (in g)</th>
+                                <th scope="col">Carbs (in g)</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {% for row in meals %}
+                                <tr>
+                                    <td class="created_at_year">{{row["created_at"]}}</td>
+                                    <td class="created_at_date">{{ row["created_at"] }}</td>
+                                    <td>{{row["calories"]}}</td>
+                                    <td>{{row["fat"]}}</td>
+                                    <td>{{row["protein"]}}</td>
+                                    <td>{{row["carbs"]}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-    
         </main>
         <script src="{{ url_for('static', filename='scripts/render_summary.js') }}"></script>   
         
     </body>
-</script>
-    <script src="{{ url_for('static', filename='scripts/render_summary.js') }}"></script>
 
     <script>       
      document.addEventListener("DOMContentLoaded", function() {
@@ -131,9 +119,10 @@
         });
 
         new DataTable('#myTable', {
-             paging: false, 
-             searching:false,
-             info:false
+            paging: false, 
+            searching:false,
+            info:false,
+            responsive: true
         });
      });
     </script>

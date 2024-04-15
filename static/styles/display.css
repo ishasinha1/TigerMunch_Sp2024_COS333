@@ -1,20 +1,9 @@
-/* Importing Google Font */
-/* Commented out as it seems you are not using it currently */
-/* @import url('https://fonts.googleapis.com/css?family=Saira+Semi+Condensed&display=swap'); */
-
-/* Define CSS Custom Properties for Reuse */
 :root {
     --trans-all: all 0.5s ease;
 }
 
-/* Universal Styles */
-/* *, *::before, *::after {
-    font-family: var(--font-sai);
-    transition: var(--trans-all);
-} */
-
 body {
-    background: #dfdfdf;
+    background: white;
 }
 
 .container {
@@ -25,6 +14,11 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.info-out {
+    margin: 30px;
+    padding: 50px;
 }
 
 form {
@@ -57,7 +51,6 @@ label i {
 
 .field:focus-within label {
     color: #000;
-    letter-spacing: 2px;
 }
 
 input, textarea {
@@ -84,5 +77,10 @@ textarea::-webkit-scrollbar {
     form {
         width: 100%;
         display: flex;
+    }
+
+    .info-out {
+        margin-top: 80px;
+        padding: 0;
     }
 }
