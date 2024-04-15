@@ -1,15 +1,29 @@
 @import url("https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css");
-/* @import url("https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css"); */
 
 #table-head th {
     background-color:  #69A593 !important;
     color: white;
 }
 
-.table-container {
-    width: 100vw;
-}
-
+/* 
 #myTable {
     width: 90vw !important;
+} */
+
+.position-charts {
+    margin-top: 40px;
+    padding: 30px;
 }
+
+.chart-container {
+    width: 80vw;
+}
+
+@media screen and (max-width: 500px) {
+    .position-charts {
+        margin-top: 80px;
+        padding: 0;
+    }
+
+}
+
