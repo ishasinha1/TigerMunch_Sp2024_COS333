@@ -13,10 +13,10 @@
     </head>
     <body>
         {% if not username %}
-              {% include 'header_loggedout.html' %}
-         {% else %}
-              {% include 'header.html' %}
-         {% endif %}
+            {% include 'header_loggedout.html' %}
+        {% else %}
+            {% include 'header.html' %}
+        {% endif %}
         <main>
             <div class="center-content-pg pos-form">
                 <div class="m-2">
@@ -37,6 +37,5 @@
             </div>
         </main>
         <script src="{{ url_for('static', filename='scripts/feedback.js') }}"></script> 
-        
     </body>
 </html>

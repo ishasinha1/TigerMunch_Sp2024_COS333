@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>
-            TigerMunch
+            TigerMunch: Error!
         </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,10 +17,10 @@
         {% include 'header.html' %}
         <main>
             <div class="center-content-pg mt-5 pt-5">
-                <h1>Uh Oh!</h1>
-                <h2>It looks like we're having issues processing your meal. Please try again</h2>
-                <div class="m-5">
-                    <a class="btn btn-success btn-lg" href="{{ url_for('form') }}">Add new meal data</a>             
+                <h1 class="mt-5">Uh Oh!</h1>
+                <h4 class="m-2">It looks like we're having issues processing your meal. Please try again.</h4>
+                <div class="m-4">
+                    <a class="btn btn-success btn-lg" href="{{ url_for('form') }}">Back to Form</a>             
                 </div>
             </div>
         </main>
