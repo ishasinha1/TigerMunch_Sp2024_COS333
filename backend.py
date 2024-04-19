@@ -50,24 +50,6 @@ def get_nutrition():
         "carb_goal":user_data["carb_goal"]
     })
 
-# @app.route('/description', methods=['GET'])
-# def get_description():
-#     days = 7
-#     start_date = (datetime.now() - timedelta(days=int(days))).date()
-#     result = access_data.get_summary_after(start_date)
-    
-#     data_7_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
-
-#     days = 30
-#     start_date = (datetime.now() - timedelta(days=int(days))).date()
-#     result = access_data.get_summary_after(start_date)
-    
-#     data_30_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
-#     return access_data.get_description(data_7_clean, data_30_clean)
-
-
-
-
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     username = auth.authenticate()

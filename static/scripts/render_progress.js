@@ -91,4 +91,3 @@ async function render_chart() {
 }
 
 document.addEventListener('DOMContentLoaded', render_chart);
-document.addEventListener('DOMContentLoaded', render_description);
