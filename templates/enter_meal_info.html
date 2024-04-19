@@ -43,24 +43,6 @@
       <script src="{{ url_for('static', filename='scripts/file_upload.js')}}"></script>
       <script>
         document.addEventListener('DOMContentLoaded', function() {
-          // let munchIndex = 0; // To keep track of the text change state
-
-          // function startMunching() {
-          //   const munchTexts = [
-          //     "Munch...",
-          //     "Munch... Munch",
-          //     "Munch... Munch... Munch!!"
-          //   ];
-
-          //   // Set an interval to update the text every second
-          //   const munchInterval = setInterval(() => {
-          //     document.getElementById('loadingText').textContent = munchTexts[munchIndex % munchTexts.length];
-          //     munchIndex++; // Move to the next state
-          //   }, 1);
-          //   document.getElementById('loadingText').innerHTML = munchTexts[munchIndex % munchTexts.length];
-
-          //   return munchInterval; // Return the interval ID so it can be cleared later if needed
-          // }
           window.onpageshow = function(event) {
              if (event.persisted) {
               window.location.reload();
@@ -69,7 +51,6 @@
           document.getElementById('submitForm').addEventListener('submit', function() {
             document.getElementById('loadingOverlay').style.display = 'flex'; // Show the overlay
             document.querySelector('#content').style.filter = 'blur(5px)'; // Blur the background content
-            // startMunching();
           });
         });
       </script>
