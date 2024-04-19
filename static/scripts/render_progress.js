@@ -64,7 +64,6 @@ function renderNutritionChart(canvasId, dailyTotal, goal, label, units) {
 }
 
 async function render_chart() {
-    // const ctx = document.getElementById('caloriesChart').getContext('2d');
     const response = await fetch('/nutrition');
     const database_values = await response.json();
 
@@ -91,18 +90,5 @@ async function render_chart() {
     }
 }
 
-// async function render_description() {
-//     // const ctx = document.getElementById('caloriesChart').getContext('2d');
-//     const response = await fetch('/description');
-//     const response_text = await response.text();
-//     document.getElementById('description_of_trends').innerText = response_text;
-// }
-
-
-
 document.addEventListener('DOMContentLoaded', render_chart);
 document.addEventListener('DOMContentLoaded', render_description);
-
-// update_account_settings = document.getElementById('account-update');
-
-// update_account_settings.onclick() = render_chart();
