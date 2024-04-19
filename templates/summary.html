@@ -93,7 +93,7 @@
                             {% endfor %} -->
                         </tbody>
                     </table>
-                    <div class="m-5">
+                    <div class="m-5" id="show-more-button">
                         <button class="btn btn-success btn-lg" onclick="loadMore()">Show more</button>
                     </div>
 
@@ -135,6 +135,7 @@
     });
 
     let currentPage = 1;
+    let entriesPerPage = 10;
 
     function loadMore() {
         fetch(`/get_summary_table?page=${currentPage}`)
@@ -158,7 +159,13 @@
                                 <td>${row.carbs}</td>`;
                 tableBody.appendChild(tr);
             });
-            // formatDates();
+            if (data.length < entriesPerPage * currentPage) {
+                const showMoreButton = document.getElementById('show-more-button');
+                if (showMoreButton) {
+                    showMoreButton.style.display = 'none';
+                }
+                
+            }
             currentPage++;
         })
         .catch(error => console.error('Error loading more data:', error));
