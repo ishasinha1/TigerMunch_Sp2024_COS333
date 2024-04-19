@@ -1,171 +1,95 @@
 <html>
-<header>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="{{ url_for('static', filename='scripts/render_progress.js') }}"></script>      
-  {% set account_info_dict = account_info_dict if account_info_dict is defined else {} %}
-    <nav class="navbar navbar-expand-lg navbar-dark stick">
-      <div class="container-fluid header-container">
-        <!-- Logo -->
-        
-          <!-- We want when we click to go on the landing page -->
-          <a href="{{ url_for('home') }}" id="logo" class="navbar-brand">
-            <img src="{{ url_for('static', filename='images/munchlogo.jpeg') }}" alt="TigerMunch Logo">
-          </a>
-        
-        
-         <!-- Toggler -->
-        <button class="navbar-toggler toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+  <header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='scripts/render_progress.js') }}"></script>      
+    {% set account_info_dict = account_info_dict if account_info_dict is defined else {} %}
+      <nav class="navbar navbar-expand-lg navbar-dark stick">
+        <div class="container-fluid header-container">
+          <!-- Logo -->
+          
+            <!-- We want when we click to go on the landing page -->
+            <a href="{{ url_for('home') }}" id="logo" class="navbar-brand">
+              <img src="{{ url_for('static', filename='images/munchlogo.jpeg') }}" alt="TigerMunch Logo">
+            </a>
+          
+          
+          <!-- Toggler -->
+          <button class="navbar-toggler toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-          <ul class="nav navbar-nav">
-            <li class="nav-item p-2">
-              <a class="header-link" href="{{ url_for('team') }}">About</a>
-            </li>
-            <li class="nav-item p-2">
-              <a class="header-link" href="{{ url_for('get_summary') }}">Summary</a>
-            </li>
-            <li class="nav-item p-2">
-              <a class="header-link" href="{{ url_for('contact_us') }}">Contact Us</a>
-            </li>
-            <!-- Log out and Username -->
-            <li class="nav-item p-2 dropdown">
-              <a class="dropdown-toggle header-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{username}}
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end drop-right shadow-lg" aria-labelledby="navbarDropdownMenuLink">
-                <li><button class="dropdown-item" type = "button" data-bs-toggle="modal"  data-backdrop="static" data-bs-keyboard="false" data-bs-target="#exampleModal">Account</button></li>
-                <li><a class="dropdown-item" href="{{ url_for('logoutcas') }}">Log out</a></li>
-              </ul>
-            </li>
-          </ul>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="nav navbar-nav">
+              <li class="nav-item p-2">
+                <a class="header-link" href="{{ url_for('team') }}">About</a>
+              </li>
+              <li class="nav-item p-2">
+                <a class="header-link" href="{{ url_for('get_summary') }}">Summary</a>
+              </li>
+              <li class="nav-item p-2">
+                <a class="header-link" href="{{ url_for('contact_us') }}">Contact Us</a>
+              </li>
+              <!-- Log out and Username -->
+              <li class="nav-item p-2 dropdown">
+                <a class="dropdown-toggle header-link" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{username}}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end drop-right shadow-lg" aria-labelledby="navbarDropdownMenuLink">
+                  <li><button class="dropdown-item" type = "button" data-bs-toggle="modal"  data-backdrop="static" data-bs-keyboard="false" data-bs-target="#exampleModal">Account</button></li>
+                  <li><a class="dropdown-item" href="{{ url_for('logoutcas') }}">Log out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          
         </div>
-        
-      </div>
-    </nav>
+      </nav>
 
 
-<!-- Modal for Account -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Account Settings</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="insert_form">
-          <div class="form-group">
-            <label for="first_name" class="col-form-label">First Name:</label>
-            <input type="text" class="form-control" id="first_name" name="first_name">
-          </div>
-          <div class="form-group">
-            <label for="last_name" class="col-form-label">Last Name:</label>
-            <input type="text" class="form-control" id="last_name" name="last_name">
-          </div>
-          <div class="form-group">
-            <label for="cal_goal" class="col-form-label">Daily Calorie Goal:</label>
-            <input type="number" class="form-control" id="cal_goal" name="cal_goal">
-          </div>
-          <div class="form-group">
-            <label for="fat_goal" class="col-form-label">Daily Fat Goal (g):</label>
-            <input type="number" class="form-control" id="fat_goal" name="fat_goal">
-          </div>
-          <div class="form-group">
-            <label for="protein_goal" class="col-form-label">Daily Protein Goal (g):</label>
-            <input type="number" class="form-control" id="protein_goal" name="protein_goal">
-          </div>
-          <div class="form-group">
-            <label for="carb_goal" class="col-form-label">Daily Carb Goal (g):</label>
-            <input type="number" class="form-control" id="carb_goal" name="carb_goal">
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-success">Update</button>
-          </div>
-        </form>
+  <!-- Modal for Account -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Account Settings</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="insert_form">
+            <div class="form-group">
+              <label for="first_name" class="col-form-label">First Name:</label>
+              <input type="text" class="form-control" id="first_name" name="first_name">
+            </div>
+            <div class="form-group">
+              <label for="last_name" class="col-form-label">Last Name:</label>
+              <input type="text" class="form-control" id="last_name" name="last_name">
+            </div>
+            <div class="form-group">
+              <label for="cal_goal" class="col-form-label">Daily Calorie Goal:</label>
+              <input type="number" class="form-control" id="cal_goal" name="cal_goal">
+            </div>
+            <div class="form-group">
+              <label for="fat_goal" class="col-form-label">Daily Fat Goal (g):</label>
+              <input type="number" class="form-control" id="fat_goal" name="fat_goal">
+            </div>
+            <div class="form-group">
+              <label for="protein_goal" class="col-form-label">Daily Protein Goal (g):</label>
+              <input type="number" class="form-control" id="protein_goal" name="protein_goal">
+            </div>
+            <div class="form-group">
+              <label for="carb_goal" class="col-form-label">Daily Carb Goal (g):</label>
+              <input type="number" class="form-control" id="carb_goal" name="carb_goal">
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Update</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- </header> -->
-
-<script>
-$(document).ready(function(){
-  $('#exampleModal').modal({backdrop: 'static'});
-  $('#exampleModal').on('show.bs.modal', function () {
-     $.ajax({
-      url: "/select",
-      method: "POST",
-      success: function(data) {
-        $('#first_name').val(data.first_name || '');
-        $('#last_name').val(data.last_name || '');
-        $('#cal_goal').val((data.calorie_goal >= 0 && data.calorie_goal <= 20000) ? data.calorie_goal : '');
-        $('#fat_goal').val((data.fat_goal >= 0 && data.fat_goal <= 2000) ? data.fat_goal : '');
-        $('#protein_goal').val((data.protein_goal >= 0 && data.protein_goal <= 2000) ? data.protein_goal : '');
-        $('#carb_goal').val((data.carb_goal >= 0 && data.carb_goal <= 2000) ? data.carb_goal : '');
-      }
-    });
-  });
-});
-
-$('#insert_form').on("submit", function(event){
-  event.preventDefault(); 
-
-  let isValid = true; 
-  if ($('#cal_goal').val() < 0) {
-    alert("Calorie goal should be positive");
-    isValid = false;
-  }
-  if ($('#cal_goal').val() > 20000) {
-    alert("Calorie goal should be less than 20,000");
-    isValid = false;
-  }
-  if ($('#fat_goal').val() < 0) {
-    alert("Fat goal should be positive");
-    isValid = false;
-  }
-  if ($('#fat_goal').val() > 2000) {
-    alert("Fat goal should be less than 2,000");
-    isValid = false;
-  }
-  if ($('#protein_goal').val() < 0) {
-    alert("Protein goal should be positive");
-    isValid = false;
-  }
-  if ($('#protein_goal').val() > 2000) {
-    alert("Protein goal should be less than 2,000");
-    isValid = false;
-  }
-  if ($('#carb_goal').val() < 0) {
-    alert("Carb goal should be positive");
-    isValid = false;
-  }
-  if ($('#carb_goal').val() > 2000) {
-    alert("Carb goal should be less than 2,000");
-    isValid = false;
-  }
-
-  if (isValid) {
-    $.ajax({
-      url: "/insert",
-      method: "POST",
-      data: $(this).serialize(),
-      beforeSend: function() {
-        $("#insert").val("Inserting");
-      },
-      success: function(data) {
-        $("#exampleModal").modal('hide');
-        if (data == 'success') {
-          window.location.href = "/";
-        } else {
-          window.location.href = window.location.href; // Reload the page
-        }
-      }   
-    });
-  }
-});
-</script>
-</header>
+  
+  <script src="{{ url_for('static', filename='scripts/account_settings.js') }}"></script>
+  </header>
 </html>
