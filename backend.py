@@ -96,6 +96,8 @@ def save_results():
             return jsonify({'status': 'success'})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
 @app.route('/get_results', methods=['GET', 'POST'])
 def get_results():
     try:
@@ -122,6 +124,11 @@ def get_results():
             # time.sleep(5)
             
             # access_data.insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
+            if not all(isinstance(x, int) for x in [calorie_estimate, fat_estimate, protein_estimate, carb_estimate]):
+                return render_template('error.html')
+
+            if calorie_estimate == 0 and fat_estimate == 0 and protein_estimate == 0 and carb_estimate == 0:
+                return render_template('error.html')
             
             return render_template('display_output.html', \
                 calorie_estimate=calorie_estimate, fat_estimate=fat_estimate,\
