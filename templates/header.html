@@ -90,22 +90,25 @@
   
   <script src="{{ url_for('static', filename='scripts/account_settings.js') }}"></script>
   <script>
-  // Get the container element
-  var btnContainer = document.getElementById("navTabs");
+  var navTabs = document.getElementById("navTabs");
 
-  // Get all buttons with class="btn" inside the container
-  var btns = btnContainer.getElementsByClassName("nav-item");
-  for (let item of btns) {
-    console.log(item.id);
+  var tabs = navTabs.getElementsByClassName("header-link");
+  for (var i = 0; i < navTabs.length; i++) {
+    item = navTabs[i];
+    console.log(item);
+    item.addEventListener("click", print());
   }
 
   // Loop through the buttons and add the active class to the current/clicked button
-  for (var i = 0; i < btns.length; i++) {
+  /* for (var i = 0; i < btns.length; i++) {
     btns[i].addEventListener("click", function() {
       var current = document.getElementsByClassName("active");
       current[0].className = current[0].className.replace(" active", "");
       this.className += " active";
     });
+  } */
+  function print() {
+    console.log('printed');
   }
   </script>
   </header>
