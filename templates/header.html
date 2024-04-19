@@ -101,10 +101,10 @@ $(document).ready(function(){
       success: function(data) {
         $('#first_name').val(data.first_name || '');
         $('#last_name').val(data.last_name || '');
-        $('#cal_goal').val(data.calorie_goal >= 0 ? data.calorie_goal : '');
-        $('#fat_goal').val(data.fat_goal >= 0 ? data.fat_goal : '');
-        $('#protein_goal').val(data.protein_goal >= 0 ? data.protein_goal : '');
-        $('#carb_goal').val(data.carb_goal >= 0 ? data.carb_goal : '');
+        $('#cal_goal').val((data.calorie_goal >= 0 && data.calorie_goal <= 20000) ? data.calorie_goal : '');
+        $('#fat_goal').val((data.fat_goal >= 0 && data.fat_goal <= 2000) ? data.fat_goal : '');
+        $('#protein_goal').val((data.protein_goal >= 0 && data.protein_goal <= 2000) ? data.protein_goal : '');
+        $('#carb_goal').val((data.carb_goal >= 0 && data.carb_goal <= 2000) ? data.carb_goal : '');
       }
     });
   });
@@ -118,16 +118,32 @@ $('#insert_form').on("submit", function(event){
     alert("Calorie goal should be positive");
     isValid = false;
   }
+  if ($('#cal_goal').val() > 20000) {
+    alert("Calorie goal should be less than 20,000");
+    isValid = false;
+  }
   if ($('#fat_goal').val() < 0) {
     alert("Fat goal should be positive");
+    isValid = false;
+  }
+  if ($('#fat_goal').val() > 2000) {
+    alert("Fat goal should be less than 2,000");
     isValid = false;
   }
   if ($('#protein_goal').val() < 0) {
     alert("Protein goal should be positive");
     isValid = false;
   }
+  if ($('#protein_goal').val() > 2000) {
+    alert("Protein goal should be less than 2,000");
+    isValid = false;
+  }
   if ($('#carb_goal').val() < 0) {
     alert("Carb goal should be positive");
+    isValid = false;
+  }
+  if ($('#carb_goal').val() > 2000) {
+    alert("Carb goal should be less than 2,000");
     isValid = false;
   }
 

@@ -80,8 +80,8 @@
                                 <th scope="col">Carbs (in g)</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {% for row in meals %}
+                        <tbody id="table-body">
+                            <!-- {% for row in meals %}
                                 <tr>
                                     <td class="created_at_year">{{row["created_at"]}}</td>
                                     <td class="created_at_date">{{ row["created_at"] }}</td>
@@ -90,9 +90,13 @@
                                     <td>{{row["protein"]}}</td>
                                     <td>{{row["carbs"]}}</td>
                                 </tr>
-                            {% endfor %}
+                            {% endfor %} -->
                         </tbody>
                     </table>
+                    <div class="m-5">
+                        <button class="btn btn-success btn-lg" onclick="loadMore()">Show more</button>
+                    </div>
+
                 </div>
             </div>
         </main>
@@ -101,22 +105,7 @@
     </body>
 
     <script>       
-     document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll('.created_at_date').forEach(function(node) {
-            const dateParts = node.textContent.trim().split('-');
-            // Js months are 0 - 11
-            const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-            node.textContent = newDate.toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric'
-            });
-        });
-    
-        document.querySelectorAll('.created_at_year').forEach(function(node) {
-            const dateParts = node.textContent.trim().split('-');
-            const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-            node.textContent = newDate.getFullYear();
-        });
+    document.addEventListener("DOMContentLoaded", function() {
 
         new DataTable('#myTable', {
             paging: false, 
@@ -124,6 +113,54 @@
             info:false,
             responsive: true
         });
-     });
+
+        // document.querySelectorAll('.created_at_year').forEach(function(node) {
+        //     const dateParts = node.textContent.trim().split('-');
+        //     const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+        //     node.textContent = newDate.getFullYear();
+        // });
+
+        // document.querySelectorAll('.created_at_date').forEach(function(node) {
+        //     const dateParts = node.textContent.trim().split('-');
+        //     // Js months are 0 - 11
+        //     const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+        //     node.textContent = newDate.toLocaleDateString('en-US', {
+        //         month: 'long',
+        //         day: 'numeric'
+        //     });
+        // });
+
+    });
+
+    let currentPage = 1;
+
+    function loadMore() {
+        fetch(`/get_summary_table?page=${currentPage}`)
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                const date = new Date(row.created_at);
+
+                // Create formatted date and year strings
+                const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+                const formattedYear = date.getFullYear();
+
+                tr.innerHTML = `<td class="created_at_year">${formattedYear}</td>
+                                <td class="created_at_date">${formattedDate}</td>
+                                <td>${row.calories}</td>
+                                <td>${row.fat}</td>
+                                <td>${row.protein}</td>
+                                <td>${row.carbs}</td>`;
+                tableBody.appendChild(tr);
+            });
+            // formatDates();
+            currentPage++;
+        })
+        .catch(error => console.error('Error loading more data:', error));
+
+    }
     </script>
 </html>

@@ -50,20 +50,20 @@ def get_nutrition():
         "carb_goal":user_data["carb_goal"]
     })
 
-@app.route('/description', methods=['GET'])
-def get_description():
-    days = 7
-    start_date = (datetime.now() - timedelta(days=int(days))).date()
-    result = access_data.get_summary_after(start_date)
+# @app.route('/description', methods=['GET'])
+# def get_description():
+#     days = 7
+#     start_date = (datetime.now() - timedelta(days=int(days))).date()
+#     result = access_data.get_summary_after(start_date)
     
-    data_7_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
+#     data_7_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
 
-    days = 30
-    start_date = (datetime.now() - timedelta(days=int(days))).date()
-    result = access_data.get_summary_after(start_date)
+#     days = 30
+#     start_date = (datetime.now() - timedelta(days=int(days))).date()
+#     result = access_data.get_summary_after(start_date)
     
-    data_30_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
-    return access_data.get_description(data_7_clean, data_30_clean)
+#     data_30_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
+#     return access_data.get_description(data_7_clean, data_30_clean)
 
 
 
@@ -132,7 +132,15 @@ def get_results():
 
 @app.route('/get_summary', methods=['GET', 'POST'])
 def get_summary():
-    table = access_data.fetch_all_data()
+    username = auth.authenticate()
+    return render_template('summary.html', username=username)
+
+
+@app.route('/get_summary_table', methods=['GET', 'POST'])
+def get_summary_table():
+    page = request.args.get('page', 1, type=int)
+    limit = 10 * page
+    table = access_data.fetch_page_data(limit)
 
     meals = []
     for row in table:
@@ -145,7 +153,9 @@ def get_summary():
         }
         meals.append(meal_dict)
     username = auth.authenticate()
-    return render_template('summary.html', meals=meals, username=username)
+    return meals
+
+
 
 if __name__ == "__main__":
     app.run()
