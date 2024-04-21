@@ -136,20 +136,21 @@
             tableBody.innerHTML = '';
             data.forEach(row => {
                 const tr = document.createElement('tr');
-                const date = new Date(row.created_at);
+                // const date = new Date(row.created_at);
 
-                // Create formatted date and year strings
-                const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
-                const formattedYear = date.getFullYear();
+                // // Create formatted date and year strings
+                // const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+                // const formattedYear = date.getFullYear();
 
-                tr.innerHTML = `<td class="created_at_year">${formattedYear}</td>
-                                <td class="created_at_date">${formattedDate}</td>
+                tr.innerHTML = `<td class="created_at_year">${row.created_at}</td>
+                                <td class="created_at_date">${row.created_at}</td>
                                 <td>${row.calories}</td>
                                 <td>${row.fat}</td>
                                 <td>${row.protein}</td>
                                 <td>${row.carbs}</td>`;
                 tableBody.appendChild(tr);
             });
+            formatDates()
             if (data.length < entriesPerPage * currentPage) {
                 const showMoreButton = document.getElementById('show-more-button');
                 if (showMoreButton) {
@@ -161,6 +162,24 @@
         })
         .catch(error => console.error('Error loading more data:', error));
 
+    }
+
+    function formatDates(){
+        document.querySelectorAll('.created_at_year').forEach(function(node) {
+            const dateParts = node.textContent.trim().split('-');
+            const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+            node.textContent = newDate.getFullYear();
+        });
+
+        document.querySelectorAll('.created_at_date').forEach(function(node) {
+            const dateParts = node.textContent.trim().split('-');
+            // Js months are 0 - 11
+            const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+            node.textContent = newDate.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric'
+            });
+        });
     }
     </script>
 </html>

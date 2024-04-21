@@ -137,7 +137,7 @@ def get_summary_table():
             'fat':row[3],
             'protein':row[4],
             'carbs':row[5],
-            'created_at':row[6]
+            'created_at':row[6].strftime('%Y-%m-%d')
         }
         meals.append(meal_dict)
     username = auth.authenticate()
