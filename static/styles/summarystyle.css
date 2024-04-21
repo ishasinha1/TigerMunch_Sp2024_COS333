@@ -15,15 +15,20 @@
     padding: 30px;
 }
 
-.chart-container {
-    width: 80vw;
-}
-
 @media screen and (max-width: 500px) {
     .position-charts {
         margin-top: 80px;
         padding: 0;
     }
 
+}
+
+.chart-container {
+    position: relative; /* Allows Chart.js to use absolute positioning for the canvas */
+    width: 95%;
+    /* width: 80vw; */
+    max-width: 1050px; 
+    /* height: auto; */
+    min-height: 550px;
 }
 

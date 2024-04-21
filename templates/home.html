@@ -68,21 +68,6 @@
             </div>
         </main>
         <script src="{{ url_for('static', filename='scripts/render_progress.js') }}"></script>      
-        <script>
-            $(document).ready(function(){
-                $("#showFeaturesBtn").click(function(){
-                    // Programmatically toggle the navbar dropdown
-                    var dropdownMenu = new bootstrap.Dropdown(document.getElementById('navbarDropdownMenuLink'));
-                    dropdownMenu.toggle();
-            
-                    // Show the modal
-                    var exampleModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
-                        keyboard: false,
-                        backdrop: 'static'
-                    });
-                    exampleModal.show();
-                });
-            });
-        </script>
+        <script src="{{ url_for('static', filename='scripts/set_up_features.js') }}"></script>
     </body>
 </html>

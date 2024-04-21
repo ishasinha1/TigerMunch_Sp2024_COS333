@@ -50,24 +50,6 @@ def get_nutrition():
         "carb_goal":user_data["carb_goal"]
     })
 
-# @app.route('/description', methods=['GET'])
-# def get_description():
-#     days = 7
-#     start_date = (datetime.now() - timedelta(days=int(days))).date()
-#     result = access_data.get_summary_after(start_date)
-    
-#     data_7_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
-
-#     days = 30
-#     start_date = (datetime.now() - timedelta(days=int(days))).date()
-#     result = access_data.get_summary_after(start_date)
-    
-#     data_30_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
-#     return access_data.get_description(data_7_clean, data_30_clean)
-
-
-
-
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     username = auth.authenticate()
@@ -100,11 +82,11 @@ def save_results():
 
 @app.route('/get_results', methods=['GET', 'POST'])
 def get_results():
+    username = auth.authenticate()
     try:
         if request.method == 'POST':
             photo = request.files.get('photo')
             description = request.form.get('description')
-            username = auth.authenticate()
             if photo and description:
                 print("running multi-modal")
                 calorie_estimate, fat_estimate, protein_estimate, \
@@ -118,24 +100,23 @@ def get_results():
                 calorie_estimate, fat_estimate, protein_estimate, \
                 carb_estimate = language_module.handle_description(description)
             else:
-                # return render_template('no_input.html', username=username)
                 return 'No input provided', 400 
 
             # time.sleep(5)
             
             # access_data.insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
             if not all(isinstance(x, int) for x in [calorie_estimate, fat_estimate, protein_estimate, carb_estimate]):
-                return render_template('error.html')
+                return render_template('error.html', username=username)
 
             if calorie_estimate == 0 and fat_estimate == 0 and protein_estimate == 0 and carb_estimate == 0:
-                return render_template('error.html')
+                return render_template('error.html', username=username)
             
             return render_template('display_output.html', \
                 calorie_estimate=calorie_estimate, fat_estimate=fat_estimate,\
                 protein_estimate=protein_estimate, carb_estimate=carb_estimate,\
                 username=username)
     except Exception as e:
-        return render_template('error.html')
+        return render_template('error.html', username=username)
 
 @app.route('/get_summary', methods=['GET', 'POST'])
 def get_summary():

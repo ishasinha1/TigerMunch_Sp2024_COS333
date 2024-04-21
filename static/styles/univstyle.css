@@ -29,7 +29,7 @@ nav {
 }
 
 .nav > li:hover{
-    background-color: black;
+    background-color: #212020;
 }
 
 .btn-success {
@@ -60,6 +60,7 @@ nav {
 
 .drop-right {
     margin-right: 0.125rem;
+    background-color: #424242;
 }
 
 .stick {
@@ -73,10 +74,11 @@ nav {
     color:white
 }
 
-.drop-right{
-    background-color: #424242;
-}
 .dropdown-item:hover{
     background-color: black;
     color:white
+}
+
+.active {
+    background-color: black;
 }
