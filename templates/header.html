@@ -19,13 +19,13 @@
 
           <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="nav navbar-nav" id="navTabs">
-              <li class="nav-item p-2">
+              <li class="nav-item p-2" id="team">
                 <a class="header-link" href="{{ url_for('team') }}">About</a>
               </li>
-              <li class="nav-item p-2">
+              <li class="nav-item p-2" id="get_summary">
                 <a class="header-link" href="{{ url_for('get_summary') }}">Trends</a>
               </li>
-              <li class="nav-item p-2">
+              <li class="nav-item p-2" id="contact_us">
                 <a class="header-link" href="{{ url_for('contact_us') }}">Contact Us</a>
               </li>
               <!-- Log out and Username -->
@@ -89,27 +89,6 @@
   </div>
   
   <script src="{{ url_for('static', filename='scripts/account_settings.js') }}"></script>
-  <script>
-  var navTabs = document.getElementById("navTabs");
-
-  var tabs = navTabs.getElementsByClassName("header-link");
-  for (var i = 0; i < navTabs.length; i++) {
-    item = navTabs[i];
-    console.log(item);
-    item.addEventListener("click", print());
-  }
-
-  // Loop through the buttons and add the active class to the current/clicked button
-  /* for (var i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", function() {
-      var current = document.getElementsByClassName("active");
-      current[0].className = current[0].className.replace(" active", "");
-      this.className += " active";
-    });
-  } */
-  function print() {
-    console.log('printed');
-  }
-  </script>
+  <script src="{{ url_for('static', filename='scripts/add_active.js') }}"></script>
   </header>
 </html>
