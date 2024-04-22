@@ -96,10 +96,10 @@ def get_user_data():
             table = cursor.fetchall()
 
     print("getting user data")
+    print('table', table[0][2])
+    print('table', table[0][3])
     if table:
         return {
-            'first_name': table[0][2],
-            'last_name': table[0][3],
             'calorie_goal': table[0][4],
             'fat_goal': table[0][5],
             'protein_goal': table[0][6],
@@ -107,8 +107,6 @@ def get_user_data():
         }
     else:
         return  {
-            'first_name': '',
-            'last_name': '',
             'calorie_goal': -1,
             'fat_goal': -1,
             'protein_goal': -1,
@@ -130,12 +128,12 @@ def insert_user_data(cal_goal, fat_goal, protein_goal, carb_goal):
             if existing_user:
                 # Update existing record
                 print('update')
-                cursor.execute("UPDATE user_data SET first_name = %s, last_name = %s, daily_calorie_goal = %s, daily_fat_goal = %s, daily_protein_goal = %s, daily_carb_goal = %s WHERE username = %s",
+                cursor.execute("UPDATE user_data SET daily_calorie_goal = %s, daily_fat_goal = %s, daily_protein_goal = %s, daily_carb_goal = %s WHERE username = %s",
                                (cal_goal, fat_goal, protein_goal, carb_goal, username))
             else:
                 # Insert new record
                 print('insert')
-                cursor.execute("INSERT INTO user_data (username, first_name, last_name, daily_calorie_goal, daily_fat_goal, daily_protein_goal, daily_carb_goal) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                cursor.execute("INSERT INTO user_data (username, daily_calorie_goal, daily_fat_goal, daily_protein_goal, daily_carb_goal) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                                (username, cal_goal, fat_goal, protein_goal, carb_goal))
                 
             connection.commit()
