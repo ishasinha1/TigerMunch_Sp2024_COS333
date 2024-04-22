@@ -141,34 +141,34 @@ def get_estimates(description, context=None):
 
     return calorie_estimate, fat_estimate, protein_estimate, carb_estimate
 
-def create_qualitative_description(data):
-    payload = {
-        "model" : "gpt-4-turbo-preview",
-        "seed": 0,
-        "messages": [
-            {
-            "role": "system", 
-            "content": system_message_content_text_for_description()
-            },
-            {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": str(data)},
-            ],
-            }
-        ],
-        "max_tokens": 300
-    }
-    response = handle_input(payload)
-    if response is None:
-        return "The API is not activated, so I cannot give you any details on trends"
-    response_json = response.json()
-    description_output = response_json["choices"][0]["message"]["content"]
-    # response = "Here are the trends that I see:"
-    # print(data)
-    # response = str(data)
-    print(description_output)
-    return str(description_output)
+# def create_qualitative_description(data):
+#     payload = {
+#         "model" : "gpt-4-turbo-preview",
+#         "seed": 0,
+#         "messages": [
+#             {
+#             "role": "system", 
+#             "content": system_message_content_text_for_description()
+#             },
+#             {
+#             "role": "user",
+#             "content": [
+#                 {"type": "text", "text": str(data)},
+#             ],
+#             }
+#         ],
+#         "max_tokens": 300
+#     }
+#     response = handle_input(payload)
+#     if response is None:
+#         return "The API is not activated, so I cannot give you any details on trends"
+#     response_json = response.json()
+#     description_output = response_json["choices"][0]["message"]["content"]
+#     # response = "Here are the trends that I see:"
+#     # print(data)
+#     # response = str(data)
+#     print(description_output)
+#     return str(description_output)
 
 
 
