@@ -174,17 +174,11 @@ def select():
 def insert():
     # username = auth.authenticate()
     if request.method == 'POST':
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
         cal_goal = request.form['cal_goal']
         fat_goal = request.form['fat_goal']
         protein_goal = request.form['protein_goal']
         carb_goal = request.form['carb_goal']
         account_info_dict = access_data.get_user_data()
-        if first_name is not None:
-            account_info_dict['first_name'] = first_name
-        if last_name is not None:
-            account_info_dict['last_name'] = last_name
         if cal_goal is not None:
             print("changed CALORIES!!")
             if cal_goal == '':
@@ -207,7 +201,7 @@ def insert():
             else:
                 account_info_dict['carb_goal'] = carb_goal 
         
-        access_data.insert_user_data(account_info_dict['first_name'], account_info_dict['last_name'], account_info_dict['calorie_goal'], account_info_dict['fat_goal'], account_info_dict['protein_goal'], account_info_dict['carb_goal'])
+        access_data.insert_user_data(account_info_dict['calorie_goal'], account_info_dict['fat_goal'], account_info_dict['protein_goal'], account_info_dict['carb_goal'])
         #converts to a JSON response object
         return jsonify({'status': 'success'})
     

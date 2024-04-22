@@ -13,7 +13,7 @@ try:
         testing_api = True
     else:
         testing_api = False
-except IndexError:
+except IndexError: 
     testing_api = False
 
 def strip_json(message_content):

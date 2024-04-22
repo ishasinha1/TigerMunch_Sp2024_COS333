@@ -15,8 +15,6 @@ DROP TABLE IF EXISTS user_data;
 CREATE TABLE user_data (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
     daily_calorie_goal DECIMAL,
     daily_fat_goal DECIMAL,
     daily_protein_goal DECIMAL,

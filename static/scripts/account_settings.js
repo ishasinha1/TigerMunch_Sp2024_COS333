@@ -5,8 +5,6 @@ $(document).ready(function(){
         url: "/select",
         method: "POST",
         success: function(data) {
-          $('#first_name').val(data.first_name || '');
-          $('#last_name').val(data.last_name || '');
           $('#cal_goal').val((data.calorie_goal >= 0 && data.calorie_goal <= 20000) ? data.calorie_goal : '');
           $('#fat_goal').val((data.fat_goal >= 0 && data.fat_goal <= 2000) ? data.fat_goal : '');
           $('#protein_goal').val((data.protein_goal >= 0 && data.protein_goal <= 2000) ? data.protein_goal : '');

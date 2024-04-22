@@ -117,7 +117,7 @@ def get_user_data():
 
 
 
-def insert_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal):
+def insert_user_data(cal_goal, fat_goal, protein_goal, carb_goal):
     username = auth.authenticate()
     print("inserting user data")
 
@@ -131,12 +131,12 @@ def insert_user_data(first_name, last_name, cal_goal, fat_goal, protein_goal, ca
                 # Update existing record
                 print('update')
                 cursor.execute("UPDATE user_data SET first_name = %s, last_name = %s, daily_calorie_goal = %s, daily_fat_goal = %s, daily_protein_goal = %s, daily_carb_goal = %s WHERE username = %s",
-                               (first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal, username))
+                               (cal_goal, fat_goal, protein_goal, carb_goal, username))
             else:
                 # Insert new record
                 print('insert')
                 cursor.execute("INSERT INTO user_data (username, first_name, last_name, daily_calorie_goal, daily_fat_goal, daily_protein_goal, daily_carb_goal) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                               (username, first_name, last_name, cal_goal, fat_goal, protein_goal, carb_goal))
+                               (username, cal_goal, fat_goal, protein_goal, carb_goal))
                 
             connection.commit()
 
