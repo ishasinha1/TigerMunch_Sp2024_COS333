@@ -84,9 +84,9 @@
                     <div class="pannel">
                         <p>
                             The photo doesn't have to be perfect, but clarity helps. A good rule of thumb is
-                             that if you can clearly see what’s in the image, then TigerMunch can 
-                             likely identify it too. Try to ensure the meal components are visible and 
-                             well-lit to get the best results from your photo submission.
+                            that if you can clearly see what’s in the image, then TigerMunch can 
+                            likely identify it too. Try to ensure the meal components are visible and 
+                            well-lit to get the best results from your photo submission.
  
                         </p>
                     </div>
@@ -98,15 +98,15 @@
                     </button>
                     <div class="pannel">
                         <p>
-                            No problem at all! We understand life gets busy. Just enter a detailed
-                             description of what you ate, and TigerMunch will still be able to provide 
-                             you with an estimate of the nutritional information.
+                        No problem at all! We understand life gets busy. Just enter a detailed
+                        description of what you ate, and TigerMunch will still be able to provide 
+                        you with an estimate of the nutritional information.
                         </p>
                     </div>
                 </div>
                 <div class="outer-box"> 
                     <button class="box">
-                        Can I upload a photo of the nutritional label on my food's packaging?
+                          Can I upload a photo of the nutritional label on my food's packaging?
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
                     <div class="pannel">
@@ -131,7 +131,7 @@
                             strive for accuracy, please note that our results are estimates based on 
                             the information provided. We recommend that users with specific dietary needs 
                             requiring precise nutritional data consult a professional, as our service might
-                             not meet such precise requirements.
+                            not meet such precise requirements.
                         </p>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                     </button>
                     <div class="pannel">
                         <p>
-                            We’re sorry to hear that! If the nutritional information doesn't seem
+                             We’re sorry to hear that! If the nutritional information doesn't seem
                              right, you can edit the details before adding them to your account. 
                              This allows you to adjust any estimates to better fit your understanding. 
                              Alternatively, you can choose not to submit the entry and instead re-enter 
@@ -159,8 +159,8 @@
                     </button>
                     <div class="pannel">
                         <p>
-                            You can find all your previous nutritional data on the 'Trends' page of TigerMunch. 
-                            This section features graphs and tables that make it easy to review and analyze your
+                             You can find all your previous nutritional data on the 'Trends' page of TigerMunch. 
+                             This section features graphs and tables that make it easy to review and analyze your
                              past daily totals and their nutritional values.                            
                         </p>
                     </div>
@@ -168,26 +168,8 @@
                 
             </div>
             </div>
-            <!-- </div> -->
         </main>
-        <script>
-            var buttonclick = document.getElementsByClassName("box");
-            var i;
-      
-            for (i = 0; i < buttonclick.length; i++) {
-              buttonclick[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                this.parentElement.classList.toggle("active");
-      
-                var pannel = this.nextElementSibling;
-      
-                if (pannel.style.display === "block") {
-                  pannel.style.display = "none";
-                } else {
-                  pannel.style.display = "block";
-                }
-              });
-            }
-          </script>
+        <script src="{{ url_for('static', filename='scripts/faq.js')}}"></script>
+
     </body>
 </html>
