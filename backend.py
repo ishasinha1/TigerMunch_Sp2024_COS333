@@ -258,3 +258,12 @@ def team():
         return render_template('team.html', username = None, login_url = login_url)     
     username = auth.authenticate()
     return render_template('team.html', username = username)
+
+@app.route('/faqs', methods=['GET', 'POST'])
+def faqs():
+    if auth.signin() is None:
+        login_url = (_CAS_URL + 'login?service=' +
+          urllib.parse.quote(flask.request.url))
+        return render_template('faqs.html', username = None, login_url = login_url)     
+    username = auth.authenticate()
+    return render_template('faqs.html', username = username)

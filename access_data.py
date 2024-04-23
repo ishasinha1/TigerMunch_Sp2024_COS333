@@ -133,8 +133,8 @@ def insert_user_data(cal_goal, fat_goal, protein_goal, carb_goal):
             else:
                 # Insert new record
                 print('insert')
-                cursor.execute("INSERT INTO user_data (username, daily_calorie_goal, daily_fat_goal, daily_protein_goal, daily_carb_goal) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                               (username, cal_goal, fat_goal, protein_goal, carb_goal))
+                cursor.execute("INSERT INTO user_data (username, first_name, last_name, daily_calorie_goal, daily_fat_goal, daily_protein_goal, daily_carb_goal) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                               (username,'', '', cal_goal, fat_goal, protein_goal, carb_goal))
                 
             connection.commit()
 
