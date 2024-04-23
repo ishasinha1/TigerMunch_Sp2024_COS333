@@ -16,6 +16,8 @@ try:
 except IndexError: 
     testing_api = False
 
+generateDescriptions = True
+
 def strip_json(message_content):
     content_string = message_content["choices"][0]["message"]["content"]
     json_string = content_string.strip("```\njson")
@@ -60,8 +62,8 @@ def system_message_content_for_vision():
 def system_message_content_text_for_json():
     return "Given a detailed description of a meal, generate a JSON-formatted response estimating the meal's nutritional content. Please include the total calorie count, as well as the amounts of fat, protein, and carbohydrates, in grams. Structure your response with the following fields: 'calories' for the total calorie estimate, 'fat' for the fat content, 'protein' for the protein content, and 'carbs' for the carbohydrate content. Ensure your estimates are based on the provided meal description. You MUST provide only a single value for each field. You may NOT provide a range of values for any of the fields. Round to the nearest whole number"
 
-# def system_message_content_text_for_description():
-#     return "You will be provided with some data about a user's caloric intake, their fat intake, their protein intake, and their carb intake. Your job is to generate a qualitative description of the trends that you see in the data as a message to the user. You should write your description in second person, where you refer to the user as 'you'. The data will be in the form of a python dictionary. The first entry in the dictionary is a list of the users 7 day data. It is in the form of their daily calorie total, followed by their daily fat total in grams, followed by their daily protein total in grams, followed by their daily carb total in grams. You should generate a pargraph describing any trends you see. The second entry in the dictionary is their data over the past 30 days. You should then generate a paragraph describing any trends you see over the past 30 days."
+def system_message_content_text_for_description():
+    return "You will be provided with some data about a user's caloric intake, their fat intake, their protein intake, and their carb intake. Your job is to generate a qualitative description of the trends that you see in the data as a message to the user. You should write your description in second person, where you refer to the user as 'you'. The data will be in the form of a python dictionary. The first entry in the dictionary is a list of the users 7 day data. It is in the form of their daily calorie total, followed by their daily fat total in grams, followed by their daily protein total in grams, followed by their daily carb total in grams. You should generate a pargraph describing any trends you see. The second entry in the dictionary is their data over the past 30 days. You should then generate a paragraph describing any trends you see over the past 30 days."
 
 def user_message_content_text(description, context=None):
     text = f"Please provide a rough estimate of the number of calories in this meal, the grams of of fat in the meal, the grams of protein in the meal, and the grams of carbs in the meal. The answer need not be correct, only a best guess based on the information you have. Here's a description of the meal: {description}"
@@ -141,34 +143,37 @@ def get_estimates(description, context=None):
 
     return calorie_estimate, fat_estimate, protein_estimate, carb_estimate
 
-# def create_qualitative_description(data):
-#     payload = {
-#         "model" : "gpt-4-turbo-preview",
-#         "seed": 0,
-#         "messages": [
-#             {
-#             "role": "system", 
-#             "content": system_message_content_text_for_description()
-#             },
-#             {
-#             "role": "user",
-#             "content": [
-#                 {"type": "text", "text": str(data)},
-#             ],
-#             }
-#         ],
-#         "max_tokens": 300
-#     }
-#     response = handle_input(payload)
-#     if response is None:
-#         return "The API is not activated, so I cannot give you any details on trends"
-#     response_json = response.json()
-#     description_output = response_json["choices"][0]["message"]["content"]
-#     # response = "Here are the trends that I see:"
-#     # print(data)
-#     # response = str(data)
-#     print(description_output)
-#     return str(description_output)
+def create_qualitative_description(data):
+    payload = {
+        "model" : "gpt-4-turbo-preview",
+        "messages": [
+            {
+            "role": "system", 
+            "content": system_message_content_text_for_description()
+            },
+            {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": str(data)},
+            ],
+            }
+        ],
+        "max_tokens": 400
+    }
+    if generateDescriptions:
+        response = handle_input(payload)
+    else:
+        response = "The API is not activated, so I cannot give you any details on trends"
+        return response
+    if response is None:
+        return 
+    response_json = response.json()
+    description_output = response_json["choices"][0]["message"]["content"]
+    # response = "Here are the trends that I see:"
+    # print(data)
+    # response = str(data)
+    # print(description_output)
+    return str(description_output)
 
 
 

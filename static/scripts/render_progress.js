@@ -90,4 +90,9 @@ async function render_chart() {
     }
 }
 
+async function render_description() {
+    await fetch('/description');
+}
+
 document.addEventListener('DOMContentLoaded', render_chart);
+document.addEventListener('DOMContentLoaded', render_description);
