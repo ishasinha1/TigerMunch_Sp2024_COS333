@@ -30,6 +30,17 @@
         </div>
       </div>
     </div>
+    <div class = formpreview>
+    <div class="modal" id="imagePre" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+          <div class="modal-body rounded-0">
+              <img id="photo-preview" src="" alt="Photo preview" class = photo-preview> 
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
     <main id="content">
       <form method="post" action="{{ url_for('get_results') }}" enctype="multipart/form-data" class="pt-5 mt-5 center-content-pg" id="submitForm">
         <div class="flex-input">
@@ -39,6 +50,7 @@
               <label for="photo" class="form-label upload-btn fs-4">Choose file</label>
               <input type="file" name="photo" id="photo" class="form-control" accept="image/jpg, image/jpeg, image/HEIC, image/png" hidden/>
               <span id="file-chosen" class="fs-6">No file chosen</span>
+              <label for="preview" id="preview" class="form-label preview fs-4">Image Preview</label>
             </div>
           </div>
           <div class="m-3 p-3 form-elem">
@@ -53,6 +65,16 @@
         </div>
       </form>
     </main>
+ 
+    <div class="modal fade" id="image_preview" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Error: No Input Provided!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+    <script src="{{ url_for('static', filename='scripts/preview_image.js')}}"></script>
     <script src="{{ url_for('static', filename='scripts/file_upload.js')}}"></script>
     <script src="{{ url_for('static', filename='scripts/loading.js')}}"></script>
     <script src="{{ url_for('static', filename='scripts/no_input_form.js')}}"></script>

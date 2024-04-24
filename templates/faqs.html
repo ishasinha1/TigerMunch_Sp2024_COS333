@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            FAQ
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/univstyle.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/faqs.css') }}">
+
+    </head>
+    <body>
+        {% if username is none %}
+             {% include 'header_loggedout.html' %}
+         {% else %}
+             {% include 'header.html' %}
+         {% endif %}
+        <main>
+            <div class="center-content-pg mt-5 pt-5">
+            <div class="wrapper">
+                <h1 class="mt-4">Frequently Asked Questions</h1>
+            
+                <div class="outer-box"> 
+                    <button class="box">
+                        How do I enter meal information?
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                            With TigerMunch, you can easily add your meal details to find out its 
+                            nutritional information. Just upload a photo of your meal and/or type in 
+                            a description of what you're eating.
+
+                        </p>
+                    </div>
+                </div>
+                <div class="outer-box"> 
+                    <button class="box">
+                        Can I submit both a photo and a description of my meal?
+
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                            Absolutely! We recommend adding both a photo and a description because 
+                            it gives us more details to work with, which helps in providing more accurate 
+                            nutritional information. However, if you prefer, you can submit just one or 
+                            the other—TigerMunch will still help you keep track of your nutrition!
+                        </p>
+                    </div>
+                </div>
+                <div class="outer-box"> 
+                    <button class="box">
+                        What is the best way to enter meal data?
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                            The more details you provide, the better! Our application uses advanced technology 
+                            to analyze your meal information. A detailed description helps TigerMunch give 
+                            you the most accurate nutritional details. So, feel free to include information 
+                            like portion sizes, ingredients, and how your meal was prepared.
+                            <br>
+                            Example:
+                            <br>
+                            Instead of simply saying: “I ate a chicken bowl from Chipotle,”
+                            You could include more details like: “I ate a chicken bowl from Chipotle with 
+                            white rice, black beans, extra fajita veggies, chicken, cheese, and tomatoes.”
+                        </p>
+                    </div>
+                </div>
+                <div class="outer-box"> 
+                    <button class="box">
+                        How good does the photo of my meal need to be?
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                            The photo doesn't have to be perfect, but clarity helps. A good rule of thumb is
+                            that if you can clearly see what’s in the image, then TigerMunch can 
+                            likely identify it too. Try to ensure the meal components are visible and 
+                            well-lit to get the best results from your photo submission.
+ 
+                        </p>
+                    </div>
+                </div>
+                <div class="outer-box"> 
+                    <button class="box">
+                        What if I forgot to take a photo of my meal?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                        No problem at all! We understand life gets busy. Just enter a detailed
+                        description of what you ate, and TigerMunch will still be able to provide 
+                        you with an estimate of the nutritional information.
+                        </p>
+                    </div>
+                </div>
+                <div class="outer-box"> 
+                    <button class="box">
+                          Can I upload a photo of the nutritional label on my food's packaging?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                            Yes, you can! If you also specify how many servings you consumed in the 
+                            description, TigerMunch will calculate the total nutritional intake for you. 
+                            This makes tracking your nutrition even easier!
+                        </p>
+
+                    </div>
+
+                </div>
+                <div class="outer-box"> 
+                    <button class="box">
+                        How accurate are the nutritional estimates?
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                            TigerMunch uses the GPT-4 API to provide nutritional estimates. While we 
+                            strive for accuracy, please note that our results are estimates based on 
+                            the information provided. We recommend that users with specific dietary needs 
+                            requiring precise nutritional data consult a professional, as our service might
+                            not meet such precise requirements.
+                        </p>
+                    </div>
+                </div>
+                <div class="outer-box"> 
+                    <button class="box">
+                        What should I do if I disagree with the nutritional information provided?
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                             We’re sorry to hear that! If the nutritional information doesn't seem
+                             right, you can edit the details before adding them to your account. 
+                             This allows you to adjust any estimates to better fit your understanding. 
+                             Alternatively, you can choose not to submit the entry and instead re-enter 
+                             the meal with more detail, which might yield a different result.                            
+                        </p>
+                    </div>
+                </div>
+                <div class="outer-box"> 
+                    <button class="box">
+                        Where can I view my past nutritional information?
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="pannel">
+                        <p>
+                             You can find all your previous nutritional data on the <a href="{{ url_for('get_summary') }}">Trends</a>   page of TigerMunch. 
+                             This section features graphs and tables that make it easy to review and analyze your
+                             past daily totals and their nutritional values.                            
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+            </div>
+        </main>
+        <script src="{{ url_for('static', filename='scripts/faq.js')}}"></script>
+
+
+    </body>
+</html>
