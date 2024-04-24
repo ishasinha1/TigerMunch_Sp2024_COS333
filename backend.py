@@ -12,11 +12,13 @@ from flask import jsonify
 import flask 
 import urllib.parse
 import time
+import requests
 import request_handler
 
 app = Flask(__name__)
 
 app.secret_key = os.environ['APP_SECRET_KEY']
+
 _CAS_URL = 'https://fed.princeton.edu/cas/'
 
 # Routes for authentication
@@ -237,9 +239,13 @@ def contact_us():
         email = data['email']
         message = data['message']
 
-        # Now, save this data to a feedback.txt file or handle as needed
-        with open('feedback.txt', 'a') as file:
-            file.write(f"Name: {name}, Email: {email}, Message: {message}\n")
+        if not name.strip():
+            name = "anonymous"
+
+        # with open('feedback.txt', 'a') as file:
+        #     file.write(f"Name: {name}, Email: {email}, Message: {message}\n")
+
+        send_mail_via_postmark("User Feedback Received",f"Feedback from {name} {email}: {message}")
 
         # Respond with a success message
         return jsonify({'message': 'Feedback received successfully!'})
@@ -267,3 +273,25 @@ def faqs():
         return render_template('faqs.html', username = None, login_url = login_url)     
     username = auth.authenticate()
     return render_template('faqs.html', username = username)
+
+def send_mail_via_postmark(title, description):
+    api_key = os.getenv('POSTMARK_API_KEY')
+    # print('API Key:', api_key)
+    sender_email = 'ah4068@princeton.edu'  
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Postmark-Server-Token': api_key
+    }
+    data = {
+        "From": sender_email,
+        "To":  sender_email,
+        "Subject": title ,
+        "HtmlBody": f"<html><body><h1>{title}</h1><p>{description}</p></body></html>"
+    }
+    # print("sending an emaillll")
+    response = requests.post("https://api.postmarkapp.com/email", headers=headers, json=data)
+    # print(response.text)
+    return response.text
+  
+
