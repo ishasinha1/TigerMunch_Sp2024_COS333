@@ -236,9 +236,11 @@ def contact_us():
         name = data['name']
         email = data['email']
         message = data['message']
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        filePath = os.path.join(base_dir, 'feedback.txt')
 
         # Now, save this data to a feedback.txt file or handle as needed
-        with open('feedback.txt', 'a') as file:
+        with open(filePath, 'a') as file:
             file.write(f"Name: {name}, Email: {email}, Message: {message}\n")
 
         # Respond with a success message
