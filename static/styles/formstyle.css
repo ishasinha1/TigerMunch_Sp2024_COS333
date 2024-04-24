@@ -13,9 +13,31 @@
 
 .photo-preview{
     display:none; 
-    height: 200px;
-    width: 200px; 
-    /*height: auto; */
+    /* height: auto;
+    width: auto; */
+
+}
+.formpreview .modal-content{
+  background-color: transparent;
+  border: 0px !important;
+ 
+}
+
+.formpreview .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
+    padding: 15px; 
+    height: 100%; 
+}
+.preview{
+    display:none; 
+    background-color: #276955;
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 10px;
 }
 .form-elem {
     background-color: #69A593;
