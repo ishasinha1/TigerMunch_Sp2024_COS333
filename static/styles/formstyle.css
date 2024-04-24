@@ -13,10 +13,14 @@
 
 .photo-preview{
     display:none; 
-    /* height: auto;
-    width: auto; */
-
+    /* height:271px;
+    max-height: 336px; 
+    max-width:336px; 
+    width: 263px; */
+    max-width: 100%;
+    max-height: 100%;
 }
+
 .formpreview .modal-content{
   background-color: transparent;
   border: 0px !important;

@@ -34,10 +34,6 @@
     <div class="modal" id="imagePre" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content rounded-0">
-          <!-- <div class="modal-header">
-            <h5 class="modal-title">Image Preview!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div> -->
           <div class="modal-body rounded-0">
               <img id="photo-preview" src="" alt="Photo preview" class = photo-preview> 
             </div>
@@ -54,9 +50,7 @@
               <label for="photo" class="form-label upload-btn fs-4">Choose file</label>
               <input type="file" name="photo" id="photo" class="form-control" accept="image/jpg, image/jpeg, image/HEIC, image/png" hidden/>
               <span id="file-chosen" class="fs-6">No file chosen</span>
-              <!-- <img id="photo-preview" src="" alt="Photo preview" class = photo-preview> -->
               <label for="preview" id="preview" class="form-label preview fs-4">Image Preview</label>
-              <!-- <button class="preview" id="preview"> Image Preview </button> -->
             </div>
           </div>
           <div class="m-3 p-3 form-elem">
@@ -80,28 +74,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <script>
-            document.addEventListener("DOMContentLoaded", function () {
-              var previewButton = document.getElementById("preview");
-              var fileInput = document.getElementById("photo");
-              var photoPreview = document.getElementById("photo-preview");
-          
-              previewButton.addEventListener("click", function (event) {
-                event.preventDefault(); // Prevent any default button click behavior
-                if (fileInput.files && fileInput.files[0]) {
-                  var reader = new FileReader();
-                  reader.onload = function(e) {
-                    photoPreview.src = e.target.result;
-                    photoPreview.style.display = 'block';
-                    $('#imagePre').modal('show'); // Use the correct modal ID
-                  };
-                  reader.readAsDataURL(fileInput.files[0]);
-                } else {
-                  console.log('No preview selected');
-                }
-              });
-            });
-          </script>
+    <script src="{{ url_for('static', filename='scripts/preview_image.js')}}"></script>
     <script src="{{ url_for('static', filename='scripts/file_upload.js')}}"></script>
     <script src="{{ url_for('static', filename='scripts/loading.js')}}"></script>
     <script src="{{ url_for('static', filename='scripts/no_input_form.js')}}"></script>
