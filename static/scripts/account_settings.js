@@ -18,32 +18,32 @@ $(document).ready(function(){
     event.preventDefault(); 
   
     let isValid = true; 
-    if ($('#cal_goal').val() < 0) {
-      alert("Calorie goal should be positive");
+    if ($('#cal_goal').val() <= 0) {
+      alert("Calorie goal should be greater than 0");
       isValid = false;
     }
     if ($('#cal_goal').val() > 20000) {
       alert("Calorie goal should be less than 20,000");
       isValid = false;
     }
-    if ($('#fat_goal').val() < 0) {
-      alert("Fat goal should be positive");
+    if ($('#fat_goal').val() <= 0) {
+      alert("Fat goal should be greater than 0");
       isValid = false;
     }
     if ($('#fat_goal').val() > 2000) {
       alert("Fat goal should be less than 2,000");
       isValid = false;
     }
-    if ($('#protein_goal').val() < 0) {
-      alert("Protein goal should be positive");
+    if ($('#protein_goal').val() <= 0) {
+      alert("Protein goal should be greater than 0");
       isValid = false;
     }
     if ($('#protein_goal').val() > 2000) {
       alert("Protein goal should be less than 2,000");
       isValid = false;
     }
-    if ($('#carb_goal').val() < 0) {
-      alert("Carb goal should be positive");
+    if ($('#carb_goal').val() <= 0) {
+      alert("Carb goal should be greater than 0");
       isValid = false;
     }
     if ($('#carb_goal').val() > 2000) {
