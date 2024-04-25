@@ -6,14 +6,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   previewButton.addEventListener("click", function (event) {
     event.preventDefault();
+    
     if (fileInput.files && fileInput.files[0]) {
+      console.log("let's see", fileInput.files[0])
+
       var reader = new FileReader();
+      console.log('preview function')
       reader.onload = function(e) {
         photoPreview.src = e.target.result;
         photoPreview.style.display = 'block';
         $('#imagePre').modal('show'); 
       };
       reader.readAsDataURL(fileInput.files[0]);
+    
     } else {
       console.log('No preview selected');
     }
