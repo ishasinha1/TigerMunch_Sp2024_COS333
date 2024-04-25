@@ -301,7 +301,7 @@ def send_mail_via_postmark(subject, name, email, message):
     }
     data = {
         "From": sender_email,
-        "To":  "is4684@princeton.edu",
+        "To":  sender_email,
         "Subject": subject,
         "HtmlBody": f"<html><body><p><strong>Name</strong>: {name}</p><p><strong>Email</strong>: {email}</p><p><strong>Feedback</strong>: {message}</p></body></html>"
     }
