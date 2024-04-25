@@ -36,12 +36,13 @@
     height: 100%; 
 }
 .preview{
-    display:none; 
-    background-color: #276955;
+    display: none; 
     color: white;
-    padding: 8px 12px;
     cursor: pointer;
-    border-radius: 10px;
+}
+
+.preview:hover {
+    text-decoration: underline;
 }
 .form-elem {
     background-color: #69A593;

@@ -45,7 +45,7 @@ directory:
 macOS
 1. ```export APP_SECRET_KEY=33333``` (random secret key for ease copy-pasting)
 2. ```export DATABASE_URL='postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database'```
-3. ```export POSTMARK_API_KEY='ae2f1172-778b-4577-bc2a-7b5f56ab2958```
+3. ```export POSTMARK_API_KEY='ae2f1172-778b-4577-bc2a-7b5f56ab2958'```
 4. ```python runserver.py [port] (optional)[True] ```
 (if you wish to test with API requests, set the optinal command line argument to True, otherwise, do nothing)
 
