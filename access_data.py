@@ -47,11 +47,11 @@ def fetch_page_data(limit):
             cursor.execute("SELECT * FROM user_inputs WHERE username = %s ORDER BY created_at DESC LIMIT %s", (username, limit))
             return cursor.fetchall()
 
-def get_summary_after(start_date):
+def get_summary_after(start_date, end_date):
     username = auth.authenticate()
     with psycopg2.connect(_DATABASE_URL) as connection:
         with connection.cursor() as cursor:
-            cursor.execute("SELECT created_at, calories, fat, protein, carbs FROM user_inputs WHERE username = %s AND created_at >= %s ORDER BY created_at ASC", (username, start_date))
+            cursor.execute("SELECT created_at, calories, fat, protein, carbs FROM user_inputs WHERE username = %s AND created_at >= %s AND created_at <= %s ORDER BY created_at ASC", (username, start_date, end_date))
             return cursor.fetchall()
 
 # def get_summary_all():

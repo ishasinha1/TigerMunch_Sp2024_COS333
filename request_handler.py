@@ -16,7 +16,7 @@ try:
 except IndexError: 
     testing_api = False
 
-generateDescriptions = True
+generateDescriptions = False
 
 def strip_json(message_content):
     content_string = message_content["choices"][0]["message"]["content"]

@@ -57,13 +57,13 @@ def get_nutrition():
 def get_description():
     days = 7
     start_date = (datetime.now() - timedelta(days=int(days))).date()
-    result = access_data.get_summary_after(start_date)
+    result = access_data.get_summary_after(start_date, datetime.now())
     
     data_7_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
 
     days = 30
     start_date = (datetime.now() - timedelta(days=int(days))).date()
-    result = access_data.get_summary_after(start_date)
+    result = access_data.get_summary_after(start_date, datetime.now())
     
     data_30_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
     data = {
@@ -199,7 +199,7 @@ if __name__ == "__main__":
 def get_summary_values():
     days = request.args.get('days', default=7)
     start_date = (datetime.now() - timedelta(days=int(days))).date()
-    result = access_data.get_summary_after(start_date)
+    result = access_data.get_summary_after(start_date, datetime.now())
     
     data = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
     return jsonify(data)
