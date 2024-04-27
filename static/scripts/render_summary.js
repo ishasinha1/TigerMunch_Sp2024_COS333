@@ -93,7 +93,7 @@ function getSelectedDatasets(data) {
             label: 'Calories',
             backgroundColor: '#69A593',
             borderColor: '#69A593',
-            borderWidth: 10,
+            borderWidth: 5,
             data: data.map(entry => entry.calories),
         });
     } else{
@@ -103,7 +103,7 @@ function getSelectedDatasets(data) {
                 data: data.map(entry => entry.fat),
                 backgroundColor: '#FFCE56', 
                 borderColor: '#FFCE56',
-                borderWidth: 5,
+                borderWidth: 2,
             });
         }
     
@@ -113,7 +113,7 @@ function getSelectedDatasets(data) {
                 data: data.map(entry => entry.protein),
                 backgroundColor: '#FF0000', 
                 borderColor: '#FF0000',
-                borderWidth: 5,
+                borderWidth: 2,
             });
         }
     
@@ -123,7 +123,7 @@ function getSelectedDatasets(data) {
                 data: data.map(entry => entry.carbs),
                 backgroundColor: '#00FF00', 
                 borderColor: '#00FF00',
-                borderWidth: 5,
+                borderWidth: 2,
             });
         }
     }
