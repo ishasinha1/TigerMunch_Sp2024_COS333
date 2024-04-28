@@ -53,18 +53,19 @@
                 </div>
                 <div class="m-5">
                     <div class="container">
-                            <a class="animated-arrow">
-                              <span class="the-arrow -left">
+                        <a class="animated-arrow">
+                            <span class="the-arrow -left">
+                            <span class="shaft"></span>
+                            </span>
+                            <span class="main">
+                            <span class="text" id="showFeaturesBtn" style="display: none;"> <h3>No daily goals? Set them up now ></h3></span>
+                            <span class="the-arrow -right">
                                 <span class="shaft"></span>
-                              </span>
-                              <span class="main">
-                                <span class="text" id="showFeaturesBtn" style="display: none;"> <h3>No daily goals? Set them up now ></h3></span>
-                                <span class="the-arrow -right">
-                                  <span class="shaft"></span>
-                                </span>
-                              </span>
-                            </a>
-                      </div>    
+                            </span>
+                            </span>
+                        </a>
+                    </div>    
+                </div>
             </div>
         </main>
         <script src="{{ url_for('static', filename='scripts/render_progress.js') }}"></script>      
