@@ -43,47 +43,46 @@
               </li>
             </ul>
           </div>
-          
         </div>
       </nav>
 
 
-  <!-- Modal for Account -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Account Settings</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="insert_form">
-            <div class="form-group">
-              <label for="cal_goal" class="col-form-label">Daily Calorie Goal:</label>
-              <input type="number" class="form-control" id="cal_goal" name="cal_goal">
-            </div>
-            <div class="form-group">
-              <label for="fat_goal" class="col-form-label">Daily Fat Goal (g):</label>
-              <input type="number" class="form-control" id="fat_goal" name="fat_goal">
-            </div>
-            <div class="form-group">
-              <label for="protein_goal" class="col-form-label">Daily Protein Goal (g):</label>
-              <input type="number" class="form-control" id="protein_goal" name="protein_goal">
-            </div>
-            <div class="form-group">
-              <label for="carb_goal" class="col-form-label">Daily Carb Goal (g):</label>
-              <input type="number" class="form-control" id="carb_goal" name="carb_goal">
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Update</button>
-            </div>
-          </form>
+    <!-- Modal for Account -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Account Settings</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="insert_form">
+              <div class="form-group">
+                <label for="cal_goal" class="col-form-label">Daily Calorie Goal:</label>
+                <input type="number" class="form-control" id="cal_goal" name="cal_goal">
+              </div>
+              <div class="form-group">
+                <label for="fat_goal" class="col-form-label">Daily Fat Goal (g):</label>
+                <input type="number" class="form-control" id="fat_goal" name="fat_goal">
+              </div>
+              <div class="form-group">
+                <label for="protein_goal" class="col-form-label">Daily Protein Goal (g):</label>
+                <input type="number" class="form-control" id="protein_goal" name="protein_goal">
+              </div>
+              <div class="form-group">
+                <label for="carb_goal" class="col-form-label">Daily Carb Goal (g):</label>
+                <input type="number" class="form-control" id="carb_goal" name="carb_goal">
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Update</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   
-  <script src="{{ url_for('static', filename='scripts/account_settings.js') }}"></script>
-  <script src="{{ url_for('static', filename='scripts/add_active.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/account_settings.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/add_active.js') }}"></script>
   </header>
 </html>

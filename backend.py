@@ -78,7 +78,6 @@ def get_description():
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     username = auth.authenticate()
-
     return render_template('home.html', username=username)
 
 @app.route('/upload_data', methods=['GET', 'POST'])
@@ -190,11 +189,6 @@ def get_summary_table():
     username = auth.authenticate()
     return meals
 
-
-
-if __name__ == "__main__":
-    app.run()
-
 @app.route('/get_summary_values', methods=['GET'])
 def get_summary_values():
     days = request.args.get('days', default=7)
@@ -203,7 +197,6 @@ def get_summary_values():
     
     data = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
     return jsonify(data)
-
 
 @app.route('/select', methods=['GET', 'POST'])
 def select():
@@ -292,7 +285,6 @@ def faqs():
 
 def send_mail_via_postmark(subject, name, email, message):
     api_key = os.getenv('POSTMARK_API_KEY')
-    # print('API Key:', api_key)
     sender_email = 'ah4068@princeton.edu'  
     headers = {
         'Accept': 'application/json',
@@ -307,5 +299,7 @@ def send_mail_via_postmark(subject, name, email, message):
     }
     response = requests.post("https://api.postmarkapp.com/email", headers=headers, json=data)
     return response.text
-  
+
+if __name__ == "__main__":
+    app.run()
 

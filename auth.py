@@ -50,7 +50,9 @@ def validate(ticket):
     return second_line
 
 #-----------------------------------------------------------------------
-
+# Added: it checks if the user is logged in. If not it returns None 
+# instead of redirecting to the cas log in page. This allows us to 
+# to know when to show our logged_in vs logged_out content
 def signin():
 
     # If the username is in the session, then the user was
