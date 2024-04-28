@@ -9,16 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
 
-        // const formData = new FormData(contactForm);
         const formData = {
             name: name,
             email: email,
             message: message,
         };
 
-        // change to render later
         const apiEndpoint =  "/contact_us";
         
+        // send the feedback to the back-end
         fetch(apiEndpoint, {
             method: "POST",
             headers: {
@@ -27,26 +26,28 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(formData)
         })
-            .then(response => response.json())
-            .then(data => {
-                responseMessage.innerHTML = `<p>${data.message}</p>`;
-                responseMessage.classList.add("success", "show"); 
+        // if response is successful, show a success message for a few seconds 
+        .then(response => response.json())
+        .then(data => {
+            responseMessage.innerHTML = `<p>${data.message}</p>`;
+            responseMessage.classList.add("success", "show"); 
 
-                setTimeout(() => {
-                    contactForm.reset();
-                    responseMessage.innerHTML = "";
-                    responseMessage.classList.remove("success", "show");
-                }, 2000);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                responseMessage.innerHTML = `<p>Error submitting the form. Please try again later.</p>`;
-                responseMessage.classList.add("error", "show"); 
+            setTimeout(() => {
+                contactForm.reset();
+                responseMessage.innerHTML = "";
+                responseMessage.classList.remove("success", "show");
+            }, 2000);
+        })
+        // if the response is not successful, show a failed message for a few seconds
+        .catch(error => {
+            console.error("Error:", error);
+            responseMessage.innerHTML = `<p>Error submitting the form. Please try again later.</p>`;
+            responseMessage.classList.add("error", "show"); 
 
-                setTimeout(() => {
-                    responseMessage.innerHTML = "";
-                    responseMessage.classList.remove("error", "show");
-                }, 3000);
-            });
+            setTimeout(() => {
+                responseMessage.innerHTML = "";
+                responseMessage.classList.remove("error", "show");
+            }, 3000);
+        });
     });
 });

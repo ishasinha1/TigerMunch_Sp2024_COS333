@@ -1,59 +1,59 @@
 .chart-display {
-    display: flex;
-    flex-direction: row;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
 }
 
 .chart-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 15vw; /* or whatever size you want */
-    height: 15vw; /* should be same as width for a circle */
-    margin: 0 auto; /* this centers the chart horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 15vw; /* or whatever size you want */
+  height: 15vw; /* should be same as width for a circle */
+  margin: 0 auto; /* this centers the chart horizontally */
 }
 
 .canvas {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .percentage {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
 }
 
 .chart-container canvas {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .macro-count {
-    text-align: center;
-    margin-top: 15px; /* Adjust as needed for spacing */
+  text-align: center;
+  margin-top: 15px; /* Adjust as needed for spacing */
 }
 
 
 #insert_form {
-    width: 100%;
+  width: 100%;
 }
 
 .chart-elem {
-    width: 20vw;
-    height: auto;
+  width: 20vw;
+  height: auto;
 }
 /* Base styles */
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
   
 /* Arrow styles */
@@ -149,23 +149,23 @@
 }
   
 @media screen and (max-width: 912px) {
-    .chart-elem {
-        width: 100vw;
-        height: auto;
-        margin-bottom: 100px;
-    }
-    .chart-display {
-        display: flex;
-        flex-direction: column;
-        margin-top: 20px;
-    }
-    .chart-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 250px; /* or whatever size you want */
-        height: 250px; /* should be same as width for a circle */
-        /* margin: 0 auto; */
-    }
+  .chart-elem {
+      width: 100vw;
+      height: auto;
+      margin-bottom: 100px;
+  }
+  .chart-display {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+  }
+  .chart-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 250px; /* or whatever size you want */
+      height: 250px; /* should be same as width for a circle */
+      /* margin: 0 auto; */
+  }
 }

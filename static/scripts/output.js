@@ -1,39 +1,42 @@
-console.log("Script loaded"); 
+// After displaying the results from the entered info for adding a meal 
+// The following form makes sure that the user does not edit the inputs 
+// such that it falls into the wrong range
+// if not the data is sent to the backend
 $('#save_form').on("submit", function(event){
     event.preventDefault(); 
 
     let isValid = true; 
     if ($('#cal').val() < 0 ) {
-    alert("Calories should be a nonnegative integer");
-    isValid = false;
+        alert("Calories should be a nonnegative integer");
+        isValid = false;
     }
     if ($('#cal').val() > 20000 ) {
-    alert("Calories should be less than 20,000");
-    isValid = false;
+        alert("Calories should be less than 20,000");
+        isValid = false;
     }
     if ($('#fat').val() < 0) {
-    alert("Fat should be a nonnegative integer");
-    isValid = false;
+        alert("Fat should be a nonnegative integer");
+        isValid = false;
     }
     if ($('#fat').val() > 2000) {
-    alert("Fat should be less than 2,000");
-    isValid = false;
+        alert("Fat should be less than 2,000");
+        isValid = false;
     }
     if ($('#protein').val() < 0) {
-    alert("Protein should be a nonnegative integer");
-    isValid = false;
+        alert("Protein should be a nonnegative integer");
+        isValid = false;
     }
     if ($('#protein').val() > 2000) {
-    alert("Protein should be less than 2,000");
-    isValid = false;
+        alert("Protein should be less than 2,000");
+        isValid = false;
     }
     if ($('#carbs').val() < 0) {
-    alert("Carbs should be a nonnegative integer");
-    isValid = false;
+        alert("Carbs should be a nonnegative integer");
+        isValid = false;
     }
     if ($('#carbs').val() > 2000) {
-    alert("Carbs should be less than 2,000");
-    isValid = false;
+        alert("Carbs should be less than 2,000");
+        isValid = false;
     }
 
     if (isValid) {
@@ -46,12 +49,10 @@ $('#save_form').on("submit", function(event){
             if (data.status === 'success') {
                 window.location.href = "/home";
             } else {
-                console.error('Error from server', data);
                 alert('Failed to save results.');
             }
         },
-        error: function(xhr, status, error) {
-            console.error("AJAX Error:", status, error);
+        error: function() {
             alert('An error occurred during the request.');
         }});
     }

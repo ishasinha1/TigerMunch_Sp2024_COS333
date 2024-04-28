@@ -1,3 +1,5 @@
+// if a user has not set any goals, this script navigates the user 
+// to the account setting modal after clicking on the frontend arrow
 $(document).ready(function(){
     $("#showFeaturesBtn").click(function(){
         // Programmatically toggle the navbar dropdown

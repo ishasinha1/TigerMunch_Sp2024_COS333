@@ -1,6 +1,8 @@
 var buttonclick = document.getElementsByClassName("box");
 var i;
 
+// when a faq is clicked, show the answer and activate the class to 
+// display front-end changes
 for (i = 0; i < buttonclick.length; i++) {
   buttonclick[i].addEventListener("click", function () {
     this.classList.toggle("active");

@@ -1,9 +1,9 @@
+// checks whether neither a photo nor description has been entered
+// if so it shows a warning window, otherwise it clicks the submit button 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('submitBtn').addEventListener('click', function(event) {
       var fileInput = document.getElementById('photo').value;
       var textInput = document.getElementById('description').value;
-      console.log('File Input:', fileInput); // Debugging output
-      console.log('Text Input:', textInput); // Debugging output
       if (!fileInput && !textInput.trim()) {
         event.preventDefault();
         $('#noInput').modal('show');
@@ -11,4 +11,4 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('submitForm').submit();
       }
     });
-  });
+});
