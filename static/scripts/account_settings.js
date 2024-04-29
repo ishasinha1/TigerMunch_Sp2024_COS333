@@ -21,7 +21,7 @@ $('#insert_form').on("submit", function(event){
   event.preventDefault(); 
 
   let isValid = true; 
-  if ($('#cal_goal').val() <= 0) {
+  if ($('#cal_goal').val() < 0) {
     alert("Calorie goal should be greater than 0");
     isValid = false;
   }
@@ -29,7 +29,7 @@ $('#insert_form').on("submit", function(event){
     alert("Calorie goal should be less than 20,000");
     isValid = false;
   }
-  if ($('#fat_goal').val() <= 0) {
+  if ($('#fat_goal').val() < 0) {
     alert("Fat goal should be greater than 0");
     isValid = false;
   }
@@ -37,7 +37,7 @@ $('#insert_form').on("submit", function(event){
     alert("Fat goal should be less than 2,000");
     isValid = false;
   }
-  if ($('#protein_goal').val() <= 0) {
+  if ($('#protein_goal').val() < 0) {
     alert("Protein goal should be greater than 0");
     isValid = false;
   }
@@ -45,7 +45,7 @@ $('#insert_form').on("submit", function(event){
     alert("Protein goal should be less than 2,000");
     isValid = false;
   }
-  if ($('#carb_goal').val() <= 0) {
+  if ($('#carb_goal').val() < 0) {
     alert("Carb goal should be greater than 0");
     isValid = false;
   }
