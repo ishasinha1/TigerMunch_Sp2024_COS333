@@ -1,5 +1,5 @@
-// checks whether neither a photo nor description has been entered
-// if so it shows a warning window, otherwise it clicks the submit button 
+// Checks whether neither a photo nor description has been entered.
+// If so it shows a warning window, otherwise it clicks the submit button 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('submitBtn').addEventListener('click', function(event) {
       var fileInput = document.getElementById('photo').value;

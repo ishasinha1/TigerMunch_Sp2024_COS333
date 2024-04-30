@@ -19,31 +19,38 @@
         <h1 class="m-3">Meal Information</h1>
         <div class="fs-5">
           <div class="container">
+            <!--Shows results rendered by the backend as a form so the user can modify entries before submitting to the database.-->
             <form id="save_form">
+
               <div class="field" tabindex="1">
                 <label for="cal">
                   <i class="far fa-user"></i>Calorie Estimate:
                 </label>
                 <input id="cal" name="cal" type="number" value="{{calorie_estimate}}"required>
               </div>
+
               <div class="field" tabindex="1">
                 <label for="fat">
                   <i class="far fa-user"></i>Fat Estimate:
                 </label>
                 <input id="fat" name="fat" type="number" value="{{fat_estimate}}"required>
               </div>
+
               <div class="field" tabindex="1">
                 <label for="protein">
                   <i class="far fa-user"></i>Protein Estimate:
                 </label>
                 <input id="protein" name="protein" type="number" value="{{protein_estimate}}"required>
               </div>
+
               <div class="field" tabindex="1">
                 <label for="carbs">
                   <i class="far fa-user"></i>Carbs Estimate:
                 </label>
                 <input id="carbs" name="carbs" type="number" value="{{carb_estimate}}"required>
               </div>
+
+              <!--Option to either submit the entry to the database OR go back to the form.-->
               <div class="m-2 d-flex justify-content-between">
                 <a class="btn btn-danger btn-lg" href="{{ url_for('form') }}">Back</a>
                 <button type="submit" class="btn btn-success btn-lg">Submit</button>

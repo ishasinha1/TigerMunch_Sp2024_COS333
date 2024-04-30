@@ -1,7 +1,7 @@
-// After displaying the results from the entered info for adding a meal 
-// The following form makes sure that the user does not edit the inputs 
-// such that it falls into the wrong range
-// if not the data is sent to the backend
+// After displaying the results from the entered info for adding a meal. 
+// The following ensures that the user cannot enter negative/extremely
+// large values for security reasons.
+
 $('#save_form').on("submit", function(event){
     event.preventDefault(); 
 
@@ -39,6 +39,7 @@ $('#save_form').on("submit", function(event){
         isValid = false;
     }
 
+    // If all entries are valid, they are sent to the backend.
     if (isValid) {
     $.ajax({
         url: "/save_results",

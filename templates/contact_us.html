@@ -11,7 +11,9 @@
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/univstyle.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/feedback.css') }}">
     </head>
+
     <body>
+        <!--Determines which header to display based on whether the user is logged in-->
         {% if not username %}
             {% include 'header_loggedout.html' %}
         {% else %}
@@ -26,7 +28,10 @@
                     <h4>Have questions or need to report an issue? Get in touch with us.</h3>
                 </div>
                 <div class="m-2">
+                    <!--Displays a message indicating whether the feedback has been accepted or not-->
                     <div id="responseMessage"></div>
+                    
+                    <!--Form that the user must fill in with their feedback. Only the message is required.-->
                     <form id="contactForm">
                         <input name="name" type="text" id="name" class="feedback-input" placeholder="Name" />
                         <input name="email" type="email" id="email" class="feedback-input" placeholder="Email" />

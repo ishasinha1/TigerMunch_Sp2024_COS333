@@ -1,3 +1,5 @@
+// Handles the input submitted to the contact us form.
+
 document.addEventListener("DOMContentLoaded", function () {
     const contactForm = document.getElementById("contactForm");
     const responseMessage = document.getElementById("responseMessage");

@@ -14,12 +14,13 @@
   <body>
     {% include 'header.html' %}
 
+    <!--Loading icon/page for when the user has submitted the form as we wait for the results.-->
     <div id="loadingOverlay" style="display: none;">
       <div id="loadingText">Munch Munch Munch!!!</div>
       <div id="loadingIcon"></div>
     </div>
 
-    <!-- no input modal -->
+    <!--Modal displayed when user tries to submit the form without input-->
     <div class="modal fade" id="noInput" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -34,31 +35,37 @@
       </div>
     </div>
      
-    <!-- image preview modal -->
+    <!-- Image preview modal -->
     <div class="formpreview">
       <div class="modal" id="imagePre" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content rounded-0">
             <div class="modal-body rounded-0">
                 <img id="photo-preview" src="" alt="Photo preview" class="photo-preview"> 
-              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <main id="content">
+      <!--Form where the user can upload a photo and/or description of their meal.-->
       <form method="post" action="{{ url_for('get_results') }}" enctype="multipart/form-data" class="pt-5 mt-5 center-content-pg" id="submitForm">
         <div class="flex-input">
+          <!--Photo upload element-->
           <div class="m-3 p-3 form-elem">
             <p class="fs-2">Photo Upload</p>
             <div>
               <label for="photo" class="form-label upload-btn fs-4">Choose file</label>
+              <!--ONLY accepts image input in supported format.-->
               <input type="file" name="photo" id="photo" class="form-control" accept="image/jpg, image/jpeg, image/HEIC, image/png" hidden/>
+              <!--Shows 'No file chosen' till a user submits a file. Replaces it with file name once uploaded.-->
               <span id="file-chosen" class="fs-6">No file chosen</span>
+              <!--Image preview!-->
               <span id="preview" class="preview fs-6 pt-1">Click here to preview image</span>
             </div>
           </div>
+          <!--Meal description element-->
           <div class="m-3 p-3 form-elem">
             <label for="description" class="form-label fs-2">Meal Description</label>
             <textarea name="description" id="description" class="mt-4"></textarea>

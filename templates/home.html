@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>
-            TigerMunch
+            TigerMunch: Home
         </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +18,9 @@
         <main>
             <div class="center-content-pg mt-5 pt-5">
                 <h1>Today's Progress</h1>
+                <!--Displays all categories with goals as progress wheels.-->
                 <div class="chart-display fs-5">
+
                     <div id="caloriesChartContainer" class="chart-elem m-2">
                         <div class="chart-container">
                             <canvas id="caloriesChart" class="canvas"></canvas>
@@ -26,6 +28,7 @@
                         </div>
                         <div id="caloriesChartLabel" class="macro-count fs-6"></div>
                     </div>
+
                     <div id="fatChartContainer" class="chart-elem m-2">
                         <div class="chart-container">
                             <canvas id="fatChart" class="canvas"></canvas>
@@ -33,6 +36,7 @@
                         </div>
                         <div id="fatChartLabel" class="macro-count fs-6"></div>
                     </div>
+
                     <div id="proteinChartContainer" class="chart-elem m-2">
                         <div class="chart-container">
                             <canvas id="proteinChart" class="canvas"></canvas>
@@ -40,6 +44,7 @@
                         </div>
                         <div id="proteinChartLabel" class="macro-count fs-6"></div>
                     </div>
+
                     <div id="carbChartContainer" class="chart-elem m-2">
                         <div class="chart-container">
                             <canvas id="carbChart" class="canvas"></canvas>
@@ -47,10 +52,14 @@
                         </div>
                         <div id="carbChartLabel" class="macro-count fs-6"></div>
                     </div>
+
                 </div>
+
+                <!--Add new meal data button-->
                 <div class="m-5">
                     <a class="btn btn-success btn-lg" href="{{ url_for('form') }}">Add new meal data</a>             
                 </div>
+
                 <!-- Arrow for setting goals -->
                 <div class="m-5">
                     <div class="container">

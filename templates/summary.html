@@ -23,6 +23,8 @@
         <main>
             <div class="center-content-pg position-charts">
                 <h1 class="pt-3">Your Nutrition Trends</h1>
+
+                <!--Range of time for which you want to view the graphs-->
                 <div class="data-range-selector">
                     <input type="radio" id="sevenDays" name="dataRange" value="7" checked>
                     <label for="sevenDays">Past 7 Days</label>
@@ -34,6 +36,7 @@
                     <label for="allData">Past 90 Days</label>
                 </div>
 
+                <!--Display graph for calories / macros-->
                 <div class="data-selection">
                     <input type="radio" id="caloriesChoice" name="dataChoice" value="Calories" checked>
                     <label for="caloriesChoice">Calories</label>
@@ -56,11 +59,13 @@
                 
                 <br>
                 
+                <!--Actual summary graph-->
                 <div class="chart-container">
                     <canvas id="summaryChart"></canvas>
                 </div>
                 <br>
                 
+                <!--Table showing past meal data.-->
                 <h1>Daily Nutrition Snapshot</h1>
                 <div class="table-container">
                     <div class="table-responsive dt-responsive">
@@ -78,17 +83,15 @@
                                 <tbody id="table-body">
                             </tbody>
                         </table>
+
+                        <!--Button to see more meal data. Initially displays only 10.-->
                         <div class="m-3" id="show-more-button">
                             <button class="btn btn-success" onclick="loadMore()">Show more</button>
                         </div>
                     </div>
-                    
-                    
-
                 </div>
             </div>
         </main>
         <script src="{{ url_for('static', filename='scripts/render_summary.js') }}"></script>   
-        
     </body>
 </html>

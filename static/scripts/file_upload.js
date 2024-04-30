@@ -1,3 +1,4 @@
+// Shows the file name once the user uploads a photo.
 const btn = document.getElementById('photo');
 
 const fileChosen = document.getElementById('file-chosen');

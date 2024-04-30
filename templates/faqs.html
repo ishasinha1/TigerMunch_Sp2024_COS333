@@ -17,9 +17,9 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
-
     </head>
     <body>
+        <!--Displays header based on whether user is logged in-->
         {% if username is none %}
              {% include 'header_loggedout.html' %}
          {% else %}

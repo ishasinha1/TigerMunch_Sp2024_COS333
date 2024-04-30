@@ -3,17 +3,17 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <nav class="navbar navbar-expand-lg navbar-dark stick">
     <div class="container-fluid header-container">
-      <!-- Logo -->
-      
         <!-- We want when we click to go on the landing page -->
         <a href="{{ url_for('landing') }}" id="logo" class="navbar-brand">
+          <!-- Logo -->
           <img src="{{ url_for('static', filename='images/munchlogo.jpeg') }}" alt="TigerMunch Logo">
         </a>
-        <!-- Toggler -->
+      <!-- Toggler for smaller screen sizes.-->
       <button class="navbar-toggler toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <!--Pages to see when NOT logged in-->
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="nav navbar-nav">
           <li class="nav-item p-2" id="team">

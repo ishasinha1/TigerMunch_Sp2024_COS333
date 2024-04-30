@@ -13,6 +13,7 @@
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     </head>
     <body>
+        <!--Displays header based on whether user is logged in.-->
         {% if username is none %}
              {% include 'header_loggedout.html' %}
          {% else %}
@@ -22,6 +23,7 @@
             <div class="center-content-pg m-4 p-4">
             <h1 class="mt-4">Meet The Team</h1>
             <div class="profile-box"> 
+                <!--Jeremiah!-->
                 <div class="box box-w">
                     <img src="{{ url_for('static', filename='images/jeremiah.jpeg')}}" alt="Jeremiah Giordani">
                     <h3>Jeremiah Giordani</h3>
@@ -31,6 +33,7 @@
                     </div>
                 </div>
 
+                <!--Aylin!-->
                 <div class="box box-w">
                     <img src="{{ url_for('static', filename='images/aylin.jpg')}}" alt="Aylin Hadzhieva">
                     <h3>Aylin Hadzhieva</h3>
@@ -39,7 +42,8 @@
                         <a href="https://www.linkedin.com/in/aylin-hadzhieva-717594254/"><i class="ri-linkedin-fill"></i></a>
                     </div>
                 </div>
-
+                
+                <!--Isha!-->
                 <div class="box box-w">
                     <img src="{{ url_for('static', filename='images/isha.jpeg')}}" alt="Isha Sinha">
                     <h3>Isha Sinha</h3>

@@ -1,5 +1,6 @@
 function renderNutritionChart(canvasId, dailyTotal, goal, label, units) {
     'use strict';
+    // only show progress for categories with nonzero goals.
     if (goal == -1 || goal == 0) {
         // Hide the chart and label for this macro counter
         document.getElementById(`${canvasId}Container`).style.display = 'none';
