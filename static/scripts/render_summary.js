@@ -1,5 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     fetchChartData(7);  // Initially fetch for the past 7 days
+
+    loadMore();
+
+    new DataTable('#myTable', {
+        paging: false, 
+        searching:false,
+        info:false,
+        responsive: true,
+        ordering: false,
+    });
 });
 
 
@@ -139,3 +149,55 @@ window.addEventListener('resize', function() {
     }, 10); 
 });
 
+
+let currentPage = 1;
+let entriesPerPage = 10;
+
+function loadMore() {
+    fetch(`/get_summary_table?page=${currentPage}`)
+    .then(response => response.json())
+    .then(data => {
+        const tableBody = document.getElementById('table-body');
+        tableBody.innerHTML = '';
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+
+            tr.innerHTML = `<td class="created_at_year">${row.created_at}</td>
+                            <td class="created_at_date">${row.created_at}</td>
+                            <td>${row.calories}</td>
+                            <td>${row.fat}</td>
+                            <td>${row.protein}</td>
+                            <td>${row.carbs}</td>`;
+            tableBody.appendChild(tr);
+        });
+        formatDates()
+        if (data.length < entriesPerPage * currentPage) {
+            const showMoreButton = document.getElementById('show-more-button');
+            if (showMoreButton) {
+                showMoreButton.style.display = 'none';
+            }
+                
+        }
+        currentPage++;
+    })
+    .catch(error => console.error('Error loading more data:', error));
+
+}
+
+function formatDates(){
+    document.querySelectorAll('.created_at_year').forEach(function(node) {
+        const dateParts = node.textContent.trim().split('-');
+        const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+        node.textContent = newDate.getFullYear();
+    });
+
+    document.querySelectorAll('.created_at_date').forEach(function(node) {
+        const dateParts = node.textContent.trim().split('-');
+        // Js months are 0 - 11
+        const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+        node.textContent = newDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric'
+        });
+    });
+}
