@@ -1,20 +1,16 @@
+/* Styles used for the Trends page. */
 @import url("https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css");
 
+/* Table head styles */
 #table-head th {
     background-color:  #69A593 !important;
     color: white;
 }
+
+/* Position of chart on the trends page */
 .position-charts {
     margin-top: 40px;
     padding: 30px;
-}
-
-@media screen and (max-width: 500px) {
-    .position-charts {
-        margin-top: 80px;
-        padding: 0;
-    }
-
 }
 
 .chart-container {
@@ -26,3 +22,11 @@
     min-height: 550px;
 }
 
+/* Mobile optimization */
+@media screen and (max-width: 500px) {
+    .position-charts {
+        margin-top: 80px;
+        padding: 0;
+    }
+
+}

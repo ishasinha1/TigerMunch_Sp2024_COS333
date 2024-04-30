@@ -1,13 +1,16 @@
+/* Styles that are used across all templates. */
 * {
     box-sizing: border-box;
 }
 
+/* Navbar styles */
 nav {
     margin-bottom: 30px;
     padding: 0px !important;
     background-color: #424242;
 }
 
+/* Each tab of the navbar */
 .header-link {
     color: white;
     text-decoration: none;
@@ -16,6 +19,7 @@ nav {
     padding: 8px 8px;
 }
 
+/* Logo element in header */
 #logo {
     width: 7.5em;
     margin-top: 8px;
@@ -23,15 +27,18 @@ nav {
     margin-left: 10px;
 }
 
+/* Image in logo in header */
 #logo > img {
     width: 8em;
     height: auto;
 }
 
+/* Darkens the list item over which you're hovering */
 .nav > li:hover{
     background-color: #212020;
 }
 
+/* Colour of most of the buttons */
 .btn-success {
     background-color: #276955; 
 }
@@ -41,12 +48,18 @@ nav {
     color: white;
 }
 
+/* Centers the content in each page */
 .center-content-pg {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+
+/* Darker colour for the active tab. */
+.active {
+    background-color: black;
 }
 
 .header-container {
@@ -58,11 +71,7 @@ nav {
     margin-right: 10px;
 }
 
-.drop-right {
-    margin-right: 0.125rem;
-    background-color: #424242;
-}
-
+/* Header is always visible. */
 .stick {
     position: fixed;
     top: 0;
@@ -70,6 +79,7 @@ nav {
     z-index: 1;
 }
 
+/* The following styles are for the dropdown menu. */
 .dropdown-item{
     color:white
 }
@@ -79,6 +89,8 @@ nav {
     color:white
 }
 
-.active {
-    background-color: black;
+/* Ensures that entire dropdown menu is always visible */
+.drop-right {
+    margin-right: 0.125rem;
+    background-color: #424242;
 }

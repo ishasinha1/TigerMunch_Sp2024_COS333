@@ -1,3 +1,6 @@
+/* Styles for About page */
+
+/* Centers and spaces out profile cards. */
 .profile-box {
 	width: 100%;
 	max-width: 1300px;
@@ -8,6 +11,7 @@
 	margin-top: 1.5rem;
 }
 
+/* Styles for team images. */
 .profile-box img{
 	width: 100%;
 	height: auto;
@@ -15,6 +19,7 @@
 	margin-bottom: 15px;
 }
 
+/* Element that contains each of our profiles. */
 .box {
 	padding: 16px;
 	background: #107859;
@@ -22,19 +27,29 @@
 	transition: all .38s ease;
 }
 
+.box:hover{
+	transform: translateY(-10px);
+}
+
+/* Width of the element */
 .box-w {
 	width: 30%;
 }
 
+/* Style of name */
 .box h3 {
 	color: #fff;
 	margin-bottom: 8px;
 }
-.box h6{
+
+/* Style for 'Student' */
+.box h6 {
 	color: #b7b4bb;
 	margin-bottom: 10px;
 	letter-spacing: 2px;
 }
+
+/* Styles for the LinkedIn icons */
 .icons i{
 	display: inline-block;
 	color: #fff;
@@ -45,10 +60,8 @@
 .icons i:hover{
 	transform: scale(1.2);
 }
-.box:hover{
-	transform: translateY(-10px);
-}
 
+/* Code for mobile optimization */
 @media screen and (max-width: 912px) {
 	.box-w {
 		width: 80%;

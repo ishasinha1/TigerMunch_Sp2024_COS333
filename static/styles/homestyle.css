@@ -1,25 +1,31 @@
+/* Styles used on the home page. */
+
+/* Container in which all charts are displayed */
 .chart-display {
   display: flex;
   flex-direction: row;
   margin-top: 20px;
 }
 
+/* Container for each chart */
 .chart-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 15vw; /* or whatever size you want */
-  height: 15vw; /* should be same as width for a circle */
+  width: 15vw;
+  height: 15vw;
   margin: 0 auto; /* this centers the chart horizontally */
 }
 
+/* Size of canvas where the chart is shown */
 .canvas {
   width: 100%;
   height: 100%;
 }
 
+/* Style for percentage daily progress INSIDE progress wheel */
 .percentage {
   position: absolute;
   top: 50%;
@@ -34,11 +40,11 @@
   max-height: 100%;
 }
 
+/* Label for each chart */
 .macro-count {
   text-align: center;
   margin-top: 15px; /* Adjust as needed for spacing */
 }
-
 
 #insert_form {
   width: 100%;
@@ -104,7 +110,7 @@
 .animated-arrow {
   display: inline-block;
   color: #4c4c4c; /* Black */
-  font-size: 1.25em;
+  font-size: 1.75em;
   text-decoration: none;
   position: relative;
   transition: all 0.2s;
@@ -144,10 +150,11 @@
 }
 
 .animated-arrow > .main > .text {
-  margin-right: 16px;
+  margin-left: 8px;
   line-height: 1;
 }
-  
+
+/* Mobile optimization */
 @media screen and (max-width: 912px) {
   .chart-elem {
       width: 100vw;
@@ -168,4 +175,12 @@
       height: 250px; /* should be same as width for a circle */
       /* margin: 0 auto; */
   }
+
+  .animated-arrow {
+    font-size: 1.25em;
+  }
+
+  #exampleModal {
+		width: 100vw;
+	}
 }
