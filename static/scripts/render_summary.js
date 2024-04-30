@@ -53,17 +53,6 @@ function createChart(data) {
     if (window.summaryChart instanceof Chart) {
         window.summaryChart.destroy();
     }
-
-    const chartOptions = {
-        responsive: true,
-        maintainAspectRatio: true, 
-        scales: {
-            y: { // This targets the y-axis
-                beginAtZero: true, // Ensures the scale starts at zero
-                min: 0 // Explicitly sets the minimum value to 0
-            }
-        }
-    };
     
     window.summaryChart = new Chart(ctx, {
         type: 'line',
