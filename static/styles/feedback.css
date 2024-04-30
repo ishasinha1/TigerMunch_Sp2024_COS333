@@ -1,3 +1,4 @@
+/* Styles for Contact Us page */
 .feedback-input {
     color: rgb(12, 12, 12);
     font-weight: 500;
@@ -15,6 +16,11 @@
   }
   
   .feedback-input:focus { border: 2px solid #276955; /* Slightly lighter gray color on focus */ }
+
+  .pos-form {
+    margin-top: 60px;
+    padding: 20px;
+  }
   
   textarea {
     height: 150px;
@@ -22,6 +28,7 @@
     resize: vertical;
   }
   
+  /* Styles for response messages */
   #responseMessage {
     border-radius: 5px;
     color: #fff;
@@ -29,11 +36,6 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  .pos-form {
-    margin-top: 60px;
-    padding: 20px;
   }
   
   #responseMessage.success {
@@ -48,9 +50,10 @@
     opacity: 1;
   }
 
-  @media (max-width: 800px) {
-    .pos-form {
-      margin-top: 80px;
-      padding: 10px;
-    }
+/* Mobile optimization */
+@media (max-width: 800px) {
+  .pos-form {
+    margin-top: 80px;
+    padding: 10px;
   }
+}

@@ -1,3 +1,5 @@
+/* Style for Get Summary page, where you see stats for entered meal */
+
 :root {
     --trans-all: all 0.5s ease;
 }
@@ -73,6 +75,7 @@ textarea::-webkit-scrollbar {
     width: 0;
 }
 
+/* Mobile optimization */
 @media (max-width: 912px) {
     form {
         width: 100%;

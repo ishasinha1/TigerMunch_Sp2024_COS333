@@ -1,3 +1,6 @@
+/* Styles for Enter Meal Data page */
+
+/* Container for form elements */
 .flex-input {
     display: flex;
     flex-direction: row;
@@ -11,12 +14,10 @@
     justify-content: center;
 }
 
-.photo-preview{
+/* Styles for image preview */
+/* ------------------------------ */
+.photo-preview {
     display:none; 
-    /* height:271px;
-    max-height: 336px; 
-    max-width:336px; 
-    width: 263px; */
     max-width: 100%;
     max-height: 100%;
 }
@@ -35,7 +36,7 @@
     padding: 15px; 
     height: 100%; 
 }
-.preview{
+.preview {
     display: none; 
     color: white;
     cursor: pointer;
@@ -44,6 +45,9 @@
 .preview:hover {
     text-decoration: underline;
 }
+/* ------------------------------ */
+
+/* Styles for form element */
 .form-elem {
     background-color: #69A593;
     border-radius: 30px;
@@ -62,6 +66,7 @@
     width: 100vw;
 }
 
+/* Style for description textarea */
 #description {
     margin-top: 15px;
     width: 80%;
@@ -70,6 +75,7 @@
     border-radius: 10px;
 }
 
+/* Style for custom photo upload button */
 .upload-btn {
     background-color: #276955;
     color: white;
@@ -124,6 +130,7 @@
     filter: blur(5px);
   }
 
+/* Mobile optimization */
 @media screen and (max-width: 850px) {
 	.flex-input {
         display: flex;
