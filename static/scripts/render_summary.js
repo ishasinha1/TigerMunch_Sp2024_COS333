@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     fetchChartData(7);  // Initially fetch for the past 7 days
 
+    // fetch data for the table
     loadMore();
 
+    // create the trends table
     new DataTable('#myTable', {
         paging: false, 
         searching:false,
@@ -12,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
+// adding event listener to change the trends chart when a user
+// selects different time windows or nutrition selections
 document.querySelectorAll('input[name="dataRange"]').forEach(input => {
     input.addEventListener('change', onChange);
 });
@@ -30,12 +33,14 @@ document.querySelectorAll('input[name="macro"]').forEach(checkbox => {
     checkbox.addEventListener('change', onChange);
 });
 
+// when a user changes selection criteria, we change the chart
 function onChange() {
     const days = document.querySelector('input[name="dataRange"]:checked').value;
     
     fetchChartData(days);
 }
 
+// when a user wants to see macros, display the macro checkboxes
 function toggleMacroSelection() {
     const macroSelectionDiv = document.getElementById('macroSelection');
     if (document.getElementById('macrosChoice').checked) {
@@ -45,6 +50,7 @@ function toggleMacroSelection() {
     }
 }
 
+// use the backend to get the data for the chart
 function fetchChartData(days) {
     const url = `/get_summary_values?days=${days}`;
     fetch(url)
@@ -57,13 +63,16 @@ function fetchChartData(days) {
         });
 }
 
+// function that creates the chart
 function createChart(data) {
     const ctx = document.getElementById('summaryChart').getContext('2d');
 
+    //remove previously existing chart
     if (window.summaryChart instanceof Chart) {
         window.summaryChart.destroy();
     }
     
+    // create new charw with new data
     window.summaryChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -84,6 +93,7 @@ function createChart(data) {
     });
 }
 
+// select the appropriate datasets from the set of all data
 function getSelectedDatasets(data) {
     let datasets = [];
 
@@ -132,7 +142,7 @@ function getSelectedDatasets(data) {
     return datasets;
 }
 
-
+// resizing functionality
 let resizeTimer;
 window.addEventListener('resize', function() {
     // Clear the timer at the start of resizing
@@ -149,10 +159,13 @@ window.addEventListener('resize', function() {
     }, 10); 
 });
 
+// handles trends table
 
+// uses indices to index pages on the table
 let currentPage = 1;
 let entriesPerPage = 10;
 
+// function that loads more entries on the summary table
 function loadMore() {
     fetch(`/get_summary_table?page=${currentPage}`)
     .then(response => response.json())
@@ -161,7 +174,7 @@ function loadMore() {
         tableBody.innerHTML = '';
         data.forEach(row => {
             const tr = document.createElement('tr');
-
+            // creates new table rows
             tr.innerHTML = `<td class="created_at_year">${row.created_at}</td>
                             <td class="created_at_date">${row.created_at}</td>
                             <td>${row.calories}</td>
@@ -170,7 +183,10 @@ function loadMore() {
                             <td>${row.carbs}</td>`;
             tableBody.appendChild(tr);
         });
+        // formats dates appropriately
         formatDates()
+
+        // determines whether the show more button should be displayed
         if (data.length < entriesPerPage * currentPage) {
             const showMoreButton = document.getElementById('show-more-button');
             if (showMoreButton) {
@@ -178,12 +194,15 @@ function loadMore() {
             }
                 
         }
+
+        // indexes current page
         currentPage++;
     })
     .catch(error => console.error('Error loading more data:', error));
 
 }
 
+// formats dates appropriately
 function formatDates(){
     document.querySelectorAll('.created_at_year').forEach(function(node) {
         const dateParts = node.textContent.trim().split('-');
