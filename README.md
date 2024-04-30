@@ -1,9 +1,8 @@
 # TigerMunch_Sp2024_COS333
-TigerMunch is a web application that changes the landscape of nutrition tracking.
 
-Users can upload a photograph and/or a description of their meal, which gets sent to GPT-4, in order to process estimates of their caloric and macronutrient information.
+Welcome to TigerMunch, a transformative web application that revolutionizes nutrition tracking! With TigerMunch, users can simply upload a photo or description of their meal. This data is then processed by GPT-4, which estimates the caloric and macronutrient content of each meal.
 
-TigerMunch allows users to track their daily nutritional intake, based on their set up goals, and track their historical trends through helpful charts and graphs.
+TigerMunch enables users to monitor their daily nutritional intake against their personalized goals and view their nutritional trends over time through intuitive charts and graphs. Dive into a smarter way to track your nutrition with TigerMunch!
 
 You must install certain packages into your cos333 virtual environment using the following commands:
 
