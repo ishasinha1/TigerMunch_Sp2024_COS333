@@ -1,6 +1,6 @@
 # TigerMunch_Sp2024_COS333
 
-Welcome to TigerMunch, a transformative web application that revolutionizes nutrition tracking! With TigerMunch, users can simply upload a photo or description of their meal. This data is then processed by GPT-4, which estimates the caloric and macronutrient content of each meal.
+Welcome to TigerMunch, a transformative web application that revolutionizes nutrition tracking! With TigerMunch, users can simply upload a photo and/or description of their meal. This data is then processed by GPT-4, which estimates the caloric and macronutrient content of each meal.
 
 TigerMunch enables users to monitor their daily nutritional intake against their personalized goals and view their nutritional trends over time through intuitive charts and graphs. Dive into a smarter way to track your nutrition with TigerMunch!
 
