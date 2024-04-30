@@ -1,7 +1,11 @@
 # TigerMunch_Sp2024_COS333
+TigerMunch is a web application that changes the landscape of nutrition tracking.
 
-You must install certain packages into your cos333 virtual environment using the following
-commands:
+Users can upload a photograph and/or a description of their meal, which gets sent to GPT-4, in order to process estimates of their caloric and macronutrient information.
+
+TigerMunch allows users to track their daily nutritional intake, based on their set up goals, and track their historical trends through helpful charts and graphs.
+
+You must install certain packages into your cos333 virtual environment using the following commands:
 
 macOS
 1. ```python -m pip install requests```
@@ -22,37 +26,33 @@ Windows
 6.  password:12312, port:5000
 8. ```python -m pip install psycopg2``` (If this does not work, try: ```python -m pip install psycopg2-binary```)
 
-The following command exports the API key and sets an environment variable for the session. It must be run for the image module to function. 
+Using the API consumes credits. To prevent unnecessary usage, our backend is configured to return default values instead of making API requests by default. The global variable 'testing_api' in the file 'request_handler.py' controls this behavior and is set to 'False'. If you need to test the API during your testing, change this variable to 'True'.
 
-This API key cannot appear in any publicly accessible document, or it will be deactivated.
+Furthermore, we've retained a deprecated feature that utilizes GPT-4 to generate personalized consumption trends. This feature is disabled by default but can be activated for testing or demonstration purposes. To enable it, set the global variable 'generate_descriptions' to 'True' in 'request_handler.py'. This will print the generated trends on your terminal every time you visit the homepage.
 
-macOS
-
-```export OPENAI_API_KEY='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'```
-
-Windows 
-1.  in powershell ```$env:OPENAI_API_KEY='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'```
-11. in commandprompt ```setx OPENAI_API_KEY "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"```
-
-If you are conducting testing that involves testing the API, you need to navigate to 'request_handler.py' and set the global variable 'testing_api' to 'True'
-
-If you receive a 'SSLCertificateVerifyFailed' error after CAS authorization, run the following command:
-```/Applications/Python\ 3.11/Install\ Certificates.command```
-
-To run the app, run the following commands in your terminal once you've navigated to this
-directory:
+To run the app, run the following commands in your terminal once you've navigated to this directory:
 
 macOS
 1. ```export APP_SECRET_KEY=33333``` (random secret key for ease copy-pasting)
 2. ```export DATABASE_URL='postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database'```
 3. ```export POSTMARK_API_KEY='ae2f1172-778b-4577-bc2a-7b5f56ab2958'```
-4. ```python runserver.py [port] (optional)[True] ```
-(if you wish to test with API requests, set the optinal command line argument to True, otherwise, do nothing)
+4. ```export OPENAI_API_KEY='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'```
+4. ```python runserver.py [port]```
+
+
+If you receive a 'SSLCertificateVerifyFailed' error after CAS authorization, run the following command in your terminal:
+```/Applications/Python\ 3.11/Install\ Certificates.command```
 
 Windows
 1.  in powershell ```$env:APP_SECRET_KEY='<somesecretkey>'```
-11. in commandprompt ```setx APP_SECRET_KEY "<somesecretkey>"```
-2.  in powershell ```$env:DATABASE_URL='postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database'```
-22. in commandprompt ```setx DATABASE_URL "postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database"```
-3. in powershell ```$env:POSTMARK_API_KEY='ae2f1172-778b-4577-bc2a-7b5f56ab2958'```
-4.  ```python runserver.py [port] ```
+2. in commandprompt ```setx APP_SECRET_KEY "<somesecretkey>"```
+3.  in powershell ```$env:DATABASE_URL='postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database'```
+4. in commandprompt ```setx DATABASE_URL "postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database"```
+5. in powershell ```$env:POSTMARK_API_KEY='ae2f1172-778b-4577-bc2a-7b5f56ab2958'```
+6.  in powershell ```$env:OPENAI_API_KEY='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'```
+7. in commandprompt ```setx OPENAI_API_KEY "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"```
+8.  ```python runserver.py [port] ```
+
+
+If you receive a 'SSLCertificateVerifyFailed' error after CAS authorization, run the following command in your terminal:
+```/Applications/Python\ 3.11/Install\ Certificates.command```
