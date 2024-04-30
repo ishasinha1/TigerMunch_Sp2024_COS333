@@ -9,7 +9,6 @@ _DATABASE_URL = os.environ['DATABASE_URL']
 def insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate):
     username = auth.authenticate()
     current_date = datetime.now().date() 
-    # current_date = datetime(2023, 12, 20)
 
     with psycopg2.connect(_DATABASE_URL) as connection:
         with connection.cursor() as cursor:
@@ -54,21 +53,12 @@ def get_summary_after(start_date, end_date):
             cursor.execute("SELECT created_at, calories, fat, protein, carbs FROM user_inputs WHERE username = %s AND created_at >= %s AND created_at <= %s ORDER BY created_at ASC", (username, start_date, end_date))
             return cursor.fetchall()
 
-# def get_summary_all():
-#     username = auth.authenticate()
-#     with psycopg2.connect(_DATABASE_URL) as connection:
-#         with connection.cursor() as cursor:
-#             cursor.execute("SELECT created_at, calories, fat, protein, carbs FROM user_inputs WHERE username = %s ORDER BY created_at ASC", (username,))
-#             return cursor.fetchall()
-
 def get_daily_totals():
     username = auth.authenticate()
     current_date = datetime.now().date()
 
-    # Database connection
     with psycopg2.connect(_DATABASE_URL) as connection:
         with connection.cursor() as cursor:
-            # Query for the totals of the current date for the user
             cursor.execute("SELECT id, username, calories, fat, protein, carbs, created_at FROM user_inputs WHERE username = %s AND created_at = %s", 
                            (username, current_date))
             row = cursor.fetchone()
@@ -137,28 +127,5 @@ def insert_user_data(cal_goal, fat_goal, protein_goal, carb_goal):
                                (username,'', '', cal_goal, fat_goal, protein_goal, carb_goal))
                 
             connection.commit()
-
-# def get_description(data_7_clean, data_30_clean):
-#     username = auth.authenticate()
-#     current_date = datetime.now().date() 
-
-#     with psycopg2.connect(_DATABASE_URL) as connection:
-#         with connection.cursor() as cursor:
-#             # Check if the user already exists in the user_data table
-#             cursor.execute("SELECT * FROM descriptions WHERE username = %s AND created_at = %s", (username, current_date))
-#             description = cursor.fetchall()
-
-#             if description:
-#                 return str(description[0][2])
-#             else:
-#                 data = {
-#                     '<7day>': data_7_clean,
-#                     '<30day>': data_30_clean,
-#                 }
-#                 qualitative_description = str(request_handler.create_qualitative_description(data))
-#                 cursor.execute("INSERT INTO descriptions (username, qualitative_description, created_at) VALUES (%s, %s, %s)",
-#                                (username, qualitative_description, current_date))
-#                 connection.commit()
-#                 return qualitative_description
                 
             
