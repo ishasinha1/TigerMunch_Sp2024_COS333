@@ -1,19 +1,16 @@
+import os
+from datetime import datetime, timedelta
+import urllib.parse
 from flask import Flask, render_template, request, url_for, jsonify
-import base64
+import flask 
+import requests
+import request_handler
 import vision_module
 import multi_modal_module
 import language_module
 import auth
-import os
-import pytz
-from datetime import datetime, timedelta
 import access_data
-from flask import jsonify
-import flask 
-import urllib.parse
-import time
-import requests
-import request_handler
+
 
 app = Flask(__name__)
 
@@ -161,7 +158,7 @@ def get_results():
                 calorie_estimate=calorie_estimate, fat_estimate=fat_estimate,\
                 protein_estimate=protein_estimate, carb_estimate=carb_estimate,\
                 username=username)
-    except Exception as e:
+    except Exception:
         return render_template('error.html', username=username)
 
 @app.route('/get_summary', methods=['GET', 'POST'])
@@ -186,7 +183,7 @@ def get_summary_table():
             'created_at':row[6].strftime('%Y-%m-%d')
         }
         meals.append(meal_dict)
-    username = auth.authenticate()
+    _ = auth.authenticate()
     return meals
 
 @app.route('/get_summary_values', methods=['GET'])
@@ -283,6 +280,7 @@ def faqs():
     username = auth.authenticate()
     return render_template('faqs.html', username = username)
 
+# Helper function for sending feedback.
 def send_mail_via_postmark(subject, name, email, message):
     api_key = os.getenv('POSTMARK_API_KEY')
     sender_email = 'ah4068@princeton.edu'  

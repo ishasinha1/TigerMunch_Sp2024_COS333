@@ -1,5 +1,6 @@
 import request_handler
 
+# Sends multimodal input to API and returns values!
 def handle_input(image, context):
     description = request_handler.describe_image(image)
     values = request_handler.get_estimates(description, context)
@@ -7,7 +8,7 @@ def handle_input(image, context):
     return values
 
 
-
+# Testing function
 def _test(photo, description):
     calorie_estimate, fat_estimate, protein_estimate, carb_estimate = handle_input(photo, description)
     print("The calorie estimate is ", calorie_estimate)
@@ -19,4 +20,5 @@ def _test(photo, description):
 
 
 if __name__ == '__main__':
+    # Replace this with the path to an image on YOUR local computer.
     _test("/Users/jeremiahgiordani/COS333/TigerMunch_Sp2024_COS333/test_images/test_meal_2.jpg", "This is a black bean quesadilla")

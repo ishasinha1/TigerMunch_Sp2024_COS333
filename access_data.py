@@ -1,11 +1,11 @@
-import auth
 import os
-import psycopg2
 from datetime import datetime
-import request_handler
+import psycopg2
+import auth
 
 _DATABASE_URL = os.environ['DATABASE_URL']
 
+# Inserts a meal into the database.
 def insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate):
     username = auth.authenticate()
     current_date = datetime.now().date() 
@@ -32,6 +32,7 @@ def insert_meal(calorie_estimate, fat_estimate, protein_estimate, carb_estimate)
                         
             connection.commit()
 
+# Returns all past meal data for a user.
 def fetch_all_data():
     username = auth.authenticate()
     with psycopg2.connect(_DATABASE_URL) as connection:
@@ -39,6 +40,7 @@ def fetch_all_data():
             cursor.execute("SELECT * FROM user_inputs WHERE username = %s ORDER BY created_at DESC", (username,))
             return cursor.fetchall()
 
+# Returns (limit) number of past meal data rows.
 def fetch_page_data(limit):
     username = auth.authenticate()
     with psycopg2.connect(_DATABASE_URL) as connection:
@@ -46,6 +48,7 @@ def fetch_page_data(limit):
             cursor.execute("SELECT * FROM user_inputs WHERE username = %s ORDER BY created_at DESC LIMIT %s", (username, limit))
             return cursor.fetchall()
 
+# Returns nutritional intake within a certain range for a user.
 def get_summary_after(start_date, end_date):
     username = auth.authenticate()
     with psycopg2.connect(_DATABASE_URL) as connection:
@@ -53,6 +56,7 @@ def get_summary_after(start_date, end_date):
             cursor.execute("SELECT created_at, calories, fat, protein, carbs FROM user_inputs WHERE username = %s AND created_at >= %s AND created_at <= %s ORDER BY created_at ASC", (username, start_date, end_date))
             return cursor.fetchall()
 
+# Returns daily totals for a user.
 def get_daily_totals():
     username = auth.authenticate()
     current_date = datetime.now().date()
@@ -70,14 +74,14 @@ def get_daily_totals():
             "protein":0,
             "carbs":0,
         }
-    else:
-        return{
-            "calories":row[2],
-            "fat":row[3],
-            "protein":row[4],
-            "carbs":row[5]
-        }
+    return{
+        "calories":row[2],
+        "fat":row[3],
+        "protein":row[4],
+        "carbs":row[5]
+    }
 
+# Returns user data (as seen in account settings).
 def get_user_data():
     username = auth.authenticate()
     with psycopg2.connect(_DATABASE_URL) as connection:
@@ -86,8 +90,6 @@ def get_user_data():
             table = cursor.fetchall()
 
     print("getting user data")
-    print('table', table[0][2])
-    print('table', table[0][3])
     if table:
         return {
             'calorie_goal': table[0][4],
@@ -95,16 +97,15 @@ def get_user_data():
             'protein_goal': table[0][6],
             'carb_goal': table[0][7],
         }
-    else:
-        return  {
-            'calorie_goal': -1,
-            'fat_goal': -1,
-            'protein_goal': -1,
-            'carb_goal': -1,
-        }
+    return  {
+        'calorie_goal': -1,
+        'fat_goal': -1,
+        'protein_goal': -1,
+        'carb_goal': -1,
+    }
 
 
-
+# Modifies user data.
 def insert_user_data(cal_goal, fat_goal, protein_goal, carb_goal):
     username = auth.authenticate()
     print("inserting user data")
@@ -127,5 +128,3 @@ def insert_user_data(cal_goal, fat_goal, protein_goal, carb_goal):
                                (username,'', '', cal_goal, fat_goal, protein_goal, carb_goal))
                 
             connection.commit()
-                
-            

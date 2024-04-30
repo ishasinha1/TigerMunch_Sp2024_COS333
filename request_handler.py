@@ -7,6 +7,10 @@ import io
 import base64
 import sys
 
+# Parameter for whether the API is activated for local testing.
+# Each call to the API costs money so, for testing the frontend
+# or any aspect of the app that does not require us to get real
+# estimates, we set testing_api=False.
 try:
     testing_api = sys.argv[2]
     if testing_api == 'True':
@@ -21,11 +25,14 @@ except IndexError:
 # created to be shown on the homepage, but was deprecated.
 generateDescriptions = False
 
+# Strips the json and returns it.
 def strip_json(message_content):
     content_string = message_content["choices"][0]["message"]["content"]
     json_string = content_string.strip("```\njson")
     return json.loads(json_string)
 
+# Encodes the image.
+# Supports .jpg, .jpeg, .png and .heic.
 def encode_image(image):
     try:
         heif_file = pillow_heif.read_heif(image)
@@ -53,22 +60,30 @@ def encode_image(image):
     
     return base64_image
 
+# Message sent to API for getting a description of a photo of a meal.
+# Used for prompt chaining.
 def system_message_content_for_vision():
     return "If you receive an image of a meal, please provide a detailed qualitative and quantitative description of the meal in the image, including identifiable food items, their approximate quantities, and any other observable details. Your description should be thorough enough to allow for an accurate analysis of the meal's nutritional content in a subsequent processing step, which will estimate the caloric content, the fat content, the protein content, and the carb content. If you receive an image of a Nutrition Label, instead of reporting all of that, you should report the number of servings per container, the number of calories, the grams of fat, the grams of carbs, and the grams of protein. Your response is limited to 200 tokens, so try to keep it as short as possible while providing all of the information."
 
+# Message sent to API for returning nutritional information about a 
+# detailed meal description.
 def system_message_content_text_for_json():
     return "Given a detailed description of a meal, generate a JSON-formatted response estimating the meal's nutritional content. Please include the total calorie count, as well as the amounts of fat, protein, and carbohydrates, in grams. Structure your response with the following fields: 'calories' for the total calorie estimate, 'fat' for the fat content, 'protein' for the protein content, and 'carbs' for the carbohydrate content. Ensure your estimates are based on the provided meal description. You MUST provide only a single value for each field. You may NOT provide a range of values for any of the fields. Round to the nearest whole number"
 
+# Message sent to the API for generating trends.
+# NOT included in the final application!
 def system_message_content_text_for_description():
     return "You will be provided with some data about a user's caloric intake, their fat intake, their protein intake, and their carb intake. Your job is to generate a qualitative description of the trends that you see in the data as a message to the user. You should write your description in second person, where you refer to the user as 'you'. The data will be in the form of a python dictionary. The first entry in the dictionary is a list of the users 7 day data. It is in the form of their daily calorie total, followed by their daily fat total in grams, followed by their daily protein total in grams, followed by their daily carb total in grams. You should generate a pargraph describing any trends you see. The second entry in the dictionary is their data over the past 30 days. You should then generate a paragraph describing any trends you see over the past 30 days."
 
+# Message sent to the API for multi-modal input.
+# Notice that we send the detailed description we receive of the image.
 def user_message_content_text(description, context=None):
     text = f"Please provide a rough estimate of the number of calories in this meal, the grams of of fat in the meal, the grams of protein in the meal, and the grams of carbs in the meal. The answer need not be correct, only a best guess based on the information you have. Here's a description of the meal: {description}"
     if context is not None:
         text +=  f" The user provided this additional context: {context}"
     return text
     
-
+# Returns detailed description of image.
 def describe_image(image):
     base64_image = encode_image(image)
     payload = {
@@ -101,6 +116,7 @@ def describe_image(image):
     print(description)
     return description
 
+# Gets and returns estimates given a description of a meal.
 def get_estimates(description, context=None):
     payload = {
         "model" : "gpt-4-turbo-preview",
@@ -140,6 +156,8 @@ def get_estimates(description, context=None):
 
     return calorie_estimate, fat_estimate, protein_estimate, carb_estimate
 
+# Used for generating trends.
+# Feature NOT included in final application.
 def create_qualitative_description(data):
     payload = {
         "model" : "gpt-4-turbo-preview",
@@ -168,8 +186,7 @@ def create_qualitative_description(data):
     description_output = response_json["choices"][0]["message"]["content"]
     return str(description_output)
 
-
-
+# Handles the input by checking that the API key is activated.
 def handle_input(payload):
 
     if not os.environ['OPENAI_API_KEY']:
@@ -181,6 +198,8 @@ def handle_input(payload):
         "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"
     }
 
+    # Generates trends.
+    # Feature NOT included in final application!
     try: 
         if testing_api:
             response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
