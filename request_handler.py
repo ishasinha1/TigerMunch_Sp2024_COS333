@@ -24,7 +24,6 @@ def strip_json(message_content):
     return json.loads(json_string)
 
 def encode_image(image):
-    # Read the HEIC image directly from the file_storage (file-like object)
     try:
         heif_file = pillow_heif.read_heif(image)
     except:
@@ -41,14 +40,9 @@ def encode_image(image):
         heif_file.stride,
     )
     
-    # Convert the image to RGB to ensure compatibility with JPEG
     image_rgb = image.convert("RGB")
-    
-    # Save the converted image to a bytes buffer instead of a file on disk
     img_byte_arr = io.BytesIO()
     image_rgb.save(img_byte_arr, format="JPEG")
-    
-    # Get the byte data from the buffer
     img_byte_arr = img_byte_arr.getvalue()
     
     # Encode to base64
@@ -169,10 +163,6 @@ def create_qualitative_description(data):
         return 
     response_json = response.json()
     description_output = response_json["choices"][0]["message"]["content"]
-    # response = "Here are the trends that I see:"
-    # print(data)
-    # response = str(data)
-    # print(description_output)
     return str(description_output)
 
 

@@ -1,12 +1,5 @@
 import request_handler
 
-
-# def encode_image_path(image_path):
-#   with open(image_path, "rb") as image_file:
-#     return base64.b64encode(image_file.read()).decode('utf-8')
-
-
-
 def handle_input(image, context):
     description = request_handler.describe_image(image)
     values = request_handler.get_estimates(description, context)
