@@ -35,6 +35,7 @@ def landing():
           urllib.parse.quote(flask.request.url))
     return render_template('landing_page.html', login_url=login_url)
 
+# Used for rendering progress charts on homepage
 @app.route('/nutrition', methods=['GET'])
 def get_nutrition():
     daily_totals = access_data.get_daily_totals()
@@ -50,6 +51,8 @@ def get_nutrition():
         "carb_goal":user_data["carb_goal"]
     })
 
+# Used for generating qualitative trends about past intake.
+# Feature NOT included in final application.
 @app.route('/description', methods=['GET'])
 def get_description():
     days = 7
@@ -197,14 +200,12 @@ def get_summary_values():
 
 @app.route('/select', methods=['GET', 'POST'])
 def select():
-    # username = auth.authenticate()
     if request.method == 'POST':
         account_info_dict = access_data.get_user_data()
         return jsonify(account_info_dict)
     
 @app.route('/insert', methods=['GET', 'POST'])
 def insert():
-    # username = auth.authenticate()
     if request.method == 'POST':
         cal_goal = request.form['cal_goal']
         fat_goal = request.form['fat_goal']
@@ -278,7 +279,7 @@ def faqs():
           urllib.parse.quote(flask.request.url))
         return render_template('faqs.html', username = None, login_url = login_url)     
     username = auth.authenticate()
-    return render_template('faqs.html', username = username)
+    return render_template('faqs.html', username=username)
 
 # Helper function for sending feedback.
 def send_mail_via_postmark(subject, name, email, message):
