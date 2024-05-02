@@ -112,6 +112,10 @@ def get_results():
             photo = request.files.get('photo')
             description = request.form.get('description')
             
+            # Upper limit on length of description
+            if len(description) > 5000:
+                return render_template('error_description.html', username=username)
+            
             # Weeds out inputs that include keywords associated with prompt
             # injection
             is_inject = False
