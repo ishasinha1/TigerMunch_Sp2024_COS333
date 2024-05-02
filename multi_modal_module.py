@@ -2,6 +2,7 @@ import request_handler
 
 # Sends multimodal input to API and returns values!
 def handle_input(image, context):
+    assert len(context) > 0, 'context cannot have 0 characters'
     description = request_handler.describe_image(image)
     values = request_handler.get_estimates(description, context)
     print(values)

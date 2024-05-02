@@ -2,6 +2,7 @@ import request_handler
 
 # Sends description to the API and returns the results!
 def handle_description(description):
+    assert len(description) > 0, 'description cannot have 0 characters'
     values = request_handler.get_estimates(description)
     print(values)
     return values
