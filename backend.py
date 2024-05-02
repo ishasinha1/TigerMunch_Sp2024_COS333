@@ -4,7 +4,6 @@ import urllib.parse
 from flask import Flask, render_template, request, url_for, jsonify
 import flask 
 import requests
-import request_handler
 import vision_module
 import multi_modal_module
 import language_module
@@ -53,27 +52,27 @@ def get_nutrition():
 
 # Used for generating qualitative trends about past intake.
 # Feature NOT included in final application.
-@app.route('/description', methods=['GET'])
-def get_description():
-    days = 7
-    start_date = (datetime.now() - timedelta(days=int(days))).date()
-    result = access_data.get_summary_after(start_date, datetime.now())
+# @app.route('/description', methods=['GET'])
+# def get_description():
+#     days = 7
+#     start_date = (datetime.now() - timedelta(days=int(days))).date()
+#     result = access_data.get_summary_after(start_date, datetime.now())
     
-    data_7_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
+#     data_7_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
 
-    days = 30
-    start_date = (datetime.now() - timedelta(days=int(days))).date()
-    result = access_data.get_summary_after(start_date, datetime.now())
+#     days = 30
+#     start_date = (datetime.now() - timedelta(days=int(days))).date()
+#     result = access_data.get_summary_after(start_date, datetime.now())
     
-    data_30_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
-    data = {
-        '<7day>': data_7_clean,
-        '<30day>': data_30_clean,
-    }
-    print("about to print")
-    print(request_handler.create_qualitative_description(data))
+#     data_30_clean = [{'date': row[0].strftime('%Y-%m-%d'), 'calories': row[1], 'fat': row[2], 'protein': row[3], 'carbs': row[4]} for row in result]
+#     data = {
+#         '<7day>': data_7_clean,
+#         '<30day>': data_30_clean,
+#     }
+#     print("about to print")
+#     print(request_handler.create_qualitative_description(data))
 
-    return jsonify(message="Description processed"), 200
+#     return jsonify(message="Description processed"), 200
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():

@@ -72,8 +72,8 @@ def system_message_content_text_for_json():
 
 # Message sent to the API for generating trends.
 # NOT included in the final application!
-def system_message_content_text_for_description():
-    return "You will be provided with some data about a user's caloric intake, their fat intake, their protein intake, and their carb intake. Your job is to generate a qualitative description of the trends that you see in the data as a message to the user. You should write your description in second person, where you refer to the user as 'you'. The data will be in the form of a python dictionary. The first entry in the dictionary is a list of the users 7 day data. It is in the form of their daily calorie total, followed by their daily fat total in grams, followed by their daily protein total in grams, followed by their daily carb total in grams. You should generate a pargraph describing any trends you see. The second entry in the dictionary is their data over the past 30 days. You should then generate a paragraph describing any trends you see over the past 30 days."
+# def system_message_content_text_for_description():
+#     return "You will be provided with some data about a user's caloric intake, their fat intake, their protein intake, and their carb intake. Your job is to generate a qualitative description of the trends that you see in the data as a message to the user. You should write your description in second person, where you refer to the user as 'you'. The data will be in the form of a python dictionary. The first entry in the dictionary is a list of the users 7 day data. It is in the form of their daily calorie total, followed by their daily fat total in grams, followed by their daily protein total in grams, followed by their daily carb total in grams. You should generate a pargraph describing any trends you see. The second entry in the dictionary is their data over the past 30 days. You should then generate a paragraph describing any trends you see over the past 30 days."
 
 # Message sent to the API for multi-modal input.
 # Notice that we send the detailed description we receive of the image.
@@ -158,33 +158,33 @@ def get_estimates(description, context=None):
 
 # Used for generating trends.
 # Feature NOT included in final application.
-def create_qualitative_description(data):
-    payload = {
-        "model" : "gpt-4-turbo-preview",
-        "messages": [
-            {
-            "role": "system", 
-            "content": system_message_content_text_for_description()
-            },
-            {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": str(data)},
-            ],
-            }
-        ],
-        "max_tokens": 400
-    }
-    if generateDescriptions:
-        response = handle_input(payload)
-    else:
-        response = "The API is not activated, so I cannot give you any details on trends"
-        return response
-    if response is None:
-        return 
-    response_json = response.json()
-    description_output = response_json["choices"][0]["message"]["content"]
-    return str(description_output)
+# def create_qualitative_description(data):
+#     payload = {
+#         "model" : "gpt-4-turbo-preview",
+#         "messages": [
+#             {
+#             "role": "system", 
+#             "content": system_message_content_text_for_description()
+#             },
+#             {
+#             "role": "user",
+#             "content": [
+#                 {"type": "text", "text": str(data)},
+#             ],
+#             }
+#         ],
+#         "max_tokens": 400
+#     }
+#     if generateDescriptions:
+#         response = handle_input(payload)
+#     else:
+#         response = "The API is not activated, so I cannot give you any details on trends"
+#         return response
+#     if response is None:
+#         return 
+#     response_json = response.json()
+#     description_output = response_json["choices"][0]["message"]["content"]
+#     return str(description_output)
 
 # Handles the input by checking that the API key is activated.
 def handle_input(payload):
@@ -198,8 +198,6 @@ def handle_input(payload):
         "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"
     }
 
-    # Generates trends.
-    # Feature NOT included in final application!
     try: 
         if testing_api:
             response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)

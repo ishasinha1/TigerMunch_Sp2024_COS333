@@ -9,7 +9,7 @@ def handle_image(image):
     return values
 
 
-# Testing function.
+# Testing function
 def _test(photo):
     calorie_estimate, fat_estimate, protein_estimate, carb_estimate = handle_image(photo)
     print("The calorie estimate is ", calorie_estimate)
