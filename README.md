@@ -27,7 +27,7 @@ Windows
 
 Using the API consumes credits. To prevent unnecessary usage, our backend is configured to return default values instead of making API requests by default. The global variable 'testing_api' in the file 'request_handler.py' controls this behavior and is set to 'False'. If you need to test the API during your testing, change this variable to 'True'.
 
-Furthermore, we've retained a deprecated feature that utilizes GPT-4 to generate personalized consumption trends. This feature is disabled by default but can be activated for testing or demonstration purposes. To enable it, set the global variable 'generate_descriptions' to 'True' in 'request_handler.py'. This will print the generated trends on your terminal every time you visit the homepage.
+Furthermore, we've retained a deprecated feature that utilizes GPT-4 to generate personalized consumption trends, all relevant code is commented out.
 
 To run the app, run the following commands in your terminal once you've navigated to this directory:
 
