@@ -93,14 +93,14 @@ def authenticate():
     # the browser to the login page to get one.
     ticket = flask.request.args.get('ticket')
     if ticket is None:
-        landing_url = f"{request.scheme}://{request.host}/landing"
+        landing_url = f"{request.scheme}://{request.host}/"
         flask.abort(flask.redirect(landing_url))
 
     # If the login ticket is invalid, then redirect the browser
     # to the login page to get a new one.
     username = validate(ticket)
     if username is None:
-        landing_url = f"{request.scheme}://{request.host}/landing"
+        landing_url = f"{request.scheme}://{request.host}/"
         flask.abort(flask.redirect(landing_url))
 
     # The user is authenticated, so store the username in
