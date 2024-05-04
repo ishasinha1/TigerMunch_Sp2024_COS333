@@ -9,7 +9,6 @@ import urllib.parse
 import re
 import flask
 from flask import request
-import ssl
 
 #-----------------------------------------------------------------------
 
