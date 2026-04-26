@@ -34,8 +34,8 @@ To run the app, run the following commands in your terminal once you've navigate
 macOS
 1. ```export APP_SECRET_KEY=33333``` (random secret key for ease copy-pasting)
 2. ```export DATABASE_URL='postgres://tiger_munch_database_user:XTZfrY8uas1J2rQK66ZBdOlw73bjUofb@dpg-cnpnit7109ks738phqqg-a.ohio-postgres.render.com/tiger_munch_database'```
-3. ```export POSTMARK_API_KEY='ae2f1172-778b-4577-bc2a-7b5f56ab2958'```
-4. ```export OPENAI_API_KEY='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'```
+3. ```export POSTMARK_API_KEY='dfbdskfenf'``` (random secret key for ease copy-pasting)
+4. ```export OPENAI_API_KEY='fbjsbfjsebf'``` (random secret key for ease copy-pasting)
 4. ```python runserver.py [port]```
 
 
